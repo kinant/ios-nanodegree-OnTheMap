@@ -31,5 +31,7 @@ extension OTMClient {
     
     struct ParseAPIParameters {
         static let Limit = "limit"
+        static let Count = "count"
+        static let Skip = "skip"
     }
 }

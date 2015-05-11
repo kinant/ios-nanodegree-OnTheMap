@@ -50,6 +50,8 @@ class OTMClient: NSObject {
     func taskForGetMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = ParseAPIConstants.BaseURL + OTMClient.escapedParameters(parameters)
+        // let urlString = ParseAPIConstants.BaseURL
+
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)

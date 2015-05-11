@@ -58,7 +58,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let newLocation = CLLocationCoordinate2D(latitude: location.lat, longitude: location.long)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: location.name, subtitle: location.mediaURL)
             map.addAnnotation(newAnnotation)
-            setCenterOfMapToLocation(newLocation)
+            // setCenterOfMapToLocation(newLocation)
         }
     }
 }

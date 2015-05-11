@@ -53,7 +53,8 @@ extension OTMClient {
     func getUserList(completionHandler: (result: [OTMStudentInformation]?, errorString: String?) -> Void){
         
         var parameters = [
-            OTMClient.ParseAPIParameters.Limit: 10
+            OTMClient.ParseAPIParameters.Limit: 0,
+            OTMClient.ParseAPIParameters.Count: 1,
         ]
         
         taskForGetMethod("", parameters: parameters) { (result, error) -> Void in
@@ -63,6 +64,14 @@ extension OTMClient {
                 completionHandler(result: nil, errorString: "Parse API.")
             } else {
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
+                    println()
+                    println()
+                    println()
+                    println(result)
+                    println()
+                    println()
+                    println()
+                    
                     var information = OTMStudentInformation.informationFromResults(results)
                     
                     println(information)
