@@ -24,6 +24,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginButton:" destination="d1K-s4-vxY" eventType="touchUpInside" id="T18-4s-rBp"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVM-9F-YYd">
                                 <rect key="frame" x="235" y="124" width="131" height="41"/>
@@ -87,6 +90,11 @@
                             <constraint firstItem="ClH-hv-Omz" firstAttribute="top" secondItem="FVM-9F-YYd" secondAttribute="bottom" constant="8" symbolic="YES" id="vgB-Qd-t9y"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="passwordTextfield" destination="kca-EY-Wve" id="QE8-fJ-ULQ"/>
+                        <outlet property="statusLabel" destination="Msr-0e-VoC" id="qaT-xJ-KwK"/>
+                        <outlet property="usernameTextfield" destination="ClH-hv-Omz" id="bM1-4S-FER"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWQ-sy-u7c" sceneMemberID="firstResponder"/>
             </objects>
