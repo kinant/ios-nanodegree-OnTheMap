@@ -29,8 +29,10 @@ class LoginViewController: UIViewController {
         OTMClient.sharedInstance().udacityLogin(self,username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
         
             if success {
-                println("successfully logged in!")
-                println(OTMClient.sharedInstance().sessionID)
+                dispatch_async(dispatch_get_main_queue(), {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                })
             } else {
                 dispatch_async(dispatch_get_main_queue()){
                     self.statusLabel.text = errorString

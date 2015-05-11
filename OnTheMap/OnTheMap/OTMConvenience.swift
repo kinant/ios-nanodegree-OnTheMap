@@ -21,11 +21,6 @@ extension OTMClient {
             
             if success {
                 self.sessionID = sessionID
-                
-                self.getUserList({ (success, sessionID, errorString) -> Void in
-                    println("getting user list")
-                })
-                
             } else {
                 completionHandler(success: success, errorString: errorString)
             }
@@ -55,7 +50,7 @@ extension OTMClient {
         }
     }
     
-    func getUserList(completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void){
+    func getUserList(completionHandler: (result: [OTMStudentInformation]?, errorString: String?) -> Void){
         
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: 10
@@ -65,9 +60,16 @@ extension OTMClient {
             // println(result)
             
             if let error = error {
-                completionHandler(success: false, sessionID: nil, errorString: "Parse API.")
+                completionHandler(result: nil, errorString: "Parse API.")
             } else {
-                println(result)
+                if let results = result.valueForKey("results") as? [[String: AnyObject]] {
+                    var information = OTMStudentInformation.informationFromResults(results)
+                    
+                    println(information)
+                    
+                    completionHandler(result: information , errorString: nil)
+                }
+                // println(result)
                 // completionHandler(success: true, sessionID: self.sessionID, errorString: nil)
             }
         }

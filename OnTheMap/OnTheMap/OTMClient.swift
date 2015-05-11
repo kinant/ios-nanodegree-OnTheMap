@@ -58,12 +58,12 @@ class OTMClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
         
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
             
             if error != nil { // Handle error…
                 completionHandler(result: nil, error: error)
             } else {
-                // OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
             }
         }
         
