@@ -10,10 +10,22 @@ struct OTMStudentInformation {
     
     var lat: Double!
     var long: Double!
-
+    var name: String?
+    var mediaURL: String?
+    
     init(dictionary: [String: AnyObject]){
+        
+        println(dictionary)
+        
         self.lat = dictionary["latitude"] as? Double
         self.long = dictionary["longitude"] as? Double
+        
+        var fName = dictionary["firstName"] as? String
+        var lName = dictionary["lastName"] as? String
+        
+        self.name = "\(fName!) \(lName!)"
+        
+        self.mediaURL = dictionary["mediaURL"] as? String
     }
     
     static func informationFromResults(results: [[String : AnyObject]]) -> [OTMStudentInformation] {

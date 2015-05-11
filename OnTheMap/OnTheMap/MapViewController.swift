@@ -56,7 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         for location in locations {
             let newLocation = CLLocationCoordinate2D(latitude: location.lat, longitude: location.long)
-            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: "My New Loc", subtitle: "Just a Test")
+            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: location.name, subtitle: location.mediaURL)
             map.addAnnotation(newAnnotation)
             setCenterOfMapToLocation(newLocation)
         }
