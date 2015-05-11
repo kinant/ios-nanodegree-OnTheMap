@@ -17,6 +17,8 @@
 		C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C731AFD967300F44698 /* OTMConvenience.swift */; };
 		C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C751AFD968B00F44698 /* OTMConstants.swift */; };
 		C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */; };
+		C9D9E3071B0128E600F99307 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3061B0128E600F99307 /* MapViewController.swift */; };
+		C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3081B01294900F99307 /* OTMAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		C9AD6C731AFD967300F44698 /* OTMConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConvenience.swift; sourceTree = "<group>"; };
 		C9AD6C751AFD968B00F44698 /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
 		C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentInformation.swift; sourceTree = "<group>"; };
+		C9D9E3061B0128E600F99307 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C9D9E3081B01294900F99307 /* OTMAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 				C9AD6C731AFD967300F44698 /* OTMConvenience.swift */,
 				C9AD6C751AFD968B00F44698 /* OTMConstants.swift */,
 				C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */,
+				C9D9E3081B01294900F99307 /* OTMAnnotation.swift */,
 			);
 			name = OTM;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 		C9AD6C701AFD952D00F44698 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -272,6 +278,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9D9E3071B0128E600F99307 /* MapViewController.swift in Sources */,
+				C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */,
 				C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */,
 				C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,

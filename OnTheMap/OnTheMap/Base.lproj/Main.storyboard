@@ -104,7 +104,7 @@
         <!--Item 1-->
         <scene sceneID="8Hp-Zg-jlB">
             <objects>
-                <viewController id="gON-Up-T17" sceneMemberID="viewController">
+                <viewController id="gON-Up-T17" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Aqk-VL-nIq"/>
                         <viewControllerLayoutGuide type="bottom" id="Mks-Om-4wv"/>
@@ -126,6 +126,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="OMP-82-ayn"/>
+                    <connections>
+                        <outlet property="map" destination="jjd-E3-bMC" id="UrR-hf-gy9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwh-1C-l6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
