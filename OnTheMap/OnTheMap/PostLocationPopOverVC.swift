@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import AddressBookUI
 
 class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
 
@@ -38,11 +39,34 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
         let newLocation = manager.location
+        println("New location!")
         println(newLocation.coordinate.latitude)
         println(newLocation.coordinate.longitude)
         currentLocation = newLocation
         
         return
+    }
+    
+    func getAddress(location: CLLocation) -> String {
+    
+        let loc = location
+        let geo = CLGeocoder()
+        
+        geo.reverseGeocodeLocation(location) {
+            (placemarks: [AnyObject]!, error: NSError!) in
+            
+            if placemarks != nil {
+                
+                let p = placemarks[0] as! CLPlacemark
+                let s = ABCreateStringWithAddressDictionary(p.addressDictionary, false)
+                
+                self.addressText.text = s
+
+            }
+            
+        }
+        
+        return self.addressText.text
     }
     
     @IBAction func findLocation(sender: AnyObject) {
@@ -69,8 +93,12 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         // println(self.currentLocation.coordinate.latitude)
         
         let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
+        
+        // mp.title = self.addressText.text
+        
         self.delegate?.addPin(mp)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        // self.dismissViewControllerAnimated(true, completion: nil)
+        addressText.text = getAddress(currentLocation)
     }
     /*
     // MARK: - Navigation
