@@ -9,8 +9,9 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
     
+    let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil)
     
     @IBOutlet weak var map: MKMapView!
     
@@ -60,6 +61,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             map.addAnnotation(newAnnotation)
             // setCenterOfMapToLocation(newLocation)
         }
+    }
+    
+    func addPin(placemark: MKPlacemark){
+        map.addAnnotation(placemark)
+        setCenterOfMapToLocation(placemark.coordinate)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        // Return no adaptive presentation style, use default presentation behaviour
+        return .None
+    }
+    
+    @IBAction func postLocation(sender: UIButton) {
+        
+        postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        // postVC.preferredContentSize = self.view.frame.size
+        
+        postVC.delegate = self
+        
+        presentViewController(postVC, animated: true, completion: nil)
     }
 }
 

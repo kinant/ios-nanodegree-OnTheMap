@@ -20,6 +20,8 @@
 		C9D9E3071B0128E600F99307 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3061B0128E600F99307 /* MapViewController.swift */; };
 		C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3081B01294900F99307 /* OTMAnnotation.swift */; };
 		C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */; };
+		C9EA97021B02755700370001 /* PostLocationPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */; };
+		C9EA97031B02755700370001 /* PostLocationPopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EA97011B02755700370001 /* PostLocationPopOverVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		C9D9E3061B0128E600F99307 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9D9E3081B01294900F99307 /* OTMAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMAnnotation.swift; sourceTree = "<group>"; };
 		C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoTableViewController.swift; sourceTree = "<group>"; };
+		C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationPopOverVC.swift; sourceTree = "<group>"; };
+		C9EA97011B02755700370001 /* PostLocationPopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostLocationPopOverVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,7 @@
 			children = (
 				C9AD6C4F1AFD8F8000F44698 /* Main.storyboard */,
 				C9AD6C541AFD8F8000F44698 /* LaunchScreen.xib */,
+				C9EA97011B02755700370001 /* PostLocationPopOverVC.xib */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 		C9AD6C701AFD952D00F44698 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */,
 				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
 				C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */,
 			);
@@ -262,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9AD6C511AFD8F8000F44698 /* Main.storyboard in Resources */,
+				C9EA97031B02755700370001 /* PostLocationPopOverVC.xib in Resources */,
 				C9AD6C561AFD8F8000F44698 /* LaunchScreen.xib in Resources */,
 				C9AD6C531AFD8F8000F44698 /* Images.xcassets in Resources */,
 			);
@@ -290,6 +297,7 @@
 				C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */,
 				C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */,
 				C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */,
+				C9EA97021B02755700370001 /* PostLocationPopOverVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
