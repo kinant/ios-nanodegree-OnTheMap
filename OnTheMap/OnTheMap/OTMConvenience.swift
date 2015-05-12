@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension OTMClient {
-
+    
     // MARK: - Authentication (POST) Methods
     
     func udacityLogin(hostViewController: UIViewController, username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
@@ -52,9 +52,12 @@ extension OTMClient {
     
     func getUserList(completionHandler: (result: [OTMStudentInformation]?, errorString: String?) -> Void){
         
+        println(self.currentLoadCount)
+        
         var parameters = [
-            OTMClient.ParseAPIParameters.Limit: 0,
-            OTMClient.ParseAPIParameters.Count: 1,
+            OTMClient.ParseAPIParameters.Limit: 10,
+            OTMClient.ParseAPIParameters.Count: 0,
+            OTMClient.ParseAPIParameters.Skip: currentLoadCount
         ]
         
         taskForGetMethod("", parameters: parameters) { (result, error) -> Void in
@@ -67,16 +70,18 @@ extension OTMClient {
                     println()
                     println()
                     println()
-                    println(result)
+                    // println(result)
                     println()
                     println()
                     println()
                     
-                    var information = OTMStudentInformation.informationFromResults(results)
+                    var newInformation = OTMStudentInformation.informationFromResults(results)
                     
-                    println(information)
+                    self.currentLoadCount += newInformation.count
                     
-                    completionHandler(result: information , errorString: nil)
+                    // println(newInformation)
+                    
+                    completionHandler(result: newInformation , errorString: nil)
                 }
                 // println(result)
                 // completionHandler(success: true, sessionID: self.sessionID, errorString: nil)

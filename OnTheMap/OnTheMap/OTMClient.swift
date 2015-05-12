@@ -14,6 +14,8 @@ class OTMClient: NSObject {
     
     var sessionID: String? = nil
     
+    var currentLoadCount = 0
+    
     override init() {
         session = NSURLSession.sharedSession()
         super.init()
