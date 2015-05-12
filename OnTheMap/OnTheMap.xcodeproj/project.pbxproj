@@ -19,6 +19,7 @@
 		C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */; };
 		C9D9E3071B0128E600F99307 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3061B0128E600F99307 /* MapViewController.swift */; };
 		C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D9E3081B01294900F99307 /* OTMAnnotation.swift */; };
+		C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentInformation.swift; sourceTree = "<group>"; };
 		C9D9E3061B0128E600F99307 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C9D9E3081B01294900F99307 /* OTMAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMAnnotation.swift; sourceTree = "<group>"; };
+		C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
+				C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
 				C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */,
 				C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */,
+				C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
