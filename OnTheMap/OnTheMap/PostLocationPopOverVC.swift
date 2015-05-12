@@ -9,21 +9,40 @@
 import UIKit
 import MapKit
 
-class PostLocationPopOverVC: UIViewController {
+class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
 
+    private let locationManager = CLLocationManager()
+    
     @IBOutlet weak var addressText: UITextView!
     
     var delegate: MapViewController? = nil
+    var currentLocation:CLLocation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        currentLocation = delegate?.map.userLocation.location
+        println(self.delegate?.map.userLocation.coordinate.latitude)
+        locationManager.startUpdatingLocation()
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        
+        let newLocation = manager.location
+        println(newLocation.coordinate.latitude)
+        println(newLocation.coordinate.longitude)
+        currentLocation = newLocation
+        
+        return
     }
     
     @IBAction func findLocation(sender: AnyObject) {
@@ -42,9 +61,16 @@ class PostLocationPopOverVC: UIViewController {
                 self.delegate?.addPin(mp)
             }
         }
-        
-        
+    }
     
+    @IBAction func useCurrentLocation(sender: AnyObject) {
+        
+        // println(self.currentLocation.coordinate.longitude)
+        // println(self.currentLocation.coordinate.latitude)
+        
+        let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
+        self.delegate?.addPin(mp)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // MARK: - Navigation

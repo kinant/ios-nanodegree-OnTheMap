@@ -22,6 +22,7 @@
 		C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */; };
 		C9EA97021B02755700370001 /* PostLocationPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */; };
 		C9EA97031B02755700370001 /* PostLocationPopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EA97011B02755700370001 /* PostLocationPopOverVC.xib */; };
+		C9EA97051B02B99E00370001 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EA97041B02B99E00370001 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoTableViewController.swift; sourceTree = "<group>"; };
 		C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationPopOverVC.swift; sourceTree = "<group>"; };
 		C9EA97011B02755700370001 /* PostLocationPopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostLocationPopOverVC.xib; sourceTree = "<group>"; };
+		C9EA97041B02B99E00370001 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9EA97051B02B99E00370001 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +80,7 @@
 		C9AD6C3D1AFD8F8000F44698 = {
 			isa = PBXGroup;
 			children = (
+				C9EA97041B02B99E00370001 /* MapKit.framework */,
 				C9AD6C481AFD8F8000F44698 /* OnTheMap */,
 				C9AD6C5E1AFD8F8000F44698 /* OnTheMapTests */,
 				C9AD6C471AFD8F8000F44698 /* Products */,
@@ -236,6 +240,11 @@
 				TargetAttributes = {
 					C9AD6C451AFD8F8000F44698 = {
 						CreatedOnToolsVersion = 6.3;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					C9AD6C5A1AFD8F8000F44698 = {
 						CreatedOnToolsVersion = 6.3;

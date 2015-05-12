@@ -35,22 +35,35 @@
                                 <action selector="findLocation:" destination="-1" eventType="touchUpInside" id="gmD-w7-y1k"/>
                             </connections>
                         </button>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Enter Location" translatesAutoresizingMaskIntoConstraints="NO" id="7hz-29-Nh3">
-                            <rect key="frame" x="24" y="52" width="489" height="39"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Location" translatesAutoresizingMaskIntoConstraints="NO" id="7hz-29-Nh3">
+                            <rect key="frame" x="24" y="52" width="489" height="58"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <dataDetectorType key="dataDetectorTypes" address="YES"/>
                         </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-bq-cqi">
+                            <rect key="frame" x="243" y="115" width="146" height="30"/>
+                            <state key="normal" title="Use Current Location">
+                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="useCurrentLocation:" destination="-1" eventType="touchUpInside" id="pID-Wr-2e5"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="7hz-29-Nh3" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="top" constant="52" id="Ac1-mT-n1w"/>
                         <constraint firstItem="Kbb-7b-d10" firstAttribute="leading" secondItem="7hz-29-Nh3" secondAttribute="trailing" constant="38" id="AvK-qY-w8W"/>
+                        <constraint firstItem="Mvg-bq-cqi" firstAttribute="top" secondItem="7hz-29-Nh3" secondAttribute="bottom" constant="5" id="KOD-1N-dAX"/>
                         <constraint firstAttribute="trailing" secondItem="Kbb-7b-d10" secondAttribute="trailing" constant="15" id="YzD-sx-qTf"/>
                         <constraint firstAttribute="height" constant="150" id="cov-x6-xPd"/>
                         <constraint firstItem="Kbb-7b-d10" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="top" constant="68" id="fLr-qc-kf4"/>
+                        <constraint firstAttribute="centerX" secondItem="Mvg-bq-cqi" secondAttribute="centerX" constant="-16" id="fvQ-C1-aYD"/>
                         <constraint firstItem="7hz-29-Nh3" firstAttribute="leading" secondItem="uAL-mC-Edm" secondAttribute="leading" constant="24" id="hPk-hQ-vIf"/>
+                        <constraint firstAttribute="bottom" secondItem="Mvg-bq-cqi" secondAttribute="bottom" constant="5" id="n7o-By-Ct3"/>
                     </constraints>
                 </view>
             </subviews>
@@ -66,13 +79,5 @@
             </constraints>
             <point key="canvasLocation" x="327" y="366"/>
         </view>
-        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="odT-d4-ijc">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-        </textView>
     </objects>
 </document>
