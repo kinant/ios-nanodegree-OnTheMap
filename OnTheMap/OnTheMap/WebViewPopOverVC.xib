@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewPopOverVC" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewPopOverVC" customModule="OnTheMap" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -13,7 +13,58 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-mH-YNS">
+                    <rect key="frame" x="56" y="14" width="499" height="50"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
+                            <rect key="frame" x="8" y="12" width="483" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="xYN-WI-YAX" secondAttribute="trailing" constant="8" id="0pP-vz-C6n"/>
+                        <constraint firstAttribute="height" constant="64" id="B6Y-hE-bkz"/>
+                        <constraint firstItem="xYN-WI-YAX" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="top" constant="25" id="Bgd-Ek-olm"/>
+                        <constraint firstItem="xYN-WI-YAX" firstAttribute="leading" secondItem="hRD-mH-YNS" secondAttribute="leading" constant="8" id="yBz-Lb-bRQ"/>
+                    </constraints>
+                </view>
+                <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xao-KG-y0M">
+                    <rect key="frame" x="61" y="104" width="494" height="412"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </webView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14A-aj-SYZ">
+                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="LXy-XL-gXN"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem title="Item" id="bAB-6Y-M1K"/>
+                    </items>
+                </toolbar>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="14A-aj-SYZ" secondAttribute="bottom" id="4cK-3S-kqD"/>
+                <constraint firstItem="hRD-mH-YNS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBs-Ft-t0f"/>
+                <constraint firstItem="xao-KG-y0M" firstAttribute="leading" secondItem="hRD-mH-YNS" secondAttribute="trailing" constant="-494" id="DD0-NS-gjv"/>
+                <constraint firstItem="xao-KG-y0M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fnn-w9-zoR"/>
+                <constraint firstItem="14A-aj-SYZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jnc-kx-5hP"/>
+                <constraint firstItem="14A-aj-SYZ" firstAttribute="top" secondItem="xao-KG-y0M" secondAttribute="bottom" id="PPd-EP-hkc"/>
+                <constraint firstAttribute="trailing" secondItem="xao-KG-y0M" secondAttribute="trailing" id="S5H-nP-sIx"/>
+                <constraint firstItem="hRD-mH-YNS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WqD-LQ-gAz"/>
+                <constraint firstAttribute="trailing" secondItem="hRD-mH-YNS" secondAttribute="trailing" id="XzS-Mo-Mo0"/>
+                <constraint firstAttribute="trailing" secondItem="14A-aj-SYZ" secondAttribute="trailing" id="ccc-6x-QZZ"/>
+                <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="xXl-Vl-Vlw"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="DD0-NS-gjv"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
