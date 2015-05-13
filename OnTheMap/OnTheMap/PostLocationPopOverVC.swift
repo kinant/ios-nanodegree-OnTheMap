@@ -19,6 +19,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     var delegate: MapViewController? = nil
     var currentLocation:CLLocation!
     
+    let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,6 +102,17 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         // self.dismissViewControllerAnimated(true, completion: nil)
         addressText.text = getAddress(currentLocation)
     }
+    
+    @IBAction func browseWeb(sender: UIButton) {
+        
+        webVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        // postVC.preferredContentSize = self.view.frame.size
+        
+        // postVC.delegate = self
+        
+        presentViewController(webVC, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

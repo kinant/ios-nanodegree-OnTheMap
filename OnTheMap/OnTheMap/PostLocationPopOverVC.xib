@@ -17,9 +17,23 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LkJ-hS-Rz2">
                     <rect key="frame" x="0.0" y="450" width="600" height="150"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HWy-1S-mjV">
+                            <rect key="frame" x="274" y="60" width="52" height="30"/>
+                            <state key="normal" title="Browse">
+                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="browseWeb:" destination="-1" eventType="touchUpInside" id="oep-Tf-XDa"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="150" id="Qxs-Nq-C6y"/>
+                        <constraint firstAttribute="centerY" secondItem="HWy-1S-mjV" secondAttribute="centerY" id="W1c-WY-Cj3"/>
+                        <constraint firstAttribute="centerX" secondItem="HWy-1S-mjV" secondAttribute="centerX" id="pyO-V1-d5R"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAL-mC-Edm">

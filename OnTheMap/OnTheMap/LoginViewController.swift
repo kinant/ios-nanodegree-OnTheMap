@@ -28,7 +28,8 @@ class LoginViewController: UIViewController {
     @IBAction func loginButton(sender: AnyObject) {
         OTMClient.sharedInstance().udacityLogin(self,username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
         
-            if success {
+            if true {
+            // if success {
                 dispatch_async(dispatch_get_main_queue(), {
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
                     self.presentViewController(controller, animated: true, completion: nil)

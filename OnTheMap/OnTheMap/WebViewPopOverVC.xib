@@ -14,26 +14,50 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-mH-YNS">
-                    <rect key="frame" x="56" y="14" width="499" height="50"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-mH-YNS">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
-                            <rect key="frame" x="8" y="12" width="483" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
+                            <rect key="frame" x="8" y="25" width="482" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jef-ws-lIo">
+                            <rect key="frame" x="508" y="25" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="EiF-Cn-DfH"/>
+                                <constraint firstAttribute="width" constant="30" id="Exs-7U-ts4"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="stop">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-vY-x5o">
+                            <rect key="frame" x="560" y="25" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="2Na-ze-oNI"/>
+                                <constraint firstAttribute="width" constant="30" id="kMY-69-W21"/>
+                            </constraints>
+                            <state key="normal" image="refresh">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="xYN-WI-YAX" secondAttribute="trailing" constant="8" id="0pP-vz-C6n"/>
+                        <constraint firstItem="jef-ws-lIo" firstAttribute="leading" secondItem="xYN-WI-YAX" secondAttribute="trailing" constant="18" id="2aL-Dv-hop"/>
+                        <constraint firstAttribute="trailing" secondItem="G7H-vY-x5o" secondAttribute="trailing" constant="10" id="5xK-JN-0Ek"/>
+                        <constraint firstItem="G7H-vY-x5o" firstAttribute="leading" secondItem="jef-ws-lIo" secondAttribute="trailing" constant="22" id="8Ss-kG-koq"/>
                         <constraint firstAttribute="height" constant="64" id="B6Y-hE-bkz"/>
                         <constraint firstItem="xYN-WI-YAX" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="top" constant="25" id="Bgd-Ek-olm"/>
+                        <constraint firstItem="G7H-vY-x5o" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="top" constant="25" id="fVJ-7F-S9f"/>
+                        <constraint firstItem="jef-ws-lIo" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="top" constant="25" id="j5I-DJ-MdD"/>
                         <constraint firstItem="xYN-WI-YAX" firstAttribute="leading" secondItem="hRD-mH-YNS" secondAttribute="leading" constant="8" id="yBz-Lb-bRQ"/>
                     </constraints>
                 </view>
-                <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xao-KG-y0M">
-                    <rect key="frame" x="61" y="104" width="494" height="412"/>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xao-KG-y0M">
+                    <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14A-aj-SYZ">
@@ -42,7 +66,7 @@
                         <constraint firstAttribute="height" constant="44" id="LXy-XL-gXN"/>
                     </constraints>
                     <items>
-                        <barButtonItem title="Item" id="bAB-6Y-M1K"/>
+                        <barButtonItem image="back" id="bAB-6Y-M1K"/>
                     </items>
                 </toolbar>
             </subviews>
@@ -50,7 +74,6 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="14A-aj-SYZ" secondAttribute="bottom" id="4cK-3S-kqD"/>
                 <constraint firstItem="hRD-mH-YNS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBs-Ft-t0f"/>
-                <constraint firstItem="xao-KG-y0M" firstAttribute="leading" secondItem="hRD-mH-YNS" secondAttribute="trailing" constant="-494" id="DD0-NS-gjv"/>
                 <constraint firstItem="xao-KG-y0M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fnn-w9-zoR"/>
                 <constraint firstItem="14A-aj-SYZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jnc-kx-5hP"/>
                 <constraint firstItem="14A-aj-SYZ" firstAttribute="top" secondItem="xao-KG-y0M" secondAttribute="bottom" id="PPd-EP-hkc"/>
@@ -60,11 +83,12 @@
                 <constraint firstAttribute="trailing" secondItem="14A-aj-SYZ" secondAttribute="trailing" id="ccc-6x-QZZ"/>
                 <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="xXl-Vl-Vlw"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="DD0-NS-gjv"/>
-                </mask>
-            </variation>
+            <point key="canvasLocation" x="219" y="503"/>
         </view>
     </objects>
+    <resources>
+        <image name="back" width="60" height="60"/>
+        <image name="refresh" width="128" height="128"/>
+        <image name="stop" width="128" height="128"/>
+    </resources>
 </document>
