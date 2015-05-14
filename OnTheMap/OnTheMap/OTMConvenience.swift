@@ -52,8 +52,6 @@ extension OTMClient {
     
     func getUserList(completionHandler: (result: [OTMStudentInformation]?, errorString: String?) -> Void){
         
-        println(self.currentLoadCount)
-        
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: 10,
             OTMClient.ParseAPIParameters.Count: 0,
@@ -67,25 +65,27 @@ extension OTMClient {
                 completionHandler(result: nil, errorString: "Parse API.")
             } else {
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
-                    println()
-                    println()
-                    println()
-                    // println(result)
-                    println()
-                    println()
-                    println()
                     
                     var newInformation = OTMStudentInformation.informationFromResults(results)
                     
                     self.currentLoadCount += newInformation.count
                     
-                    // println(newInformation)
-                    
                     completionHandler(result: newInformation , errorString: nil)
                 }
-                // println(result)
-                // completionHandler(success: true, sessionID: self.sessionID, errorString: nil)
             }
+        }
+    }
+    
+    func postUserLocation(completionHandler: (success: Bool, errorString: String?) -> Void){
+        
+        var parameters = [String: AnyObject]()
+        var method = " "
+        var httpBody = " "
+        
+        // First check if user has already posted
+        
+        taskForPOSTMethod("", parameters: parameters, httpBody: "") { (result, error) -> Void in
+            
         }
     }
 }

@@ -6,7 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewPopOverVC" customModule="OnTheMap" customModuleProvider="target">
             <connections>
+                <outlet property="urlField" destination="xYN-WI-YAX" id="9cI-If-sti"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="xao-KG-y0M" id="rYH-d5-sdS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -17,11 +19,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-mH-YNS">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
                             <rect key="frame" x="8" y="25" width="482" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="go"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="VCp-OT-NCX"/>
+                            </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jef-ws-lIo">
                             <rect key="frame" x="508" y="25" width="30" height="30"/>
@@ -66,7 +71,11 @@
                         <constraint firstAttribute="height" constant="44" id="LXy-XL-gXN"/>
                     </constraints>
                     <items>
-                        <barButtonItem image="back" id="bAB-6Y-M1K"/>
+                        <barButtonItem title="Use" id="bAB-6Y-M1K">
+                            <connections>
+                                <action selector="useLink:" destination="-1" id="o5U-8d-qms"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
                 </toolbar>
             </subviews>
@@ -87,7 +96,6 @@
         </view>
     </objects>
     <resources>
-        <image name="back" width="60" height="60"/>
         <image name="refresh" width="128" height="128"/>
         <image name="stop" width="128" height="128"/>
     </resources>

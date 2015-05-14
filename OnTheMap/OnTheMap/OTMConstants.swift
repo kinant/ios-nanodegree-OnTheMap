@@ -10,6 +10,12 @@ import Foundation
 
 extension OTMClient {
     
+    struct OTMAPIs {
+        static let FacebookAPI = "Facebook"
+        static let UdacityAPI = "Udacity"
+        static let ParseAPI = "Parse"
+    }
+    
     struct UdacityAPIConstants {
         static let BaseURL: String = "https://www.udacity.com/api/"
     }

@@ -8,20 +8,42 @@
 
 import UIKit
 
-class WebViewPopOverVC: UIViewController {
+class WebViewPopOverVC: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var urlField: UITextField!
+    
+    var delegate: PostLocationPopOverVC? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let url = NSURL(string:"http://www.google.com")
+        let request = NSURLRequest(URL:url!)
+        webView.loadRequest(request)
+        
         // Do any additional setup after loading the view.
     }
 
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        urlField.resignFirstResponder()
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: urlField.text)!))
+        return false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
+    @IBAction func useLink(sender: AnyObject) {
+        
+        println(webView.request!.URL!.absoluteString!)
+        // println(webView.request?.URL?.description)
+        delegate?.setURL(webView.request!.URL!.absoluteString!)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

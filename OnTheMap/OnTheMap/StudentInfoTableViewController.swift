@@ -17,7 +17,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
-        
+        addData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

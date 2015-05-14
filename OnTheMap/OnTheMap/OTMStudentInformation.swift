@@ -15,7 +15,7 @@ struct OTMStudentInformation {
     
     init(dictionary: [String: AnyObject]){
         
-        println(dictionary)
+        // println(dictionary)
         
         self.lat = dictionary["latitude"] as? Double
         self.long = dictionary["longitude"] as? Double
@@ -25,6 +25,8 @@ struct OTMStudentInformation {
         
         self.name = "\(fName!) \(lName!)"
         
+        println(self.name)
+    
         self.mediaURL = dictionary["mediaURL"] as? String
     }
     

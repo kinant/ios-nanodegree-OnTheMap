@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostLocationPopOverVC" customModule="OnTheMap" customModuleProvider="target">
             <connections>
                 <outlet property="addressText" destination="7hz-29-Nh3" id="yfP-5o-B6k"/>
+                <outlet property="mediaURL" destination="heS-Kp-pST" id="SCo-rM-h3v"/>
                 <outlet property="view" destination="6QP-mc-7LW" id="ISx-Zd-2sc"/>
             </connections>
         </placeholder>
@@ -28,11 +29,19 @@
                                 <action selector="browseWeb:" destination="-1" eventType="touchUpInside" id="oep-Tf-XDa"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heS-Kp-pST">
+                            <rect key="frame" x="278" y="31" width="34" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="HWy-1S-mjV" firstAttribute="top" secondItem="heS-Kp-pST" secondAttribute="bottom" constant="8" id="Ilh-GM-7FO"/>
                         <constraint firstAttribute="height" constant="150" id="Qxs-Nq-C6y"/>
                         <constraint firstAttribute="centerY" secondItem="HWy-1S-mjV" secondAttribute="centerY" id="W1c-WY-Cj3"/>
+                        <constraint firstAttribute="centerX" secondItem="heS-Kp-pST" secondAttribute="centerX" constant="5" id="gcT-RX-SLV"/>
                         <constraint firstAttribute="centerX" secondItem="HWy-1S-mjV" secondAttribute="centerX" id="pyO-V1-d5R"/>
                     </constraints>
                 </view>

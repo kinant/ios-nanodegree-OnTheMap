@@ -15,6 +15,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
     @IBOutlet weak var addressText: UITextView!
+    @IBOutlet weak var mediaURL: UILabel!
     
     var delegate: MapViewController? = nil
     var currentLocation:CLLocation!
@@ -103,12 +104,16 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         addressText.text = getAddress(currentLocation)
     }
     
+    func setURL(urlString: String){
+        mediaURL.text = urlString
+    }
+    
     @IBAction func browseWeb(sender: UIButton) {
         
         webVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         // postVC.preferredContentSize = self.view.frame.size
         
-        // postVC.delegate = self
+        webVC.delegate = self
         
         presentViewController(webVC, animated: true, completion: nil)
     }
