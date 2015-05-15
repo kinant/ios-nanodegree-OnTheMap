@@ -18,6 +18,8 @@ class OTMClient: NSObject {
     
     var currentLoadCount = 0
     
+    var student: OTMStudentInformation!
+    
     override init() {
         session = NSURLSession.sharedSession()
         super.init()
@@ -110,6 +112,35 @@ class OTMClient: NSObject {
         return task
     }
     
+    func taskForGetUserMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        let urlString = UdacityAPIConstants.BaseURL + method + OTMClient.escapedParameters(parameters)
+        // let urlString = ParseAPIConstants.BaseURL
+        
+        println("url will be: \(urlString)")
+        
+        let url = NSURL(string: urlString)!
+        
+        let request = NSMutableURLRequest(URL: url)
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            
+            if error != nil { // Handle error…
+                completionHandler(result: nil, error: error)
+            } else {
+                OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+            }
+        }
+        
+        task.resume()
+        
+        return task
+    }
     
     /* Helper: Given raw JSON, return a usable Foundation object */
     class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {

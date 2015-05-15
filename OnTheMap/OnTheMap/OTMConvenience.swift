@@ -20,7 +20,13 @@ extension OTMClient {
         self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
             
             if success {
-                self.sessionID = sessionID
+                self.sessionID = sessionID!
+                self.userID = userID!
+                
+                self.getUserData("", completionHandler: { (success, sessionID, errorString) -> Void in
+                    
+                })
+                
             } else {
                 completionHandler(success: success, errorString: errorString)
             }
@@ -38,13 +44,12 @@ extension OTMClient {
             if let error = error {
                 completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
             } else {
-                println(result)
+                // println(result)
                 
                 if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
                     if let accountDictionary = result.valueForKey("account") as? NSDictionary {
                         let sessionID = sessionDictionary["id"] as? String
                         let userID = accountDictionary["key"] as? String
-                        
                         // println("session id is: \(sessionID)")
                         // println("user id is: \(userID)")
                         
@@ -64,17 +69,18 @@ extension OTMClient {
     func getUserData(httpBody: String, completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
         
         var parameters = [String : AnyObject]()
-        var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID)"
+        var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
         
+        println("getting user data: ")
         println("method will be: \(method)")
         
-        taskForPOSTMethod(OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
-            // println(result)
+        taskForGetUserMethod(method, parameters: parameters) { (result, error) -> Void in
+            println(result)
             
             if let error = error {
-                completionHandler(success: false, sessionID: nil, errorString: "Login Failed (Session ID).")
+                // completionHandler(success: false, sessionID: nil, errorString: "Login Failed (Session ID).")
             } else {
-                println(result)
+                // println(result)
             }
         }
     }

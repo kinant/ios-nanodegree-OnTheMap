@@ -8,36 +8,14 @@
 
 struct OTMStudentInformation {
     
-    var lat: Double!
-    var long: Double!
-    var name: String?
-    var mediaURL: String?
+    var userID: String?
+    var firstName: String?
+    var lastName: String?
     
     init(dictionary: [String: AnyObject]){
-        
-        // println(dictionary)
-        
-        self.lat = dictionary["latitude"] as? Double
-        self.long = dictionary["longitude"] as? Double
-        
-        var fName = dictionary["firstName"] as? String
-        var lName = dictionary["lastName"] as? String
-        
-        self.name = "\(fName!) \(lName!)"
-        
-        println(self.name)
-    
-        self.mediaURL = dictionary["mediaURL"] as? String
+        self.userID = dictionary["key"] as? String
+        self.firstName = dictionary["first_name"] as? String
+        self.lastName = dictionary["last_name"] as? String
     }
     
-    static func informationFromResults(results: [[String : AnyObject]]) -> [OTMStudentInformation] {
-        
-        var information = [OTMStudentInformation]()
-        
-        for result in results {
-            information.append(OTMStudentInformation(dictionary: result))
-        }
-        
-        return information
-    }
 }
