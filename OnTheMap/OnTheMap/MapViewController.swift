@@ -15,7 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     @IBOutlet weak var map: MKMapView!
     
-    var locations: [OTMStudentInformation] = [OTMStudentInformation]()
+    var locations: [OTMStudentLocation] = [OTMStudentLocation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +56,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     func addPinsToMap(){
         
         for location in locations {
-            let newLocation = CLLocationCoordinate2D(latitude: location.lat, longitude: location.long)
-            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: location.name, subtitle: location.mediaURL)
+            let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
             map.addAnnotation(newAnnotation)
             // setCenterOfMapToLocation(newLocation)
         }

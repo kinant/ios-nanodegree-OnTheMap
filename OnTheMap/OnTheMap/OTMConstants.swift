@@ -22,7 +22,7 @@ extension OTMClient {
     
     struct UdacityMethods {
         static let Session = "session"
-        static let Account = ""
+        static let Account = "users"
     }
     
     struct UdacityParameterKeys {
@@ -39,5 +39,15 @@ extension OTMClient {
         static let Limit = "limit"
         static let Count = "count"
         static let Skip = "skip"
+    }
+    
+    struct ParseObjectConstants {
+        static let UniqueKey = "uniqueKey"
+        static let FirstName = "firstName"
+        static let LastName = "lastName"
+        static let Latitude = "latitude"
+        static let Longitude = "longitude"
+        static let MapString = "mapString"
+        static let MediURL = "mediaURL"
     }
 }

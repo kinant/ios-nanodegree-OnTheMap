@@ -17,7 +17,7 @@ extension OTMClient {
         
         var httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
         
-        self.getSessionID(httpBody, completionHandler: { (success, sessionID, errorString) -> Void in
+        self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
             
             if success {
                 self.sessionID = sessionID
@@ -28,9 +28,45 @@ extension OTMClient {
         })
     }
     
-    func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
+    
+    func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
         
         var parameters = [String : AnyObject]()
+        
+        taskForPOSTMethod(OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+            
+            if let error = error {
+                completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+            } else {
+                println(result)
+                
+                if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
+                    if let accountDictionary = result.valueForKey("account") as? NSDictionary {
+                        let sessionID = sessionDictionary["id"] as? String
+                        let userID = accountDictionary["key"] as? String
+                        
+                        // println("session id is: \(sessionID)")
+                        // println("user id is: \(userID)")
+                        
+                        completionHandler(success: true, sessionID: sessionID, userID: userID, errorString: nil)
+                    }
+                    else {
+                        completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+                    }
+                } else {
+                    completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+                }
+            }
+        }
+    }
+    
+    
+    func getUserData(httpBody: String, completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
+        
+        var parameters = [String : AnyObject]()
+        var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID)"
+        
+        println("method will be: \(method)")
         
         taskForPOSTMethod(OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
             // println(result)
@@ -38,19 +74,12 @@ extension OTMClient {
             if let error = error {
                 completionHandler(success: false, sessionID: nil, errorString: "Login Failed (Session ID).")
             } else {
-                if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
-                    // completionHandler(success: true, sessionID: sessionID, errorString: nil)
-                    // println(sessionID)
-                    let sessionID = sessionDictionary["expiration"] as? String
-                    completionHandler(success: true, sessionID: sessionID, errorString: nil)
-                } else {
-                    completionHandler(success: false, sessionID: nil, errorString: "Login Failed (Session ID).")
-                }
+                println(result)
             }
         }
     }
     
-    func getUserList(completionHandler: (result: [OTMStudentInformation]?, errorString: String?) -> Void){
+    func getUserList(completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
         
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: 10,
@@ -58,7 +87,7 @@ extension OTMClient {
             OTMClient.ParseAPIParameters.Skip: currentLoadCount
         ]
         
-        taskForGetMethod("", parameters: parameters) { (result, error) -> Void in
+        taskForGetMethod(OTMClient.ParseAPIConstants.BaseURL, parameters: parameters) { (result, error) -> Void in
             // println(result)
             
             if let error = error {
@@ -66,26 +95,13 @@ extension OTMClient {
             } else {
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
                     
-                    var newInformation = OTMStudentInformation.informationFromResults(results)
+                    var newInformation = OTMStudentLocation.informationFromResults(results)
                     
                     self.currentLoadCount += newInformation.count
                     
                     completionHandler(result: newInformation , errorString: nil)
                 }
             }
-        }
-    }
-    
-    func postUserLocation(completionHandler: (success: Bool, errorString: String?) -> Void){
-        
-        var parameters = [String: AnyObject]()
-        var method = " "
-        var httpBody = " "
-        
-        // First check if user has already posted
-        
-        taskForPOSTMethod("", parameters: parameters, httpBody: "") { (result, error) -> Void in
-            
         }
     }
 }

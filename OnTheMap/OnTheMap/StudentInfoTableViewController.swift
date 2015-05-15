@@ -12,7 +12,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     @IBOutlet var table: UITableView!
     
-    var information: [OTMStudentInformation] = [OTMStudentInformation]()
+    var information: [OTMStudentLocation] = [OTMStudentLocation]()
     var count: Int!
     
     override func viewWillAppear(animated: Bool) {
@@ -29,7 +29,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         let datum = self.information[indexPath.row]
         
         // Set the name and image
-        cell.textLabel?.text = datum.name
+        cell.textLabel?.text = (datum.firstName + datum.lastName)
         cell.detailTextLabel?.text = datum.mediaURL
         
         return cell

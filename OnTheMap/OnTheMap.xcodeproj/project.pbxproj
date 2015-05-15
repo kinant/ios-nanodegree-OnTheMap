@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */; };
 		C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C970E4BD1B03C13F00F583E2 /* Images.xcassets */; };
 		C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */; };
 		C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentLocation.swift; sourceTree = "<group>"; };
 		C970E4BD1B03C13F00F583E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9AD6C461AFD8F8000F44698 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD6C4A1AFD8F8000F44698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				C9AD6C751AFD968B00F44698 /* OTMConstants.swift */,
 				C9AD6C771AFD96FF00F44698 /* OTMStudentInformation.swift */,
 				C9D9E3081B01294900F99307 /* OTMAnnotation.swift */,
+				68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */,
 			);
 			name = OTM;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */,
 				C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */,
 				C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */,
+				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
 				C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */,
