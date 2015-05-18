@@ -140,9 +140,12 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         println("media: \(mediaURL.text)")
         println("mapString: \(addressText.text)")
         
-        OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: self.addressText.text!) { (result, errorString) -> Void in
+        // OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: self.addressText.text!) { (result, errorString) -> Void in
             
-        }
+        // }
+        
+        OTMClient.sharedInstance().updateLocation()
+    
     }
     
     /*

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Kinan Turjman. All rights reserved.
 //
 
+// my id for testing: 1612749455
+
 import Foundation
 import UIKit
 
@@ -22,6 +24,8 @@ extension OTMClient {
             if success {
                 self.sessionID = sessionID!
                 self.userID = userID!
+                
+                println(userID!)
                 
                 self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
                     
@@ -120,5 +124,20 @@ extension OTMClient {
         taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
             // println(result)
         }
+    }
+    
+    func updateUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, completionHandler: (result: String?, errorString: String?) -> Void)
+    {
+        var parameters = [String : AnyObject]()
+        
+        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+        
+        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+            // println(result)
+        }
+    }
+    
+    func updateLocation(){
+        taskForPUTMethod()
     }
 }
