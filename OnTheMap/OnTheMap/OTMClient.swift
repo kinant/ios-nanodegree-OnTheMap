@@ -115,9 +115,6 @@ class OTMClient: NSObject {
     func taskForGetUserMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = UdacityAPIConstants.BaseURL + method + OTMClient.escapedParameters(parameters)
-        // let urlString = ParseAPIConstants.BaseURL
-        
-        println("url will be: \(urlString)")
         
         let url = NSURL(string: urlString)!
         
@@ -128,8 +125,7 @@ class OTMClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            println("RESULT:::::")
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
             
             if error != nil { // Handle error…
@@ -150,8 +146,6 @@ class OTMClient: NSObject {
         var parsingError: NSError? = nil
         
         let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-        
-       // println(parsedResult)
         
         if let error = parsingError {
             completionHandler(result: nil, error: error)
