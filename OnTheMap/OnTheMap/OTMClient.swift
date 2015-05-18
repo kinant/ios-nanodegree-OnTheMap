@@ -163,6 +163,26 @@ class OTMClient: NSObject {
         task.resume()
     }
 
+    func taskForQuery(){
+        
+        let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221612749455s%22%7D"
+        let url = NSURL(string: urlString)
+        
+        let request = NSMutableURLRequest(URL: url!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+        
+            if error != nil { /* Handle error */ return }
+            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+        }
+        
+        task.resume()
+    }
+    
     /* Helper: Given raw JSON, return a usable Foundation object */
     class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         

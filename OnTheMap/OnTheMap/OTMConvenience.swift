@@ -140,4 +140,8 @@ extension OTMClient {
     func updateLocation(){
         taskForPUTMethod()
     }
+    
+    func lookForStudentLocation(){
+        taskForQuery()
+    }
 }

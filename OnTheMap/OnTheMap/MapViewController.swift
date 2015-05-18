@@ -75,6 +75,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     @IBAction func postLocation(sender: UIButton) {
         
+        OTMClient.sharedInstance().lookForStudentLocation()
+        
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         // postVC.preferredContentSize = self.view.frame.size
         
