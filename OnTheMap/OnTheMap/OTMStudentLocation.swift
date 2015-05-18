@@ -20,15 +20,15 @@ struct OTMStudentLocation {
     
     init(dictionary: [String: AnyObject]){
         
-        println(dictionary)
+        // println(dictionary)
         
         self.latitude = dictionary["latitude"] as? Double
         self.longitude = dictionary["longitude"] as? Double
-        
         self.firstName = dictionary["firstName"] as? String
         self.lastName = dictionary["lastName"] as? String
-        
         self.mediaURL = dictionary["mediaURL"] as? String
+        self.mapString = dictionary["mapString"] as? String
+        self.uniqueKey = dictionary["uniqueKey"] as? String
     }
     
     static func informationFromResults(results: [[String : AnyObject]]) -> [OTMStudentLocation] {

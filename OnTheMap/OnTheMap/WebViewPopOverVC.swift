@@ -39,8 +39,8 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate {
 
     @IBAction func useLink(sender: AnyObject) {
         
-        println(webView.request!.URL!.absoluteString!)
-        println(webView.request!.URL!.host!)
+        // println(webView.request!.URL!.absoluteString!)
+        // println(webView.request!.URL!.host!)
         // println(webView.request?.URL?.description)
         delegate?.setURL(webView.request!.URL!.host!)
         self.dismissViewControllerAnimated(true, completion: nil)

@@ -27,7 +27,7 @@ class OTMClient: NSObject {
     
     func taskForPOSTDataMethod(method: String, parameters: [String : AnyObject], httpBody: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
     
-        let urlString = ParseAPIConstants.BaseURL + OTMClient.escapedParameters(parameters)
+        let urlString = ParseAPIConstants.BaseURL
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)
@@ -40,12 +40,12 @@ class OTMClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             // let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
             
             if error != nil { // Handle error…
-                // completionHandler(result: nil, error: error)
+                completionHandler(result: nil, error: error)
             } else {
-                // OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
             }
         }
         
@@ -128,12 +128,14 @@ class OTMClient: NSObject {
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
+            println("RESULT:::::")
             println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
             
             if error != nil { // Handle error…
                 completionHandler(result: nil, error: error)
             } else {
-                OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
             }
         }
         
@@ -149,7 +151,7 @@ class OTMClient: NSObject {
         
         let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
         
-       //  println(parsedResult)
+       // println(parsedResult)
         
         if let error = parsingError {
             completionHandler(result: nil, error: error)

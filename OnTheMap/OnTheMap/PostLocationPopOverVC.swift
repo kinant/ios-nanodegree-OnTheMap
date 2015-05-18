@@ -22,6 +22,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
     
+    var postLocation: MKPlacemark!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +31,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         currentLocation = delegate?.map.userLocation.location
-        println(self.delegate?.map.userLocation.coordinate.latitude)
+        // println(self.delegate?.map.userLocation.coordinate.latitude)
         locationManager.startUpdatingLocation()
         // Do any additional setup after loading the view.
     }
@@ -42,9 +44,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
         let newLocation = manager.location
-        println("New location!")
-        println(newLocation.coordinate.latitude)
-        println(newLocation.coordinate.longitude)
+        // println("New location!")
+        // println(newLocation.coordinate.latitude)
+        // println(newLocation.coordinate.longitude)
         currentLocation = newLocation
         
         return
@@ -85,6 +87,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             } else {
                 let p = placemarks[0] as? CLPlacemark
                 let mp = MKPlacemark(placemark: p)
+                self.postLocation = mp
                 self.delegate?.addPin(mp)
             }
         }
@@ -98,7 +101,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
         
         // mp.title = self.addressText.text
-        
+        postLocation = mp
         self.delegate?.addPin(mp)
         // self.dismissViewControllerAnimated(true, completion: nil)
         addressText.text = getAddress(currentLocation)
@@ -116,6 +119,30 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         webVC.delegate = self
         
         presentViewController(webVC, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func postStudentLocation(sender: AnyObject) {
+        /*
+        self.latitude = dictionary["latitude"] as? Double
+        self.longitude = dictionary["longitude"] as? Double
+        
+        self.firstName = dictionary["firstName"] as? String
+        self.lastName = dictionary["lastName"] as? String
+        
+        self.mediaURL = dictionary["mediaURL"] as? String
+        */
+        // OTMClient.sharedInstance().postStudentLocation(
+        
+        println("will post!")
+        println("lat: \(postLocation.location!.coordinate.latitude)")
+        println("long: \(postLocation.location!.coordinate.longitude)")
+        println("media: \(mediaURL.text)")
+        println("mapString: \(addressText.text)")
+        
+        OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: self.addressText.text!) { (result, errorString) -> Void in
+            
+        }
     }
     
     /*

@@ -23,7 +23,15 @@ extension OTMClient {
                 self.sessionID = sessionID!
                 self.userID = userID!
                 
-                self.getUserData("", completionHandler: { (success, sessionID, errorString) -> Void in
+                self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
+                    
+                    println("setting user: " )
+                    println("fname: \(fName)")
+                    println("lname: \(lName)")
+                    
+                    if success {
+                        self.student = OTMStudentInformation(userID: self.userID!, fName: fName!, lName: lName!)
+                    }
                     
                 })
                 
@@ -33,7 +41,6 @@ extension OTMClient {
             completionHandler(success: success, errorString: errorString)
         })
     }
-    
     
     func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
         
@@ -66,21 +73,26 @@ extension OTMClient {
     }
     
     
-    func getUserData(httpBody: String, completionHandler: (success: Bool, sessionID: String?, errorString: String?) -> Void) {
+    func getUserData(httpBody: String, completionHandler: (success: Bool, fName: String?, lName: String?, errorString: String?) -> Void) {
         
         var parameters = [String : AnyObject]()
         var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
         
-        println("getting user data: ")
-        println("method will be: \(method)")
+        // println("getting user data: ")
+        // println("method will be: \(method)")
         
         taskForGetUserMethod(method, parameters: parameters) { (result, error) -> Void in
             println(result)
             
             if let error = error {
-                // completionHandler(success: false, sessionID: nil, errorString: "Login Failed (Session ID).")
+                completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
             } else {
-                // println(result)
+                
+                if let resultDictionary = result["user"] as? NSDictionary {
+                    var firstName = resultDictionary["first_name"] as? String
+                    var lastName = resultDictionary["last_name"] as? String
+                    completionHandler(success: true, fName: firstName, lName: lastName, errorString: nil)
+                }
             }
         }
     }
@@ -108,6 +120,28 @@ extension OTMClient {
                     completionHandler(result: newInformation , errorString: nil)
                 }
             }
+        }
+    }
+    
+    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, completionHandler: (result: String?, errorString: String?) -> Void)
+    {
+        
+        println("will post 2!")
+        println("lat: \(lat)")
+        println("long: \(long)")
+        println("media: \(mediaURL)")
+        println("mapString: \(mapString)")
+        
+        var parameters = [String : AnyObject]()
+        
+        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+        
+        // println(httpBody)
+        
+        // var httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"Kinan\", \"lastName\": \"Turjman\",\"mapString\": \"Guatemala City, Guatemala\", \"mediaURL\": \"https://google.com\",\"latitude\": 14.6, \"longitude\": -90.5}"
+        
+        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+            println(result)
         }
     }
 }

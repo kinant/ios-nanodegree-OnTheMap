@@ -12,9 +12,9 @@ struct OTMStudentInformation {
     var firstName: String?
     var lastName: String?
     
-    init(dictionary: [String: AnyObject]){
-        self.userID = dictionary["key"] as? String
-        self.firstName = dictionary["first_name"] as? String
-        self.lastName = dictionary["last_name"] as? String
+    init(userID: String, fName: String, lName: String){
+        self.userID = userID
+        self.firstName = fName
+        self.lastName = lName
     }
 }
