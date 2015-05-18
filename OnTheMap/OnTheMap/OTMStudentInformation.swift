@@ -17,5 +17,4 @@ struct OTMStudentInformation {
         self.firstName = dictionary["first_name"] as? String
         self.lastName = dictionary["last_name"] as? String
     }
-    
 }
