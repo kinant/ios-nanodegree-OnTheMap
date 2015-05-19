@@ -25,13 +25,21 @@ class OTMClient: NSObject {
         super.init()
     }
     
-    func taskForPOSTDataMethod(method: String, parameters: [String : AnyObject], httpBody: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForPOSTDataMethod(method: String, parameters: [String : AnyObject], httpBody: String, updatingID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
     
-        let urlString = ParseAPIConstants.BaseURL
+        let urlString = ParseAPIConstants.BaseURL + "/" + updatingID
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
+        
+        println("posting url: " + urlString)
+        
+        if(updatingID != "" ) {
+            request.HTTPMethod = "PUT"
+        } else {
+            request.HTTPMethod = "POST"
+        }
+        
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
         request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
@@ -40,7 +48,7 @@ class OTMClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             // let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            println(NSString(data: data, encoding: NSUTF8StringEncoding))
             
             if error != nil { // Handle error…
                 completionHandler(result: nil, error: error)
@@ -165,7 +173,7 @@ class OTMClient: NSObject {
 
     func taskForQuery(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221612749455s%22%7D"
+        let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221612749455%22%7D"
         let url = NSURL(string: urlString)
         
         let request = NSMutableURLRequest(URL: url!)

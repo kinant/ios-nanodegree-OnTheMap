@@ -115,13 +115,17 @@ extension OTMClient {
         }
     }
     
-    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, completionHandler: (result: String?, errorString: String?) -> Void)
+    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (result: String?, errorString: String?) -> Void)
     {
         var parameters = [String : AnyObject]()
         
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
-        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+        println(httpBody)
+        
+        println("{\"uniqueKey\": \"1612749455\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}")
+        
+        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
             // println(result)
         }
     }
@@ -132,9 +136,6 @@ extension OTMClient {
         
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
-        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
-            // println(result)
-        }
     }
     
     func updateLocation(){
@@ -145,9 +146,10 @@ extension OTMClient {
         // taskForQuery()
     }
     
-    func userLocationExists() -> Bool {
+    func userLocationExists(completionHandler: (exists: Bool, objectID: String) -> Void) {
         
         var locationExits = false
+        var existingLocation: String = ""
         
         var parameters = [String : AnyObject]()
         
@@ -165,19 +167,17 @@ extension OTMClient {
                 println(resultsDictionary)
                 
                 if resultsDictionary.count > 0 {
-                   println("result already exists!!!")
-                locationExits = true
-                }
-                else {
-                    println("result does not exist!")
+                    println("result already exists!!!")
+                    existingLocation = (resultsDictionary[0]["objectId"] as? String)!
+                    locationExits = true
+                    completionHandler(exists: true, objectID: existingLocation)
                 }
             }
         }
         
+        completionHandler(exists: false, objectID: "")
         println()
         println()
         println()
-        
-        return locationExits
     }
 }

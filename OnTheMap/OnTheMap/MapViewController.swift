@@ -81,11 +81,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         postVC.delegate = self
         
         // check if user location already exists
-        if(OTMClient.sharedInstance().userLocationExists()) {
-            postVC.isUpdating = true
+        OTMClient.sharedInstance().userLocationExists { (exists, objectID) -> Void in
+            if exists {
+                self.postVC.isUpdating = true
+                self.postVC.updatingObjectID = objectID
+            }
         }
         
-        // presentViewController(postVC, animated: true, completion: nil)
+        presentViewController(postVC, animated: true, completion: nil)
     }
 }
 

@@ -21,6 +21,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     var currentLocation:CLLocation!
     
     var isUpdating = false
+    var updatingObjectID = ""
     
     let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
     
@@ -142,12 +143,14 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         println("media: \(mediaURL.text)")
         println("mapString: \(addressText.text)")
         
-        // OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: self.addressText.text!) { (result, errorString) -> Void in
-            
-        // }
+        var noNewLineMapString = (addressText.text as NSString).stringByReplacingOccurrencesOfString("\n", withString: ",")
+        var trimmedMapString = (noNewLineMapString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        OTMClient.sharedInstance().updateLocation()
-    
+        OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (result, errorString) -> Void in
+            
+            println(result)
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     /*
