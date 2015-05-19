@@ -163,7 +163,7 @@ class OTMClient: NSObject {
         task.resume()
     }
 
-    func taskForQuery(){
+    func taskForQuery(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221612749455s%22%7D"
         let url = NSURL(string: urlString)
@@ -177,10 +177,13 @@ class OTMClient: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
         
             if error != nil { /* Handle error */ return }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
         }
         
         task.resume()
+        
+        return task
     }
     
     /* Helper: Given raw JSON, return a usable Foundation object */

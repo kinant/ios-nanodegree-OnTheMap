@@ -75,15 +75,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     @IBAction func postLocation(sender: UIButton) {
         
-        OTMClient.sharedInstance().lookForStudentLocation()
-        
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         // postVC.preferredContentSize = self.view.frame.size
         
         postVC.delegate = self
         
-        presentViewController(postVC, animated: true, completion: nil)
+        // check if user location already exists
+        if(OTMClient.sharedInstance().userLocationExists()) {
+            postVC.isUpdating = true
+        }
+        
+        // presentViewController(postVC, animated: true, completion: nil)
     }
-    
 }
 

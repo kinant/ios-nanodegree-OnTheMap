@@ -20,6 +20,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     var delegate: MapViewController? = nil
     var currentLocation:CLLocation!
     
+    var isUpdating = false
+    
     let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
     
     var postLocation: MKPlacemark!

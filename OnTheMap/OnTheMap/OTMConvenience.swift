@@ -93,7 +93,7 @@ extension OTMClient {
     func getUserList(completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
         
         var parameters = [
-            OTMClient.ParseAPIParameters.Limit: 10,
+            OTMClient.ParseAPIParameters.Limit: 1000,
             OTMClient.ParseAPIParameters.Count: 0,
             OTMClient.ParseAPIParameters.Skip: currentLoadCount
         ]
@@ -142,6 +142,42 @@ extension OTMClient {
     }
     
     func lookForStudentLocation(){
-        taskForQuery()
+        // taskForQuery()
+    }
+    
+    func userLocationExists() -> Bool {
+        
+        var locationExits = false
+        
+        var parameters = [String : AnyObject]()
+        
+        println()
+        println()
+        println()
+        
+        taskForQuery("", parameters: parameters) { (result, error) -> Void in
+            
+            println("attempting to see if results exist!")
+            // println(result)
+            
+            if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
+                
+                println(resultsDictionary)
+                
+                if resultsDictionary.count > 0 {
+                   println("result already exists!!!")
+                locationExits = true
+                }
+                else {
+                    println("result does not exist!")
+                }
+            }
+        }
+        
+        println()
+        println()
+        println()
+        
+        return locationExits
     }
 }
