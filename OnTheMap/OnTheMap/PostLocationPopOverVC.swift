@@ -90,6 +90,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 let mp = MKPlacemark(placemark: p)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
+                self.getAddress(mp.location!)
             }
         }
     }
