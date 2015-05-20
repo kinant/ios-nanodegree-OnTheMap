@@ -164,7 +164,7 @@ extension OTMClient {
             
             if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
-                // println(resultsDictionary)
+                println(resultsDictionary)
                 
                 if resultsDictionary.count > 0 {
                     //println("result already exists!!!")

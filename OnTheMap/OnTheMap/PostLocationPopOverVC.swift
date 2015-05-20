@@ -67,9 +67,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 let s = ABCreateStringWithAddressDictionary(p.addressDictionary, false)
                 
                 self.addressText.text = s
-
             }
-            
         }
         
         return self.addressText.text
