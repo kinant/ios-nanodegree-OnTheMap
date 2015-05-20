@@ -25,7 +25,7 @@ extension OTMClient {
                 self.sessionID = sessionID!
                 self.userID = userID!
                 
-                println(userID!)
+                // println(userID!)
                 
                 self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
                     
@@ -121,9 +121,9 @@ extension OTMClient {
         
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
-        println(httpBody)
+        // println(httpBody)
         
-        println("{\"uniqueKey\": \"1612749455\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}")
+        // println("{\"uniqueKey\": \"1612749455\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}")
         
         taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
             // println(result)
@@ -153,21 +153,21 @@ extension OTMClient {
         
         var parameters = [String : AnyObject]()
         
-        println()
-        println()
-        println()
+        // println()
+        // println()
+        // println()
         
         taskForQuery("", parameters: parameters) { (result, error) -> Void in
             
-            println("attempting to see if results exist!")
+            // println("attempting to see if results exist!")
             // println(result)
             
             if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
-                println(resultsDictionary)
+                // println(resultsDictionary)
                 
                 if resultsDictionary.count > 0 {
-                    println("result already exists!!!")
+                    //println("result already exists!!!")
                     existingLocation = (resultsDictionary[0]["objectId"] as? String)!
                     locationExits = true
                     completionHandler(exists: true, objectID: existingLocation)
@@ -176,8 +176,8 @@ extension OTMClient {
         }
         
         completionHandler(exists: false, objectID: "")
-        println()
-        println()
-        println()
+        // println()
+        // println()
+        // println()
     }
 }
