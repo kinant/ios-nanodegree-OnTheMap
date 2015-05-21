@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewPopOverVC" customModule="OnTheMap" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="3z4-82-W7g" id="Lf3-i3-1cz"/>
+                <outlet property="forwardButton" destination="3Pm-dm-Lmv" id="LbF-fv-eCR"/>
+                <outlet property="progressBar" destination="8zo-21-ZYq" id="NEd-zB-U6c"/>
                 <outlet property="urlField" destination="xYN-WI-YAX" id="9cI-If-sti"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="xao-KG-y0M" id="rYH-d5-sdS"/>
@@ -37,6 +40,9 @@
                             <state key="normal" title="Button" image="stop">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="stopButtonTouch:" destination="-1" eventType="touchUpInside" id="a49-0n-TGP"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7H-vY-x5o">
                             <rect key="frame" x="560" y="25" width="30" height="30"/>
@@ -47,6 +53,9 @@
                             <state key="normal" image="refresh">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="refreshButtonTouch:" destination="-1" eventType="touchUpInside" id="6qp-2M-reR"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -71,13 +80,43 @@
                         <constraint firstAttribute="height" constant="44" id="LXy-XL-gXN"/>
                     </constraints>
                     <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="fM8-s9-ZTl"/>
                         <barButtonItem title="Use" id="bAB-6Y-M1K">
                             <connections>
                                 <action selector="useLink:" destination="-1" id="o5U-8d-qms"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="eWE-lq-IZ0"/>
+                        <barButtonItem style="plain" id="3z4-82-W7g">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jeo-5f-NQX">
+                                <rect key="frame" x="277" y="478" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButtonTouch:" destination="-1" eventType="touchUpInside" id="H3j-TN-S9S"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="52T-oT-AOA"/>
+                        <barButtonItem style="plain" id="3Pm-dm-Lmv">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MqY-4v-Fks">
+                                <rect key="frame" x="342" y="478" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Forward">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forwardButtonTouch:" destination="-1" eventType="touchUpInside" id="tIz-dM-gxT"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </items>
                 </toolbar>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-21-ZYq">
+                    <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                </progressView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -89,9 +128,17 @@
                 <constraint firstAttribute="trailing" secondItem="xao-KG-y0M" secondAttribute="trailing" id="S5H-nP-sIx"/>
                 <constraint firstItem="hRD-mH-YNS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WqD-LQ-gAz"/>
                 <constraint firstAttribute="trailing" secondItem="hRD-mH-YNS" secondAttribute="trailing" id="XzS-Mo-Mo0"/>
+                <constraint firstAttribute="trailing" secondItem="8zo-21-ZYq" secondAttribute="trailing" id="YEo-ok-zO4"/>
                 <constraint firstAttribute="trailing" secondItem="14A-aj-SYZ" secondAttribute="trailing" id="ccc-6x-QZZ"/>
+                <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="jHr-Uj-Uby"/>
+                <constraint firstItem="8zo-21-ZYq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mop-xd-odf"/>
                 <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="xXl-Vl-Vlw"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="jHr-Uj-Uby"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="219" y="503"/>
         </view>
     </objects>
