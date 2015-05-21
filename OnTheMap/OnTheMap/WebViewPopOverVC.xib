@@ -8,7 +8,7 @@
             <connections>
                 <outlet property="backButton" destination="3z4-82-W7g" id="Lf3-i3-1cz"/>
                 <outlet property="forwardButton" destination="3Pm-dm-Lmv" id="LbF-fv-eCR"/>
-                <outlet property="progressBar" destination="8zo-21-ZYq" id="NEd-zB-U6c"/>
+                <outlet property="progressBar" destination="8zo-21-ZYq" id="bF5-qg-oRD"/>
                 <outlet property="urlField" destination="xYN-WI-YAX" id="9cI-If-sti"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="xao-KG-y0M" id="rYH-d5-sdS"/>
@@ -114,7 +114,7 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-21-ZYq">
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-21-ZYq">
                     <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                 </progressView>
             </subviews>
@@ -124,6 +124,7 @@
                 <constraint firstItem="hRD-mH-YNS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBs-Ft-t0f"/>
                 <constraint firstItem="xao-KG-y0M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fnn-w9-zoR"/>
                 <constraint firstItem="14A-aj-SYZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jnc-kx-5hP"/>
+                <constraint firstItem="8zo-21-ZYq" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="KnL-Sw-YjT"/>
                 <constraint firstItem="14A-aj-SYZ" firstAttribute="top" secondItem="xao-KG-y0M" secondAttribute="bottom" id="PPd-EP-hkc"/>
                 <constraint firstAttribute="trailing" secondItem="xao-KG-y0M" secondAttribute="trailing" id="S5H-nP-sIx"/>
                 <constraint firstItem="hRD-mH-YNS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WqD-LQ-gAz"/>

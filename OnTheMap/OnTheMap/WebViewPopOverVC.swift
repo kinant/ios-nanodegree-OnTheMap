@@ -16,7 +16,12 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     
+    @IBOutlet weak var progressBar: UIProgressView!
     var delegate: PostLocationPopOverVC? = nil
+    
+    var theBool: Bool = false
+    var myTimer = NSTimer()
+    var didStartLoad = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,20 +53,43 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
-
+        if !didStartLoad {
+            self.didStartLoad = true
+            self.progressBar.hidden = false
+            self.progressBar.progress = 0.0
+            self.theBool = false
+            self.myTimer = NSTimer.scheduledTimerWithTimeInterval(0.01667, target: self, selector: "timerCallback", userInfo: nil, repeats: true)
+        }
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
         println("finish load")
+        self.theBool = true
+        self.didStartLoad = false
         backButton.enabled = webView.canGoBack
         forwardButton.enabled = webView.canGoForward
+    }
+    
+    func timerCallback() {
+        if self.theBool {
+            if self.progressBar.progress >= 1 {
+                self.progressBar.hidden = true
+                self.myTimer.invalidate()
+            } else {
+                self.progressBar.progress += 0.1
+            }
+        } else {
+            self.progressBar.progress += 0.05
+            if self.progressBar.progress >= 0.95 {
+                self.progressBar.progress = 0.95
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     @IBAction func backButtonTouch(sender: AnyObject) {
         webView.goBack()
