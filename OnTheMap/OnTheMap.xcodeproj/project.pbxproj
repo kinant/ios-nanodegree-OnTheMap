@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */; };
+		68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE01A31B0E5D92002B14FA /* OTMData.swift */; };
 		C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C970E4BD1B03C13F00F583E2 /* Images.xcassets */; };
 		C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */; };
 		C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentLocation.swift; sourceTree = "<group>"; };
+		68BE01A31B0E5D92002B14FA /* OTMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMData.swift; sourceTree = "<group>"; };
 		C970E4BD1B03C13F00F583E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9AD6C461AFD8F8000F44698 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD6C4A1AFD8F8000F44698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		68BE01A21B0E5D7D002B14FA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				68BE01A31B0E5D92002B14FA /* OTMData.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		C9AD6C3D1AFD8F8000F44698 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +153,7 @@
 		C9AD6C6B1AFD944E00F44698 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				68BE01A21B0E5D7D002B14FA /* Data */,
 				C9AD6C6C1AFD946900F44698 /* Client */,
 			);
 			name = Model;
@@ -316,6 +327,7 @@
 				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
+				68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */,
 				C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */,
 				C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */,
 				C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */,

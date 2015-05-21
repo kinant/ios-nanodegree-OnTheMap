@@ -11,13 +11,9 @@ import Foundation
 class OTMClient: NSObject {
 
     var session: NSURLSession
-    
     var userID: String? = nil
-    
     var sessionID: String? = nil
-    
     var currentLoadCount = 0
-    
     var student: OTMStudentInformation!
     
     override init() {
