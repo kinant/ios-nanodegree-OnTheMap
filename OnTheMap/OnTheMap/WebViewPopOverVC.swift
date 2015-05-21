@@ -56,15 +56,6 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         }
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-
-        println("starting load with: ")
-        println(request)
-        
-        
-        return true
-    }
-    
     func webViewDidStartLoad(webView: UIWebView) {
         if !didStartLoad {
             self.didStartLoad = true
@@ -124,21 +115,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     @IBAction func useLink(sender: AnyObject) {
-        
-        // println(webView.request!.URL!.absoluteString!)
-        // println(webView.request!.URL!.host!)
-        // println(webView.request?.URL?.description)
         delegate?.setURL(webView.request!.URL!.host!)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
