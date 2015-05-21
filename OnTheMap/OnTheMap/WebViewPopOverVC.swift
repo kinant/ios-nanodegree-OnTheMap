@@ -16,6 +16,8 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     
+    @IBOutlet weak var useButton: UIBarButtonItem!
+    
     @IBOutlet weak var progressBar: UIProgressView!
     var delegate: PostLocationPopOverVC? = nil
     
@@ -44,10 +46,21 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         return false
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if(range.location == 6 && range.length == 1) {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 
         println("starting load with: ")
         println(request)
+        
         
         return true
     }
@@ -60,6 +73,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
             self.theBool = false
             self.myTimer = NSTimer.scheduledTimerWithTimeInterval(0.01667, target: self, selector: "timerCallback", userInfo: nil, repeats: true)
         }
+        self.useButton.enabled = false
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -68,6 +82,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         self.didStartLoad = false
         backButton.enabled = webView.canGoBack
         forwardButton.enabled = webView.canGoForward
+        useButton.enabled = true
     }
     
     func timerCallback() {

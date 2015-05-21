@@ -10,6 +10,7 @@
                 <outlet property="forwardButton" destination="3Pm-dm-Lmv" id="LbF-fv-eCR"/>
                 <outlet property="progressBar" destination="8zo-21-ZYq" id="bF5-qg-oRD"/>
                 <outlet property="urlField" destination="xYN-WI-YAX" id="9cI-If-sti"/>
+                <outlet property="useButton" destination="bAB-6Y-M1K" id="7QI-8u-ilL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="xao-KG-y0M" id="rYH-d5-sdS"/>
             </connections>
@@ -22,7 +23,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-mH-YNS">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-WI-YAX">
                             <rect key="frame" x="8" y="25" width="482" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -131,15 +132,9 @@
                 <constraint firstAttribute="trailing" secondItem="hRD-mH-YNS" secondAttribute="trailing" id="XzS-Mo-Mo0"/>
                 <constraint firstAttribute="trailing" secondItem="8zo-21-ZYq" secondAttribute="trailing" id="YEo-ok-zO4"/>
                 <constraint firstAttribute="trailing" secondItem="14A-aj-SYZ" secondAttribute="trailing" id="ccc-6x-QZZ"/>
-                <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="jHr-Uj-Uby"/>
                 <constraint firstItem="8zo-21-ZYq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mop-xd-odf"/>
                 <constraint firstItem="xao-KG-y0M" firstAttribute="top" secondItem="hRD-mH-YNS" secondAttribute="bottom" id="xXl-Vl-Vlw"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="jHr-Uj-Uby"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="219" y="503"/>
         </view>
     </objects>

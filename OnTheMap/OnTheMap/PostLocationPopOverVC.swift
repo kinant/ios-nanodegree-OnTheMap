@@ -33,7 +33,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         currentLocation = delegate?.map.userLocation.location
-        locationManager.startUpdatingLocation()
+        // locationManager.startUpdatingLocation()
 
     }
 
@@ -95,12 +95,12 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
-        locationManager.startUpdatingLocation()
+        // locationManager.startUpdatingLocation()
         let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
         postLocation = mp
         self.delegate?.addPin(mp)
         addressText.text = getAddress(currentLocation)
-        locationManager.stopUpdatingLocation()
+        // locationManager.stopUpdatingLocation()
     }
     
     func setURL(urlString: String){
