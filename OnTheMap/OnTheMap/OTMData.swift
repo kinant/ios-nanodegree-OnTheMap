@@ -12,18 +12,15 @@ class OTMData: NSObject {
 
     var locationsList = [OTMStudentLocation]()
     
-    func fetchData(){
+    func fetchData(completionHandler: (result: [OTMStudentLocation]) -> Void){
         
         OTMClient.sharedInstance().fetchLocations { (result, errorString) -> Void in
             
-            println(result)
-            
             if let fetchedData = result {
                 for datum in fetchedData {
-                    println(datum)
-                    
-                        self.locationsList.append(datum)
+                    self.locationsList.append(datum)
                 }
+                completionHandler(result: self.locationsList)
             }
         }
     }

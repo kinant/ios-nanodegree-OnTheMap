@@ -91,9 +91,8 @@ extension OTMClient {
     }
     
     func fetchLocations(completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
-        
         var parameters = [
-            OTMClient.ParseAPIParameters.Limit: 1000,
+            OTMClient.ParseAPIParameters.Limit: 10,
             OTMClient.ParseAPIParameters.Count: 0,
             OTMClient.ParseAPIParameters.Skip: currentLoadCount
         ]

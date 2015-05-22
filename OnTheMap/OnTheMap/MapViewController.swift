@@ -16,10 +16,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     @IBOutlet weak var map: MKMapView!
     
     var locations: [OTMStudentLocation] = [OTMStudentLocation]()
+    var isFinishedLoading = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // let loc = CLLocationCoordinate2DMake(34.927752,-120.217608)
         // let span = MKCoordinateSpanMake(0.015, 0.015)
         // let reg = MKCoordinateRegionMake(loc, span)
@@ -28,34 +28,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        
-        let delayInSeconds = 8.0
-        
-        let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-        
-        dispatch_async(queue, {
-            // get data
-            dispatch_sync(queue, {
-                println("getting the data!")
-                OTMData.sharedInstance().fetchData()
-                println(self.locations)
-            })
-            
-            dispatch_sync(queue, {
-                self.locations = OTMData.sharedInstance().locationsList
-                println("adding the pins")
-                self.addPinsToMap()
-            })
-        })
+    override func viewWillAppear(animated: Bool) {
+
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        println("in here 1!")
+        
+        // while(!isFinishedLoading) {
+        for(var i = 0; i < 3; i++){
+            self.locations.removeAll(keepCapacity: false)
+            println("in here 2!")
+            OTMData.sharedInstance().fetchData { (result) -> Void in
+                println(result)
+                self.locations = result
+            
+                if result.count == 0 {
+                    self.isFinishedLoading = true
+                }
+            
+                for location in self.locations {
+                    println("adding \(location.firstName) location: \(location.latitude), \(location.longitude)")
+                
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.addPinToMap(location)
+                    }
+                }
+            }
+        }
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
@@ -64,19 +65,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         map.setRegion(region, animated: true)
     }
     
+    func addPinToMap(location: OTMStudentLocation){
+        let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+        self.map.addAnnotation(newAnnotation)
+    }
+    
     func addPinsToMap(){
-        
-        println("attempting to add locations!")
-        println(locations)
         
         for location in locations {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-            
-            dispatch_async(dispatch_get_main_queue()){
-                self.map.addAnnotation(newAnnotation)
-            // setCenterOfMapToLocation(newLocation)
-            }
+            self.map.addAnnotation(newAnnotation)
         }
     }
     
