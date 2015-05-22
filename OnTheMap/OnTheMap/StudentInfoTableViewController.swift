@@ -53,7 +53,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     func addData(){
         
-        OTMClient.sharedInstance().getUserList { (result, errorString) -> Void in
+        OTMClient.sharedInstance().fetchLocations { (result, errorString) -> Void in
             // println(result)
             
             for datum in result! {

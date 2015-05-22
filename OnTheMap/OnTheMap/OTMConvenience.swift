@@ -90,7 +90,7 @@ extension OTMClient {
         }
     }
     
-    func getUserList(completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
+    func fetchLocations(completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
         
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: 1000,

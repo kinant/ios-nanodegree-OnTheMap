@@ -31,15 +31,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        OTMClient.sharedInstance().getUserList { (result, errorString) -> Void in
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        let delayInSeconds = 8.0
+        
+        let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        
+        dispatch_async(queue, {
+            // get data
+            dispatch_sync(queue, {
+                println("getting the data!")
+                OTMData.sharedInstance().fetchData()
+                println(self.locations)
+            })
             
-            if let information = result {
-                self.locations = information
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.addPinsToMap()
-                }
-            }
-        }
+            dispatch_sync(queue, {
+                self.locations = OTMData.sharedInstance().locationsList
+                println("adding the pins")
+                self.addPinsToMap()
+            })
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,11 +66,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func addPinsToMap(){
         
+        println("attempting to add locations!")
+        println(locations)
+        
         for location in locations {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-            map.addAnnotation(newAnnotation)
+            
+            dispatch_async(dispatch_get_main_queue()){
+                self.map.addAnnotation(newAnnotation)
             // setCenterOfMapToLocation(newLocation)
+            }
         }
     }
     
