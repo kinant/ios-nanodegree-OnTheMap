@@ -17,7 +17,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
-        addData()
+        // addData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,10 +47,11 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         var contentHeight = scrollView.contentSize.height - table.frame.size.height
         
         if(actualPosition >= contentHeight){
-            addData()
+            // addData()
         }
     }
     
+    /*
     func addData(){
         
         OTMClient.sharedInstance().fetchLocations { (result, errorString) -> Void in
@@ -63,5 +64,6 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         
         self.table.reloadData()
     }
+*/
     
 }

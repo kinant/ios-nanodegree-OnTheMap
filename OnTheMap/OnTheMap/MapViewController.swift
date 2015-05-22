@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     var locations: [OTMStudentLocation] = [OTMStudentLocation]()
     var isFinishedLoading = false;
+    var count = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,29 +35,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        println("in here 1!")
         
-        // while(!isFinishedLoading) {
-        for(var i = 0; i < 3; i++){
-            self.locations.removeAll(keepCapacity: false)
-            println("in here 2!")
-            OTMData.sharedInstance().fetchData { (result) -> Void in
-                println(result)
-                self.locations = result
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        dispatch_async(queue, {
             
-                if result.count == 0 {
-                    self.isFinishedLoading = true
-                }
-            
-                for location in self.locations {
-                    println("adding \(location.firstName) location: \(location.latitude), \(location.longitude)")
-                
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.addPinToMap(location)
-                    }
+            for(var i = 0; i < 10; i++){
+                dispatch_sync(queue, {
+                    
+                    OTMData.sharedInstance().fetchData(i*15, completionHandler: { (result) -> Void in
+                        // println("1st we get the results")
+                        self.locations = result
+                        println("result count \(result.count)")
+                        // println("then we add the pins!")
+                    })
+                })
+                dispatch_async(dispatch_get_main_queue()){
+                    println("adding the pins")
+                    self.addPinsToMap()
                 }
             }
-        }
+        })
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
