@@ -12,16 +12,31 @@ class OTMData: NSObject {
 
     var locationsList = [OTMStudentLocation]()
     
-    func fetchData(skip: Int, completionHandler: (result: [OTMStudentLocation]) -> Void){
+    func fetchData(skip: Int, completionHandler: (success: Bool, result: [OTMStudentLocation]) -> Void){
         
-        locationsList.removeAll(keepCapacity: false)
+        // println("initial count: ")
+        // println(self.locationsList.count)
         
         OTMClient.sharedInstance().fetchLocations(skip) { (result, errorString) -> Void in
+            
+            // println("sent result is: \(result)")
+            
+            self.locationsList.removeAll()
+            
             if let fetchedData = result {
-                for datum in fetchedData {
-                    self.locationsList.append(datum)
+                
+                if(result!.count > 0){
+                    for datum in fetchedData {
+                        self.locationsList.append(datum)
+                    }
+                    // println("result count being sent:  \(self.locationsList.count))")
+                    // println("result count being received:  \(result!.count)")
+                    
+                    completionHandler(success: true, result: self.locationsList)
+                } else {
+                    completionHandler(success: false, result: self.locationsList)
+                    println("no more results!")
                 }
-                completionHandler(result: self.locationsList)
             }
         }
     }

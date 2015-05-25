@@ -93,9 +93,9 @@ extension OTMClient {
     func fetchLocations(skip: Int, completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
         
         var parameters = [
-            OTMClient.ParseAPIParameters.Limit: 1,
+            OTMClient.ParseAPIParameters.Limit: OTMClient.ParseAPIConstants.LimitPerRequest,
             OTMClient.ParseAPIParameters.Count: 0,
-            OTMClient.ParseAPIParameters.Skip: skip
+            OTMClient.ParseAPIParameters.Skip: skip,
         ]
         
        println("WILL LOAD DATA:")
@@ -108,14 +108,11 @@ extension OTMClient {
             if let error = error {
                 completionHandler(result: nil, errorString: "Parse API.")
             } else {
-                println(result)
+                // println(result)
                 
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
-                    
+                    // println(results)
                     var newInformation = OTMStudentLocation.informationFromResults(results)
-                    
-                    self.currentLoadCount += newInformation.count
-                    
                     completionHandler(result: newInformation , errorString: nil)
                 }
             }

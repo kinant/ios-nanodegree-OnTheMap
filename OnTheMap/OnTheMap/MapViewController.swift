@@ -21,10 +21,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // let loc = CLLocationCoordinate2DMake(34.927752,-120.217608)
-        // let span = MKCoordinateSpanMake(0.015, 0.015)
-        // let reg = MKCoordinateRegionMake(loc, span)
-        // self.map.region = reg
+        let loc = CLLocationCoordinate2DMake(35.00,-90)
+        let span = MKCoordinateSpanMake(30.00, 50.00)
+        let reg = MKCoordinateRegionMake(loc, span)
+        self.map.region = reg
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -39,17 +39,30 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
         
         dispatch_async(queue, {
-            for(var i = 0; i < 10; i++){
+            for(var i = 0; i < 20; i++){
+                
                 dispatch_sync(queue, {
                     
-                    OTMData.sharedInstance().fetchData(i * 1, completionHandler: { (result) -> Void in
+                    OTMData.sharedInstance().fetchData(i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (success, result) -> Void in
                         // println("1st we get the results")
-                        self.locations = result
-                        println("result: \(result)")
+                        if(success){
+                            self.locations = result
+                            println("result: \(result.count)")
                         
-                        dispatch_async(dispatch_get_main_queue()){
-                            println("adding the pins")
-                            self.addPinsToMap()
+                            for location in self.locations {
+                                println("\(location.lastName), \(location.firstName)")
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.addPinToMap(location)
+                                }
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue()){
+                                // println("adding the pins")
+                                // self.addPinsToMap(self.locations)
+                            }
+                        }
+                        else {
+                            println("done fetching results!!")
                         }
                     })
                 })
@@ -64,18 +77,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     func addPinToMap(location: OTMStudentLocation){
-        let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-        let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-        self.map.addAnnotation(newAnnotation)
-    }
-    
-    func addPinsToMap(){
-        
-        for location in locations {
+        if (location.latitude != nil && location.longitude != nil) {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
             self.map.addAnnotation(newAnnotation)
-            self.setCenterOfMapToLocation(newLocation)
+        }
+    }
+    
+    func addPinsToMap(newLocations: [OTMStudentLocation]){
+        
+        for location in newLocations {
+            // println(location)
+            if (location.latitude != nil && location.longitude != nil) {
+                let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+                self.map.addAnnotation(newAnnotation)
+                // self.setCenterOfMapToLocation(newLocation)
+            }
         }
     }
     

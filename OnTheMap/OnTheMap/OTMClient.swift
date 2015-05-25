@@ -28,7 +28,7 @@ class OTMClient: NSObject {
         
         let request = NSMutableURLRequest(URL: url)
         
-        println("posting url: " + urlString)
+        // println("posting url: " + urlString)
         
         if(updatingID != "" ) {
             request.HTTPMethod = "PUT"
