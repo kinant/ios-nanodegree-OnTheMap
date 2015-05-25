@@ -36,24 +36,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
         
         dispatch_async(queue, {
-            
             for(var i = 0; i < 10; i++){
                 dispatch_sync(queue, {
                     
-                    OTMData.sharedInstance().fetchData(i*15, completionHandler: { (result) -> Void in
+                    OTMData.sharedInstance().fetchData(i * 1, completionHandler: { (result) -> Void in
                         // println("1st we get the results")
                         self.locations = result
-                        println("result count \(result.count)")
-                        // println("then we add the pins!")
+                        println("result: \(result)")
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            println("adding the pins")
+                            self.addPinsToMap()
+                        }
                     })
                 })
-                dispatch_async(dispatch_get_main_queue()){
-                    println("adding the pins")
-                    self.addPinsToMap()
-                }
             }
         })
     }
@@ -76,6 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
             self.map.addAnnotation(newAnnotation)
+            self.setCenterOfMapToLocation(newLocation)
         }
     }
     
