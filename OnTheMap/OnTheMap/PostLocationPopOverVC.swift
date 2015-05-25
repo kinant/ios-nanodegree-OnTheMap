@@ -67,6 +67,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func findLocation(sender: AnyObject) {
     
+        if(currentPlacemark != nil){
+            self.delegate?.removePin(currentPlacemark)
+        }
+        
         let s = addressText.text
         let geo = CLGeocoder()
         
@@ -81,6 +85,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
                 self.addressText.text = self.getAddress(mp.location!)
+                self.currentPlacemark = mp
             }
         }
     }
@@ -88,7 +93,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
         if(currentPlacemark != nil){
-            // self.delegate.removePin()
+            self.delegate?.removePin(currentPlacemark)
         }
         
         manager = OneShotLocationManager()
@@ -101,6 +106,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
                 self.addressText.text = self.getAddress(mp.location)
+                self.currentPlacemark = mp
             } else if let err = error {
                 println(err.localizedDescription)
             }

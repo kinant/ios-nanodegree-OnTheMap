@@ -94,6 +94,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         setCenterOfMapToLocation(placemark.coordinate)
     }
     
+    func removePin(placemark: MKPlacemark){
+        map.removeAnnotation(placemark)
+    }
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
         return .None
