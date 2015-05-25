@@ -144,8 +144,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         
         OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (result, errorString) -> Void in
             
-            // println(result)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            println(result)
         }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
