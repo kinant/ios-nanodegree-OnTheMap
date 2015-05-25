@@ -119,6 +119,28 @@ extension OTMClient {
         }
     }
     
+    func getLocationsCount(completionHandler: (result: Int, errorString: String?) -> Void){
+        var parameters = [
+            OTMClient.ParseAPIParameters.Limit: 0,
+            OTMClient.ParseAPIParameters.Count: 1,
+            OTMClient.ParseAPIParameters.Skip: 0,
+        ]
+        
+        taskForGetMethod(OTMClient.ParseAPIConstants.BaseURL, parameters: parameters) { (result, error) -> Void in
+            
+            if let error = error {
+                completionHandler(result: 0, errorString: "Parse API.")
+            } else {
+                println(result)
+                
+                if let count = result.valueForKey("count") as? Int {
+                    completionHandler(result: count, errorString: nil)
+                    // println(results)
+                }
+            }
+        }
+    }
+    
     func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (result: String?, errorString: String?) -> Void)
     {
         var parameters = [String : AnyObject]()
