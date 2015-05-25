@@ -11,13 +11,14 @@ import UIKit
 class StudentInfoTableViewController: UITableViewController, UITableViewDataSource {
     
     @IBOutlet var table: UITableView!
+    var refresh = true
     
     var information: [OTMStudentLocation] = [OTMStudentLocation]()
-    var count: Int!
+    var count = 0
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
-        // addData()
+        addData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +30,10 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         let datum = self.information[indexPath.row]
         
         // Set the name and image
-        cell.textLabel?.text = (datum.firstName + datum.lastName)
-        cell.detailTextLabel?.text = datum.mediaURL
+        if datum.isValid(){
+            cell.textLabel?.text = (datum.firstName + datum.lastName)
+            cell.detailTextLabel?.text = datum.mediaURL
+        }
         
         return cell
     }
@@ -41,29 +44,42 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        // println("loading more data!!")
+        println("loading more data!!")
         
         var actualPosition = scrollView.contentOffset.y
         var contentHeight = scrollView.contentSize.height - table.frame.size.height
         
         if(actualPosition >= contentHeight){
-            // addData()
+            addData()
         }
     }
     
-    /*
     func addData(){
         
-        OTMClient.sharedInstance().fetchLocations { (result, errorString) -> Void in
-            // println(result)
+        if(self.refresh){
             
-            for datum in result! {
-                self.information.append(datum)
+            self.refresh = false
+            
+            let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
+        
+            dispatch_sync(queue) {
+                OTMData.sharedInstance().fetchData(self.count, completionHandler: { (success, result) -> Void in
+            
+                    if success {
+                        for datum in result {
+                            self.information.append(datum)
+                            self.count++
+                        }
+                    }
+                
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.table.reloadData()
+                        println("TOTAL ITEMS: \(self.information.count)")
+                    }
+                    
+                    self.refresh = true
+                })
             }
         }
-        
-        self.table.reloadData()
     }
-*/
-    
 }

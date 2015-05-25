@@ -16,8 +16,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     @IBOutlet weak var map: MKMapView!
     
     var locations: [OTMStudentLocation] = [OTMStudentLocation]()
-    var isFinishedLoading = false;
-    var count = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +23,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let span = MKCoordinateSpanMake(30.00, 50.00)
         let reg = MKCoordinateRegionMake(loc, span)
         self.map.region = reg
-        
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -41,21 +33,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         dispatch_async(queue) {
             
             OTMClient.sharedInstance().getLocationsCount { (result, errorString) -> Void in
-                println("COUNT: \(result)")
                 
                 var counter = Int((result/OTMClient.ParseAPIConstants.LimitPerRequest) + 1)
                 
-                for(var i = 0; i < counter; i++){
+                for(var i = 0; i <= counter; i++){
                     dispatch_sync(queue, {
                         
                         OTMData.sharedInstance().fetchData(i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (success, result) -> Void in
-                            // println("1st we get the results")
                             if(success){
                                 self.locations = result
-                                println("result: \(result.count)")
                                 
                                 for location in self.locations {
-                                    // println("\(location.lastName), \(location.firstName)")
                                     dispatch_async(dispatch_get_main_queue()){
                                         self.addPinToMap(location)
                                     }
@@ -69,9 +57,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                 }
             }
         }
-        
-        //dispatch_async(queue, {
-        // })
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){

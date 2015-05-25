@@ -41,4 +41,12 @@ struct OTMStudentLocation {
         
         return information
     }
+    
+    func isValid() -> Bool
+    {
+        if(self.latitude != nil && self.longitude != nil && self.firstName != nil && self.lastName != nil && self.mediaURL != nil && self.mapString != nil && self.uniqueKey != nil){
+            return true
+        }
+        return false
+    }
 }
