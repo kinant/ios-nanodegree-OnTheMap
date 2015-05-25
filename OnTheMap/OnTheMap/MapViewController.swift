@@ -15,6 +15,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     @IBOutlet weak var map: MKMapView!
     
+    var letRefresh = false
+    var isFinishedLoading = false
+    
     var locations: [OTMStudentLocation] = [OTMStudentLocation]()
     
     override func viewDidLoad() {

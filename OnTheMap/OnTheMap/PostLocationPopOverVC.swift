@@ -12,13 +12,15 @@ import AddressBookUI
 
 class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
 
-    private let locationManager = CLLocationManager()
+    // private let locationManager = CLLocationManager()
     
     @IBOutlet weak var addressText: UITextView!
     @IBOutlet weak var mediaURL: UILabel!
     
     var delegate: MapViewController? = nil
-    var currentLocation:CLLocation!
+    // var currentLocation:CLLocation!
+    var currentPlacemark: MKPlacemark!
+    
     
     var isUpdating = false
     var updatingObjectID = ""
@@ -27,30 +29,20 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     var postLocation: MKPlacemark!
     
+    var manager: OneShotLocationManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        currentLocation = delegate?.map.userLocation.location
+        // locationManager.delegate = self
+        // locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        // locationManager.requestWhenInUseAuthorization()
+        // currentLocation = delegate?.map.userLocation.location
         // locationManager.startUpdatingLocation()
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        
-        let newLocation = manager.location
-        println("New location!")
-        // println(newLocation.coordinate.latitude)
-        // println(newLocation.coordinate.longitude)
-        currentLocation = newLocation
-        
-        return
     }
     
     func getAddress(location: CLLocation) -> String {
@@ -88,19 +80,38 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 let mp = MKPlacemark(placemark: p)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
-                self.getAddress(mp.location!)
+                self.addressText.text = self.getAddress(mp.location!)
             }
         }
     }
     
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
-        // locationManager.startUpdatingLocation()
+        if(currentPlacemark != nil){
+            // self.delegate.removePin()
+        }
+        
+        manager = OneShotLocationManager()
+        manager!.fetchWithCompletion { (location, error) -> () in
+            
+            // fetch location or an error
+            if let loc = location {
+                println(location)
+                let mp = MKPlacemark(coordinate: location!.coordinate, addressDictionary: nil)
+                self.postLocation = mp
+                self.delegate?.addPin(mp)
+                self.addressText.text = self.getAddress(mp.location)
+            } else if let err = error {
+                println(err.localizedDescription)
+            }
+                self.manager = nil
+        }
+        /*
         let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
         postLocation = mp
         self.delegate?.addPin(mp)
         addressText.text = getAddress(currentLocation)
-        // locationManager.stopUpdatingLocation()
+        */
     }
     
     func setURL(urlString: String){
