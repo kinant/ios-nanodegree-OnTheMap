@@ -21,7 +21,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
-            // User is already logged in, do work such as go to next view controller.
+            OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
+            FBLogin()
         }
         else
         {
@@ -51,12 +52,32 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             // Handle cancellations
         }
         else {
+            println(FBSDKAccessToken.currentAccessToken().tokenString)
             println("YOU HAVE LOGGED IN!!")
+            OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
+            FBLogin()
         }
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         println("User Logged Out")
+    }
+    
+    func FBLogin(){
+        OTMClient.sharedInstance().facebookLogin(self, completionHandler: { (success, errorString) -> Void in
+            // if true {
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue()){
+                    self.statusLabel.text = errorString
+                    self.statusLabel.hidden = false
+                }
+            }
+        })
     }
     
     @IBAction func loginButton(sender: AnyObject) {
