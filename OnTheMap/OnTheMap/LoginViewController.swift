@@ -17,7 +17,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         OTMClient.sharedInstance().taskForDelete()
         
@@ -36,15 +35,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        //println("User Logged In")
-        //println(result)
         
         if ((error) != nil)
         {
@@ -54,8 +46,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             // Handle cancellations
         }
         else {
-            //println(FBSDKAccessToken.currentAccessToken().tokenString)
-            //println("YOU HAVE LOGGED IN!!")
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
             login(OTMClient.OTMAPIs.Facebook)
         }
@@ -67,7 +57,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func login(api: OTMClient.OTMAPIs){
         OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
-            // if true {
+            
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController

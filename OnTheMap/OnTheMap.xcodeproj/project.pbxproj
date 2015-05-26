@@ -94,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		686C0F7E1B14F3BE008375E1 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
 		68BE01A21B0E5D7D002B14FA /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +136,6 @@
 			children = (
 				6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */,
 				C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */,
-				6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */,
 				C9AD6C6B1AFD944E00F44698 /* Model */,
 				C9AD6C6F1AFD952500F44698 /* View */,
 				C9AD6C701AFD952D00F44698 /* Controller */,
@@ -166,6 +173,7 @@
 		C9AD6C6B1AFD944E00F44698 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				686C0F7E1B14F3BE008375E1 /* External */,
 				68BE01A21B0E5D7D002B14FA /* Data */,
 				C9AD6C6C1AFD946900F44698 /* Client */,
 			);
