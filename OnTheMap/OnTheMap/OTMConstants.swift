@@ -10,10 +10,9 @@ import Foundation
 
 extension OTMClient {
     
-    struct OTMAPIs {
-        static let FacebookAPI = "Facebook"
-        static let UdacityAPI = "Udacity"
-        static let ParseAPI = "Parse"
+    enum OTMAPIs {
+        case Udacity
+        case Parse
     }
     
     struct UdacityAPIConstants {
