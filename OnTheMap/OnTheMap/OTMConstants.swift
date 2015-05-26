@@ -13,6 +13,7 @@ extension OTMClient {
     enum OTMAPIs {
         case Udacity
         case Parse
+        case Facebook
     }
     
     struct UdacityAPIConstants {

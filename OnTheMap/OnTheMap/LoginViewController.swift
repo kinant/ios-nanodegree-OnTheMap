@@ -22,7 +22,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
-            FBLogin()
+            login(OTMClient.OTMAPIs.Facebook)
         }
         else
         {
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             //println(FBSDKAccessToken.currentAccessToken().tokenString)
             //println("YOU HAVE LOGGED IN!!")
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
-            FBLogin()
+            login(OTMClient.OTMAPIs.Facebook)
         }
     }
     
@@ -63,8 +63,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         println("User Logged Out")
     }
     
-    func FBLogin(){
-        OTMClient.sharedInstance().facebookLogin(self, completionHandler: { (success, errorString) -> Void in
+    func login(api: OTMClient.OTMAPIs){
+        OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
             // if true {
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -81,21 +81,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     @IBAction func loginButton(sender: AnyObject) {
-        OTMClient.sharedInstance().udacityLogin(self,username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
-        
-            // if true {
-            if success {
-                dispatch_async(dispatch_get_main_queue(), {
-                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
-                    self.presentViewController(controller, animated: true, completion: nil)
-                })
-            } else {
-                dispatch_async(dispatch_get_main_queue()){
-                    self.statusLabel.text = errorString
-                    self.statusLabel.hidden = false
-                }
-            }
-        })
+        login(OTMClient.OTMAPIs.Udacity)
     }
 }
 

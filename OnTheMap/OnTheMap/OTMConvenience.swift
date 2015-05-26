@@ -15,9 +15,19 @@ extension OTMClient {
     
     // MARK: - Authentication (POST) Methods
     
-    func udacityLogin(hostViewController: UIViewController, username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         
-        var httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
+        var httpBody:String!
+        
+        switch api {
+        
+        case .Udacity:
+            httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
+        case .Facebook:
+            httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBaccessToken!)\"}}"
+        default:
+            httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
+        }
         
         self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
             
@@ -42,59 +52,7 @@ extension OTMClient {
         })
     }
     
-    func facebookLogin(hostViewController: UIViewController, completionHandler: (success: Bool, errorString: String?) -> Void) {
-        
-        var httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(FBaccessToken!)\"}}"
-        
-        self.getSessionIDFB(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
-            
-            if success {
-                self.sessionID = sessionID!
-                self.userID = userID!
-                
-                println("sessionID: " + sessionID!)
-                println("userID: " + userID!)
-                
-                self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
-                    
-                    if success {
-                        self.student = OTMStudentInformation(userID: self.userID!, fName: fName!, lName: lName!)
-                    }
-                })
-                
-            } else {
-                completionHandler(success: success, errorString: errorString)
-            }
-            completionHandler(success: success, errorString: errorString)
-        })
-    }
-    
-    func getSessionIDFB(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
-        
-        var parameters = [String : AnyObject]()
-        
-        taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
-            
-            if let error = error {
-                completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
-            } else {
-                
-                if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
-                    if let accountDictionary = result.valueForKey("account") as? NSDictionary {
-                        let sessionID = sessionDictionary["id"] as? String
-                        let userID = accountDictionary["key"] as? String
-                        
-                        completionHandler(success: true, sessionID: sessionID, userID: userID, errorString: nil)
-                    }
-                    else {
-                        completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
-                    }
-                } else {
-                    completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
-                }
-            }
-        }
-    }
+
     
     func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
         

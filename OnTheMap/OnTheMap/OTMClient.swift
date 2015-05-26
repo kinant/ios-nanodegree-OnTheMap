@@ -33,7 +33,8 @@ class OTMClient: NSObject {
             // println()
         case .Udacity:
             urlString = baseURL + method
-        
+        default:
+            println()
         }
         
         // println(urlString)
@@ -59,6 +60,8 @@ class OTMClient: NSObject {
         case .Udacity:
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        default:
+            println()
         }
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -104,6 +107,8 @@ class OTMClient: NSObject {
         case .Udacity:
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        default:
+            println()
         }
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
