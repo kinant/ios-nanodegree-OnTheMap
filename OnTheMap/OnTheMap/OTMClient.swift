@@ -30,14 +30,11 @@ class OTMClient: NSObject {
         
         case .Parse:
             urlString = baseURL + "/" + updatingID
-            // println()
         case .Udacity:
             urlString = baseURL + method
         default:
             println()
         }
-        
-        // println(urlString)
         
         let url = NSURL(string: urlString)!
         
@@ -65,8 +62,6 @@ class OTMClient: NSObject {
         }
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
             
             var newData = data
             
@@ -134,7 +129,7 @@ class OTMClient: NSObject {
         
     func taskForDelete(){
         
-        let urlString = "https://api.parse.com/1/classes/StudentLocation/zv4dlZXgEh"
+        let urlString = "https://api.parse.com/1/classes/StudentLocation/SQjcPTowOZ"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         

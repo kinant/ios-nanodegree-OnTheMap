@@ -82,8 +82,6 @@ extension OTMClient {
         
         taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL , method: method, parameters: parameters) { (result, error) -> Void in
             
-            println("user data: \(result)")
-            
             if let error = error {
                 completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
             } else {
@@ -110,10 +108,8 @@ extension OTMClient {
             if let error = error {
                 completionHandler(result: nil, errorString: "Parse API.")
             } else {
-                // println(result)
                 
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
-                    // println(results)
                     var newInformation = OTMStudentLocation.informationFromResults(results)
                     completionHandler(result: newInformation , errorString: nil)
                 }
@@ -166,6 +162,7 @@ extension OTMClient {
                 
                 if resultsDictionary.count > 0 {
                     existingLocation = (resultsDictionary[0]["objectId"] as? String)!
+                    println(existingLocation)
                     locationExits = true
                     completionHandler(exists: true, objectID: existingLocation)
                 }

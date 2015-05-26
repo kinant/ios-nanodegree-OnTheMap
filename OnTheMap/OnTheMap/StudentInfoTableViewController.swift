@@ -44,8 +44,6 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        println("loading more data!!")
-        
         var actualPosition = scrollView.contentOffset.y
         var contentHeight = scrollView.contentSize.height - table.frame.size.height
         
@@ -74,7 +72,6 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
                 
                     dispatch_async(dispatch_get_main_queue()){
                         self.table.reloadData()
-                        println("TOTAL ITEMS: \(self.information.count)")
                     }
                     
                     self.refresh = true

@@ -68,7 +68,6 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        println("finish load")
         self.theBool = true
         self.didStartLoad = false
         backButton.enabled = webView.canGoBack

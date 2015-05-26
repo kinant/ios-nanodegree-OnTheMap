@@ -19,6 +19,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        OTMClient.sharedInstance().taskForDelete()
+        
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString

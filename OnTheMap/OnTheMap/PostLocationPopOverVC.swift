@@ -101,7 +101,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             
             // fetch location or an error
             if let loc = location {
-                println(location)
+                // println(location)
                 let mp = MKPlacemark(coordinate: location!.coordinate, addressDictionary: nil)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
@@ -143,8 +143,6 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         var trimmedMapString = (noNewLineMapString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (result, errorString) -> Void in
-            
-            println(result)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
