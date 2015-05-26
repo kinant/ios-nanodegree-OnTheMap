@@ -13,8 +13,6 @@ import UIKit
 
 extension OTMClient {
     
-    // MARK: - Authentication (POST) Methods
-    
     func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         
         var httpBody:String!
@@ -35,8 +33,6 @@ extension OTMClient {
                 self.sessionID = sessionID!
                 self.userID = userID!
                 
-                // println(userID!)
-                
                 self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
                     
                     if success {
@@ -51,8 +47,6 @@ extension OTMClient {
             completionHandler(success: success, errorString: errorString)
         })
     }
-    
-
     
     func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
         
@@ -111,11 +105,6 @@ extension OTMClient {
             OTMClient.ParseAPIParameters.Skip: skip,
         ]
         
-       // println("WILL LOAD DATA:")
-       // println("Total loaded: \(currentLoadCount)")
-       // println("Limit: \(parameters[OTMClient.ParseAPIParameters.Limit])")
-       // println("Skip: \(parameters[OTMClient.ParseAPIParameters.Skip])")
-        
         taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
@@ -144,11 +133,9 @@ extension OTMClient {
             if let error = error {
                 completionHandler(result: 0, errorString: "Parse API.")
             } else {
-                println(result)
                 
                 if let count = result.valueForKey("count") as? Int {
                     completionHandler(result: count, errorString: nil)
-                    // println(results)
                 }
             }
         }
@@ -161,22 +148,11 @@ extension OTMClient {
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
         taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
-            println(result)
         }
     }
     
-    func updateUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, completionHandler: (result: String?, errorString: String?) -> Void)
-    {
-        var parameters = [String : AnyObject]()
-        
-        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
-        
-    }
-    
     func userLocationExists(completionHandler: (exists: Bool, objectID: String) -> Void) {
-        
-        println("QUERY FOR USER EXISTS!")
-        
+    
         var locationExits = false
         var existingLocation: String = ""
         
@@ -188,10 +164,7 @@ extension OTMClient {
             
             if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
-                println(resultsDictionary)
-                
                 if resultsDictionary.count > 0 {
-                    //println("result already exists!!!")
                     existingLocation = (resultsDictionary[0]["objectId"] as? String)!
                     locationExits = true
                     completionHandler(exists: true, objectID: existingLocation)
