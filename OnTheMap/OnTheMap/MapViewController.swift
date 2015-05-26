@@ -53,7 +53,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                                 }
                             }
                             else {
-                                println("done fetching results!!")
+                                //println("done fetching results!!")
                             }
                         })
                     })

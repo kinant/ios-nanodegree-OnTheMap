@@ -41,8 +41,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        println("User Logged In")
-        println(result)
+        //println("User Logged In")
+        //println(result)
         
         if ((error) != nil)
         {
@@ -52,8 +52,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             // Handle cancellations
         }
         else {
-            println(FBSDKAccessToken.currentAccessToken().tokenString)
-            println("YOU HAVE LOGGED IN!!")
+            //println(FBSDKAccessToken.currentAccessToken().tokenString)
+            //println("YOU HAVE LOGGED IN!!")
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
             FBLogin()
         }

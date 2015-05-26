@@ -52,12 +52,14 @@ extension OTMClient {
                 self.sessionID = sessionID!
                 self.userID = userID!
                 
+                println("sessionID: " + sessionID!)
+                println("userID: " + userID!)
+                
                 self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
                     
                     if success {
                         self.student = OTMStudentInformation(userID: self.userID!, fName: fName!, lName: lName!)
                     }
-                    
                 })
                 
             } else {
@@ -71,7 +73,7 @@ extension OTMClient {
         
         var parameters = [String : AnyObject]()
         
-        taskForPOSTFacebookMethod(OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+        taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
             
             if let error = error {
                 completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
@@ -128,7 +130,7 @@ extension OTMClient {
         
         taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL , method: method, parameters: parameters) { (result, error) -> Void in
             
-            println(result)
+            println("user data: \(result)")
             
             if let error = error {
                 completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
