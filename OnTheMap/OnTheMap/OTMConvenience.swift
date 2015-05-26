@@ -215,12 +215,16 @@ extension OTMClient {
     
     func userLocationExists(completionHandler: (exists: Bool, objectID: String) -> Void) {
         
+        println("QUERY FOR USER EXISTS!")
+        
         var locationExits = false
         var existingLocation: String = ""
         
-        var parameters = [String : AnyObject]()
+        var parameters = [
+            "where": "{\"uniqueKey\":\"\(userID!)\"}"
+        ]
         
-        taskForQuery("", parameters: parameters) { (result, error) -> Void in
+        taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
