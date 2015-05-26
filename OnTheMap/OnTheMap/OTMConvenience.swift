@@ -98,7 +98,7 @@ extension OTMClient {
         
         var parameters = [String : AnyObject]()
         
-        taskForPOSTMethod(OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody) { (result, error) -> Void in
+        taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
             
             if let error = error {
                 completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
@@ -121,13 +121,14 @@ extension OTMClient {
         }
     }
     
-    
     func getUserData(httpBody: String, completionHandler: (success: Bool, fName: String?, lName: String?, errorString: String?) -> Void) {
         
         var parameters = [String : AnyObject]()
         var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
         
-        taskForGetUserMethod(method, parameters: parameters) { (result, error) -> Void in
+        taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL , method: method, parameters: parameters) { (result, error) -> Void in
+            
+            println(result)
             
             if let error = error {
                 completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
@@ -150,12 +151,12 @@ extension OTMClient {
             OTMClient.ParseAPIParameters.Skip: skip,
         ]
         
-       println("WILL LOAD DATA:")
+       // println("WILL LOAD DATA:")
        // println("Total loaded: \(currentLoadCount)")
-       println("Limit: \(parameters[OTMClient.ParseAPIParameters.Limit])")
-       println("Skip: \(parameters[OTMClient.ParseAPIParameters.Skip])")
+       // println("Limit: \(parameters[OTMClient.ParseAPIParameters.Limit])")
+       // println("Skip: \(parameters[OTMClient.ParseAPIParameters.Skip])")
         
-        taskForGetMethod(OTMClient.ParseAPIConstants.BaseURL, parameters: parameters) { (result, error) -> Void in
+        taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
                 completionHandler(result: nil, errorString: "Parse API.")
@@ -178,7 +179,7 @@ extension OTMClient {
             OTMClient.ParseAPIParameters.Skip: 0,
         ]
         
-        taskForGetMethod(OTMClient.ParseAPIConstants.BaseURL, parameters: parameters) { (result, error) -> Void in
+        taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
                 completionHandler(result: 0, errorString: "Parse API.")
@@ -199,12 +200,8 @@ extension OTMClient {
         
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
-        // println(httpBody)
-        
-        // println("{\"uniqueKey\": \"1612749455\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}")
-        
-        taskForPOSTDataMethod("", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
-            // println(result)
+        taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
+            println(result)
         }
     }
     
@@ -216,14 +213,6 @@ extension OTMClient {
         
     }
     
-    func updateLocation(){
-        taskForPUTMethod()
-    }
-    
-    func lookForStudentLocation(){
-        // taskForQuery()
-    }
-    
     func userLocationExists(completionHandler: (exists: Bool, objectID: String) -> Void) {
         
         var locationExits = false
@@ -231,14 +220,7 @@ extension OTMClient {
         
         var parameters = [String : AnyObject]()
         
-        // println()
-        // println()
-        // println()
-        
         taskForQuery("", parameters: parameters) { (result, error) -> Void in
-            
-            // println("attempting to see if results exist!")
-            // println(result)
             
             if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
@@ -254,8 +236,5 @@ extension OTMClient {
         }
         
         completionHandler(exists: false, objectID: "")
-        // println()
-        // println()
-        // println()
     }
 }

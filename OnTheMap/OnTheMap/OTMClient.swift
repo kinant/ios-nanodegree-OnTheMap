@@ -22,44 +22,25 @@ class OTMClient: NSObject {
         super.init()
     }
     
-    func taskForPOSTandPUTDataMethod(api: OTMAPIs, method: String, parameters: [String : AnyObject], httpBody: String, updatingID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-    
-        let urlString = UdacityAPIConstants.BaseURL + UdacityMethods.Session
-        let url = NSURL(string: urlString)!
+    func taskForPOSTandPUTDataMethod(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], httpBody: String, updatingID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
+        var urlString:String!
         
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        switch api {
         
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            // println(NSString(data: newData, encoding: NSUTF8StringEncoding))
-            
-            if error != nil { // Handle error…
-                completionHandler(result: nil, error: error)
-            } else {
-                OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-            }
+        case .Parse:
+            urlString = baseURL + "/" + updatingID
+            println()
+        case .Udacity:
+            urlString = baseURL + method
+        
         }
         
-        task.resume()
+        println(urlString)
         
-        return task
-        
-    }
-    
-    func taskForPOSTDataMethod(method: String, parameters: [String : AnyObject], httpBody: String, updatingID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-    
-        let urlString = ParseAPIConstants.BaseURL + "/" + updatingID
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)
-        
-        // println("posting url: " + urlString)
         
         if(updatingID != "" ) {
             request.HTTPMethod = "PUT"
@@ -69,43 +50,27 @@ class OTMClient: NSObject {
         
         request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
-        request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(OTMClient.ParseAPIConstants.RESTKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        switch api {
+            
+        case .Parse:
+            request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
+            request.addValue(OTMClient.ParseAPIConstants.RESTKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            // let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
-            
-            if error != nil { // Handle error…
-                completionHandler(result: nil, error: error)
-            } else {
-                OTMClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
-            }
+        case .Udacity:
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
-        task.resume()
-        
-        return task
-    
-    }
-    
-    func taskForPOSTMethod(method: String, parameters: [String : AnyObject], httpBody: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
-        let urlString = UdacityAPIConstants.BaseURL + UdacityMethods.Session
-        let url = NSURL(string: urlString)!
-        
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            // println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            
+            var newData = data
+            
+            if(api == OTMAPIs.Udacity)
+            {
+                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            }
             
             if error != nil { // Handle error…
                 completionHandler(result: nil, error: error)
@@ -117,22 +82,32 @@ class OTMClient: NSObject {
         task.resume()
         
         return task
+        
     }
 
-    func taskForGetMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func taskForGETDataMethod(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let urlString = ParseAPIConstants.BaseURL + OTMClient.escapedParameters(parameters)
-        // let urlString = ParseAPIConstants.BaseURL
-
+        let urlString = baseURL + method + OTMClient.escapedParameters(parameters)
+        
+        // println(urlString)
+        
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)
         
-        request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(OTMClient.ParseAPIConstants.RESTKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        switch api {
+            
+        case .Parse:
+            request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
+            request.addValue(OTMClient.ParseAPIConstants.RESTKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+            
+        case .Udacity:
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-        
+            
             // println(NSString(data: data, encoding: NSUTF8StringEncoding))
             
             if error != nil { // Handle error…
@@ -143,61 +118,10 @@ class OTMClient: NSObject {
         }
         
         task.resume()
-    
-        return task
-    }
-    
-    func taskForGetUserMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
-        let urlString = UdacityAPIConstants.BaseURL + method + OTMClient.escapedParameters(parameters)
-        
-        let url = NSURL(string: urlString)!
-        
-        let request = NSMutableURLRequest(URL: url)
-        
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            // println(NSString(data: data, encoding: NSUTF8StringEncoding))
-            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            
-            if error != nil { // Handle error…
-                completionHandler(result: nil, error: error)
-            } else {
-                OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
-            }
-        }
-        
-        task.resume()
         
         return task
     }
     
-    func taskForPUTMethod(){
-        
-        let urlString = "https://api.parse.com/1/classes/StudentLocation/YmM2HdJOCK"
-        let url = NSURL(string: urlString)
-        let request = NSMutableURLRequest(URL: url!)
-        
-        request.HTTPMethod = "PUT"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"1612749455\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Cupertino, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.322998, \"longitude\": -122.032182}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let session = NSURLSession.sharedSession()
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                return
-            }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
-    }
-
     func taskForQuery(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let urlString = "https://api.parse.com/1/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%221612749455%22%7D"
