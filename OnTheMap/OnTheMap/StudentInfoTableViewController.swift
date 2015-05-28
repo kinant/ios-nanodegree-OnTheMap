@@ -74,16 +74,6 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         return true
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-        var actualPosition = scrollView.contentOffset.y
-        var contentHeight = scrollView.contentSize.height - table.frame.size.height
-        
-        if(actualPosition >= contentHeight){
-            // addData()
-        }
-    }
-    
     func addData(){
         
         if(self.refresh){
@@ -95,7 +85,13 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             dispatch_sync(queue) {
                 OTMData.sharedInstance().fetchData(self.count, completionHandler: { (success, result) -> Void in
             
+                    println("RESULT IS: ")
+                    println()
+                    println(result)
+                    println()
+                    
                     if success {
+                        
                         for datum in result {
                             self.information.append(datum)
                             self.count++

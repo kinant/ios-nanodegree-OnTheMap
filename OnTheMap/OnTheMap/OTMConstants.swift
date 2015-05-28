@@ -33,7 +33,7 @@ extension OTMClient {
         static let AppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let RESTKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         static let BaseURL = "https://api.parse.com/1/classes/StudentLocation"
-        static let LimitPerRequest = 10
+        static let LimitPerRequest = 5
     }
     
     struct ParseAPIParameters {

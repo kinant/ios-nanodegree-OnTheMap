@@ -11,33 +11,22 @@ import MapKit
 import AddressBookUI
 
 class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
-
-    // private let locationManager = CLLocationManager()
     
     @IBOutlet weak var addressText: UITextView!
     @IBOutlet weak var mediaURL: UILabel!
     
     var delegate: MapViewController? = nil
-    // var currentLocation:CLLocation!
     var currentPlacemark: MKPlacemark!
-    
     
     var isUpdating = false
     var updatingObjectID = ""
-    
     let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
-    
     var postLocation: MKPlacemark!
-    
     var manager: OneShotLocationManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // locationManager.delegate = self
-        // locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        // locationManager.requestWhenInUseAuthorization()
-        // currentLocation = delegate?.map.userLocation.location
-        // locationManager.startUpdatingLocation()
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -113,6 +113,7 @@ class OTMClient: NSObject {
             if(api == OTMAPIs.Udacity)
             {
                 newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                println(NSString(data: newData, encoding: NSUTF8StringEncoding))
             }
             
             if error != nil { // Handle error…

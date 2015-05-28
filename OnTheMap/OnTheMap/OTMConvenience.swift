@@ -85,7 +85,7 @@ extension OTMClient {
             if let error = error {
                 completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
             } else {
-                
+                // println(result)
                 if let resultDictionary = result["user"] as? NSDictionary {
                     var firstName = resultDictionary["first_name"] as? String
                     var lastName = resultDictionary["last_name"] as? String
