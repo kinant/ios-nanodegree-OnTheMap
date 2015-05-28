@@ -12,6 +12,8 @@
 		6818F1C71B13CE35008ECE74 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6818F1C51B13CE35008ECE74 /* FBSDKLoginKit.framework */; };
 		68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */; };
 		68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE01A31B0E5D92002B14FA /* OTMData.swift */; };
+		68FB86161B176BA600E133ED /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB86151B176BA600E133ED /* Utility.swift */; };
+		68FB86191B17723800E133ED /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 68FB86181B17723800E133ED /* loading.gif */; };
 		C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C970E4BD1B03C13F00F583E2 /* Images.xcassets */; };
 		C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */; };
 		C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */; };
@@ -49,6 +51,8 @@
 		6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentLocation.swift; sourceTree = "<group>"; };
 		68BE01A31B0E5D92002B14FA /* OTMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMData.swift; sourceTree = "<group>"; };
+		68FB86151B176BA600E133ED /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		68FB86181B17723800E133ED /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		C970E4BD1B03C13F00F583E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9AD6C461AFD8F8000F44698 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD6C4A1AFD8F8000F44698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +114,14 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		68FB86171B17722E00E133ED /* img */ = {
+			isa = PBXGroup;
+			children = (
+				68FB86181B17723800E133ED /* loading.gif */,
+			);
+			name = img;
+			sourceTree = "<group>";
+		};
 		C9AD6C3D1AFD8F8000F44698 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +148,7 @@
 			children = (
 				6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */,
 				C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */,
+				68FB86151B176BA600E133ED /* Utility.swift */,
 				C9AD6C6B1AFD944E00F44698 /* Model */,
 				C9AD6C6F1AFD952500F44698 /* View */,
 				C9AD6C701AFD952D00F44698 /* Controller */,
@@ -147,6 +160,7 @@
 		C9AD6C491AFD8F8000F44698 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				68FB86171B17722E00E133ED /* img */,
 				C9AD6C4A1AFD8F8000F44698 /* Info.plist */,
 				C9AD6C6E1AFD94DE00F44698 /* Storyboard */,
 			);
@@ -321,6 +335,7 @@
 				C9EA97091B02C11300370001 /* WebViewPopOverVC.xib in Resources */,
 				C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */,
 				C9AD6C511AFD8F8000F44698 /* Main.storyboard in Resources */,
+				68FB86191B17723800E133ED /* loading.gif in Resources */,
 				C9EA97031B02755700370001 /* PostLocationPopOverVC.xib in Resources */,
 				C9AD6C561AFD8F8000F44698 /* LaunchScreen.xib in Resources */,
 			);
@@ -345,6 +360,7 @@
 				C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */,
 				C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */,
 				C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */,
+				68FB86161B176BA600E133ED /* Utility.swift in Sources */,
 				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,

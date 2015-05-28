@@ -16,23 +16,49 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     var information: [OTMStudentLocation] = [OTMStudentLocation]()
     var count = 0
     
+    override func viewDidLoad() {
+        // table.estimatedRowHeight = 120;
+        // table.rowHeight = UITableViewAutomaticDimension
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
         addData()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.information.count
+        return self.information.count + 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
-        let datum = self.information[indexPath.row]
         
-        // Set the name and image
-        if datum.isValid(){
-            cell.textLabel?.text = (datum.firstName + datum.lastName)
-            cell.detailTextLabel?.text = datum.mediaURL
+        var cell: UITableViewCell
+        
+        println("indexPath.row: \(indexPath.row)")
+        println("self.information.count-1: \(self.information.count - 1)")
+        
+        if(indexPath.row == self.information.count)
+        {
+            cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! UITableViewCell
+            
+            if(self.information.count != 0){
+                delay(2.4){
+                    println("adding data!")
+                    self.addData()
+                }
+            }
+            
+        } else {
+        
+            cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
+            
+            let datum = self.information[indexPath.row]
+        
+            // Set the name and image
+            if datum.isValid(){
+                cell.textLabel?.text = (datum.firstName + datum.lastName)
+                cell.detailTextLabel?.text = datum.mediaURL
+            }
         }
         
         return cell
@@ -48,7 +74,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         var contentHeight = scrollView.contentSize.height - table.frame.size.height
         
         if(actualPosition >= contentHeight){
-            addData()
+            // addData()
         }
     }
     

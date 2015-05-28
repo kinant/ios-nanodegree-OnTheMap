@@ -131,6 +131,7 @@ extension OTMClient {
             } else {
                 
                 if let count = result.valueForKey("count") as? Int {
+                    println("count is: \(count)")
                     completionHandler(result: count, errorString: nil)
                 }
             }
