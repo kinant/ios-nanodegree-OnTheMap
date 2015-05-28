@@ -14,6 +14,8 @@
 		68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE01A31B0E5D92002B14FA /* OTMData.swift */; };
 		68FB86161B176BA600E133ED /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB86151B176BA600E133ED /* Utility.swift */; };
 		68FB86191B17723800E133ED /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 68FB86181B17723800E133ED /* loading.gif */; };
+		68FB861B1B1782E500E133ED /* CustomLoadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */; };
+		68FB861D1B1788F600E133ED /* CustomStudentLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */; };
 		C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C970E4BD1B03C13F00F583E2 /* Images.xcassets */; };
 		C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */; };
 		C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */; };
@@ -53,6 +55,8 @@
 		68BE01A31B0E5D92002B14FA /* OTMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMData.swift; sourceTree = "<group>"; };
 		68FB86151B176BA600E133ED /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		68FB86181B17723800E133ED /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadTableViewCell.swift; sourceTree = "<group>"; };
+		68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStudentLocationCell.swift; sourceTree = "<group>"; };
 		C970E4BD1B03C13F00F583E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9AD6C461AFD8F8000F44698 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD6C4A1AFD8F8000F44698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */,
+				68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */,
+				68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */,
 				C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */,
 				68FB86161B176BA600E133ED /* Utility.swift in Sources */,
+				68FB861B1B1782E500E133ED /* CustomLoadTableViewCell.swift in Sources */,
 				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
@@ -368,6 +375,7 @@
 				C9AD6C761AFD968B00F44698 /* OTMConstants.swift in Sources */,
 				C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */,
 				6818F1C31B13C103008ECE74 /* OneShotLocationManager.swift in Sources */,
+				68FB861D1B1788F600E133ED /* CustomStudentLocationCell.swift in Sources */,
 				C9EA96FF1B02575C00370001 /* StudentInfoTableViewController.swift in Sources */,
 				C9EA97021B02755700370001 /* PostLocationPopOverVC.swift in Sources */,
 			);

@@ -16,9 +16,15 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     var information: [OTMStudentLocation] = [OTMStudentLocation]()
     var count = 0
     
+    func addBottomRow()
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
+        // table.
+    }
+    
     override func viewDidLoad() {
-        // table.estimatedRowHeight = 120;
-        // table.rowHeight = UITableViewAutomaticDimension
+        table.estimatedRowHeight = 120;
+        table.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -32,36 +38,36 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell
-        
         println("indexPath.row: \(indexPath.row)")
         println("self.information.count-1: \(self.information.count - 1)")
         
         if(indexPath.row == self.information.count)
         {
-            cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! UITableViewCell
-            
+            let cell1 = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
+            cell1.activityIndicator.startAnimating()
             if(self.information.count != 0){
                 delay(2.4){
                     println("adding data!")
                     self.addData()
+                    cell1.activityIndicator.stopAnimating()
                 }
             }
             
+            return cell1
+            
         } else {
         
-            cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
+            let cell2 = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
             
             let datum = self.information[indexPath.row]
         
             // Set the name and image
             if datum.isValid(){
-                cell.textLabel?.text = (datum.firstName + datum.lastName)
-                cell.detailTextLabel?.text = datum.mediaURL
+                cell2.textLabel?.text = (datum.firstName + datum.lastName)
+                cell2.detailTextLabel?.text = datum.mediaURL
             }
+            return cell2
         }
-        
-        return cell
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
