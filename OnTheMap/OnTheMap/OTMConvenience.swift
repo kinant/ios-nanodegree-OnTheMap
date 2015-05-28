@@ -166,10 +166,11 @@ extension OTMClient {
                     println(existingLocation)
                     locationExits = true
                     completionHandler(exists: true, objectID: existingLocation)
+                    return
+                } else {
+                    completionHandler(exists: false, objectID: "")
                 }
             }
         }
-        
-        completionHandler(exists: false, objectID: "")
     }
 }

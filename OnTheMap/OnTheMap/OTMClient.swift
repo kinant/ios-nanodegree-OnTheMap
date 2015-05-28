@@ -130,7 +130,7 @@ class OTMClient: NSObject {
         
     func taskForDelete(){
         
-        let urlString = "https://api.parse.com/1/classes/StudentLocation/SQjcPTowOZ"
+        let urlString = "https://api.parse.com/1/classes/StudentLocation/vXGErgyuO6"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         
@@ -183,6 +183,22 @@ class OTMClient: NSObject {
         }
         
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+    }
+    
+    func showAlert(view: UIViewController, title: String, message: String, actions: [String] , completionHandler: (choice: String?) -> Void ){
+        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+            completionHandler(choice: "OK")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+            completionHandler(choice: "Cancel")
+        }))
+        
+        dispatch_async(dispatch_get_main_queue()){
+            view.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */

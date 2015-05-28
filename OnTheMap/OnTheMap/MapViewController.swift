@@ -105,6 +105,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     @IBAction func postLocation(sender: UIButton) {
         
+        println("clicked on post!!!")
+        
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         // postVC.preferredContentSize = self.view.frame.size
         
@@ -112,13 +114,28 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         
         // check if user location already exists
         OTMClient.sharedInstance().userLocationExists { (exists, objectID) -> Void in
+            
+            println(exists)
+            
             if exists {
-                self.postVC.isUpdating = true
-                self.postVC.updatingObjectID = objectID
+                OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
+                    
+                    if(choice == "OK"){
+                        self.postVC.isUpdating = true
+                        self.postVC.updatingObjectID = objectID
+                        self.presentViewController(self.postVC, animated: true, completion: nil)
+                    }
+                })
+            } else {
+                println("SHOULD TRY TO POST!!")
+                self.postVC.isUpdating = false
+                self.postVC.updatingObjectID = ""
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    self.presentViewController(self.postVC, animated: true, completion: nil)
+                }
             }
         }
-        
-        presentViewController(postVC, animated: true, completion: nil)
     }
 }
 
