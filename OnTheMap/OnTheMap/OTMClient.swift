@@ -130,7 +130,7 @@ class OTMClient: NSObject {
         
     func taskForDelete(){
         
-        let urlString = "https://api.parse.com/1/classes/StudentLocation/vXGErgyuO6"
+        let urlString = "https://api.parse.com/1/classes/StudentLocation/f9eiKsc4bb"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         

@@ -15,6 +15,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var addressText: UITextView!
     @IBOutlet weak var mediaURL: UILabel!
     
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var delegate: MapViewController? = nil
     var currentPlacemark: MKPlacemark!
     
@@ -26,6 +29,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.hidesWhenStopped = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +42,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         let loc = location
         let geo = CLGeocoder()
         
+        activityIndicator.startAnimating()
+        
         geo.reverseGeocodeLocation(location) {
             (placemarks: [AnyObject]!, error: NSError!) in
             
@@ -48,6 +54,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 
                 self.addressText.text = s
             }
+            self.activityIndicator.stopAnimating()
         }
         
         return self.addressText.text
@@ -55,6 +62,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func findLocation(sender: AnyObject) {
     
+        activityIndicator.startAnimating()
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
         }
@@ -75,10 +83,14 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 self.addressText.text = self.getAddress(mp.location!)
                 self.currentPlacemark = mp
             }
+            self.activityIndicator.stopAnimating()
         }
+        
     }
     
     @IBAction func useCurrentLocation(sender: AnyObject) {
+        
+        activityIndicator.startAnimating()
         
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
@@ -98,8 +110,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             } else if let err = error {
                 println(err.localizedDescription)
             }
-                self.manager = nil
+            self.manager = nil
+            self.activityIndicator.stopAnimating()
         }
+        
         /*
         let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
         postLocation = mp
