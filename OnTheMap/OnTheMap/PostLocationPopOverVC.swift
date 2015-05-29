@@ -15,9 +15,6 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var addressText: UITextView!
     @IBOutlet weak var mediaURL: UILabel!
     
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     var delegate: MapViewController? = nil
     var currentPlacemark: MKPlacemark!
     
@@ -29,7 +26,13 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.activityIndicator.hidesWhenStopped = true
+        
+        var images = [UIImage]()
+        
+        for(var i = 1; i < 8; i++){
+            var newImage = UIImage(named: "spongebob_search\(i).png")!
+            images.append(newImage)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +45,6 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         let loc = location
         let geo = CLGeocoder()
         
-        activityIndicator.startAnimating()
-        
         geo.reverseGeocodeLocation(location) {
             (placemarks: [AnyObject]!, error: NSError!) in
             
@@ -54,15 +55,15 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 
                 self.addressText.text = s
             }
-            self.activityIndicator.stopAnimating()
         }
         
         return self.addressText.text
     }
     
     @IBAction func findLocation(sender: AnyObject) {
-    
-        activityIndicator.startAnimating()
+        
+        SwiftSpinner.show("Searching for location ... ", description: "", animated: true)
+        
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
         }
@@ -74,23 +75,28 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             (placemarks: [AnyObject]!, error: NSError!) in
             
             if nil == placemarks {
+                SwiftSpinner.show("Location not found ... ", description: error.localizedDescription, animated: false)
                 println(error.localizedDescription)
             } else {
+                SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let p = placemarks[0] as? CLPlacemark
                 let mp = MKPlacemark(placemark: p)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
                 self.addressText.text = self.getAddress(mp.location!)
                 self.currentPlacemark = mp
+                
+                delay(0.5){
+                    SwiftSpinner.hide()
+                }
             }
-            self.activityIndicator.stopAnimating()
         }
         
     }
     
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
-        activityIndicator.startAnimating()
+        SwiftSpinner.show("Getting current location... ", description: "", animated: true)
         
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
@@ -101,25 +107,23 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             
             // fetch location or an error
             if let loc = location {
-                // println(location)
+                SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let mp = MKPlacemark(coordinate: location!.coordinate, addressDictionary: nil)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
                 self.addressText.text = self.getAddress(mp.location)
                 self.currentPlacemark = mp
+                
+                delay(0.5){
+                    SwiftSpinner.hide()
+                }
+                
             } else if let err = error {
+                SwiftSpinner.show("Location not found ... ", description: err.localizedDescription, animated: false)
                 println(err.localizedDescription)
             }
             self.manager = nil
-            self.activityIndicator.stopAnimating()
         }
-        
-        /*
-        let mp = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
-        postLocation = mp
-        self.delegate?.addPin(mp)
-        addressText.text = getAddress(currentLocation)
-        */
     }
     
     func setURL(urlString: String){
