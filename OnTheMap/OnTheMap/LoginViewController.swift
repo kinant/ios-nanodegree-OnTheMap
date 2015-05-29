@@ -56,6 +56,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func login(api: OTMClient.OTMAPIs){
+        
+        SwiftSpinner.show("Loging in", description: "", animated: true)
+        
         OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
             
             println("Finished trying to log in!")
@@ -70,6 +73,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.statusLabel.text = errorString
                     self.statusLabel.hidden = false
                     
+                    SwiftSpinner.show("Failed to log in ...", description: errorString!, animated: false)
+                    
+                    delay(2.0){
+                        // SwiftSpinner.hide()
+                    }
                     // OTMClient.sharedInstance().showAlert(self, title: "Error", message: errorString!, actions: ["OK"], completionHandler: { (choice) -> Void in
                         
                     //})
