@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6818F1C31B13C103008ECE74 /* OneShotLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */; };
-		6818F1C61B13CE35008ECE74 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6818F1C41B13CE35008ECE74 /* FBSDKCoreKit.framework */; };
-		6818F1C71B13CE35008ECE74 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6818F1C51B13CE35008ECE74 /* FBSDKLoginKit.framework */; };
 		68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */; };
 		68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE01A31B0E5D92002B14FA /* OTMData.swift */; };
 		68FB86161B176BA600E133ED /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB86151B176BA600E133ED /* Utility.swift */; };
 		68FB86191B17723800E133ED /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 68FB86181B17723800E133ED /* loading.gif */; };
 		68FB861B1B1782E500E133ED /* CustomLoadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */; };
 		68FB861D1B1788F600E133ED /* CustomStudentLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */; };
+		C925C6E31B17F6DD008D6767 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C925C6E21B17F6DD008D6767 /* FBSDKCoreKit.framework */; };
+		C925C6E51B17F6E7008D6767 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C925C6E41B17F6E7008D6767 /* FBSDKLoginKit.framework */; };
 		C970E4BE1B03C13F00F583E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C970E4BD1B03C13F00F583E2 /* Images.xcassets */; };
 		C9AD6C4C1AFD8F8000F44698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4B1AFD8F8000F44698 /* AppDelegate.swift */; };
 		C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */; };
@@ -48,8 +48,6 @@
 
 /* Begin PBXFileReference section */
 		6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneShotLocationManager.swift; sourceTree = "<group>"; };
-		6818F1C41B13CE35008ECE74 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		6818F1C51B13CE35008ECE74 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentLocation.swift; sourceTree = "<group>"; };
 		68BE01A31B0E5D92002B14FA /* OTMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMData.swift; sourceTree = "<group>"; };
@@ -57,6 +55,8 @@
 		68FB86181B17723800E133ED /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadTableViewCell.swift; sourceTree = "<group>"; };
 		68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomStudentLocationCell.swift; sourceTree = "<group>"; };
+		C925C6E21B17F6DD008D6767 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		C925C6E41B17F6E7008D6767 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		C970E4BD1B03C13F00F583E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9AD6C461AFD8F8000F44698 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AD6C4A1AFD8F8000F44698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,8 +87,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9EA97051B02B99E00370001 /* MapKit.framework in Frameworks */,
-				6818F1C61B13CE35008ECE74 /* FBSDKCoreKit.framework in Frameworks */,
-				6818F1C71B13CE35008ECE74 /* FBSDKLoginKit.framework in Frameworks */,
+				C925C6E31B17F6DD008D6767 /* FBSDKCoreKit.framework in Frameworks */,
+				C925C6E51B17F6E7008D6767 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,8 +129,8 @@
 		C9AD6C3D1AFD8F8000F44698 = {
 			isa = PBXGroup;
 			children = (
-				6818F1C41B13CE35008ECE74 /* FBSDKCoreKit.framework */,
-				6818F1C51B13CE35008ECE74 /* FBSDKLoginKit.framework */,
+				C925C6E41B17F6E7008D6767 /* FBSDKLoginKit.framework */,
+				C925C6E21B17F6DD008D6767 /* FBSDKCoreKit.framework */,
 				C9EA97041B02B99E00370001 /* MapKit.framework */,
 				C9AD6C481AFD8F8000F44698 /* OnTheMap */,
 				C9AD6C5E1AFD8F8000F44698 /* OnTheMapTests */,
@@ -234,7 +234,6 @@
 		C9AD6C6F1AFD952500F44698 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */,
 				68FB861A1B1782E500E133ED /* CustomLoadTableViewCell.swift */,
 				68FB861C1B1788F600E133ED /* CustomStudentLocationCell.swift */,
 			);
@@ -244,6 +243,7 @@
 		C9AD6C701AFD952D00F44698 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */,
 				C9EA97061B02C11300370001 /* WebViewPopOverVC.swift */,
 				C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */,
 				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
@@ -509,6 +509,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kt/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -527,6 +528,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/kt/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

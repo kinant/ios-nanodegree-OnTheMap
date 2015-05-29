@@ -15,6 +15,8 @@ extension OTMClient {
     
     func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         
+        println("In logging in!!!")
+        
         var httpBody:String!
         
         switch api {
@@ -28,6 +30,8 @@ extension OTMClient {
         }
         
         self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
+            
+            println("Finished trying to get session ID!")
             
             if success {
                 self.sessionID = sessionID!
@@ -50,12 +54,19 @@ extension OTMClient {
     
     func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
         
+        println("IN GET SESSION ID!!")
+        
         var parameters = [String : AnyObject]()
         
         taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
             
+            // println("1" + error!.localizedDescription)
+            // println("2  /(error!.localizedRecoveryOptions)")
+            // println("3" + error!.localizedRecoveryOptions)
+            // println("4" + error!.localizedFailureReason)
+            
             if let error = error {
-                completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+                completionHandler(success: false, sessionID: nil, userID: nil, errorString: error.localizedDescription)
             } else {
                 
                 if let sessionDictionary = result.valueForKey("session") as? NSDictionary {

@@ -58,6 +58,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func login(api: OTMClient.OTMAPIs){
         OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
             
+            println("Finished trying to log in!")
+            
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
@@ -67,6 +69,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 dispatch_async(dispatch_get_main_queue()){
                     self.statusLabel.text = errorString
                     self.statusLabel.hidden = false
+                    
+                    // OTMClient.sharedInstance().showAlert(self, title: "Error", message: errorString!, actions: ["OK"], completionHandler: { (choice) -> Void in
+                        
+                    //})
                 }
             }
         })

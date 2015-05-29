@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Kinan Turjman. All rights reserved.
 //
 
+// println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+
 import Foundation
 
 class OTMClient: NSObject {
@@ -65,22 +67,27 @@ class OTMClient: NSObject {
             
             var newData = data
             
-            if(api == OTMAPIs.Udacity)
-            {
-                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            }
-            
             if error != nil { // Handle error…
+                var newError = OTMClient.errorForData(data, response: response, error: error)
                 completionHandler(result: nil, error: error)
             } else {
-                OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                
+                if(api == OTMAPIs.Udacity)
+                {
+                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                }
+                
+                if let serverError = OTMClient.returnStatusError(newData) {
+                    completionHandler(result: nil, error: serverError)
+                } else {
+                    OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                }
             }
         }
         
         task.resume()
         
         return task
-        
     }
 
     func taskForGETDataMethod(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
@@ -113,11 +120,13 @@ class OTMClient: NSObject {
             if(api == OTMAPIs.Udacity)
             {
                 newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                
             }
             
             if error != nil { // Handle error…
-                completionHandler(result: nil, error: error)
+                println("there was an error!")
+                var thisError = OTMClient.errorForData(newData, response: response, error: error)
+                // completionHandler(result: nil, error: thisError)
             } else {
                 OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
             }
@@ -188,21 +197,40 @@ class OTMClient: NSObject {
     func showAlert(view: UIViewController, title: String, message: String, actions: [String] , completionHandler: (choice: String?) -> Void ){
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-            completionHandler(choice: "OK")
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-            completionHandler(choice: "Cancel")
-        }))
+        for action in actions {
+            alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                completionHandler(choice: action)
+            }))
+        }
         
         dispatch_async(dispatch_get_main_queue()){
             view.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
+    class func returnStatusError(data: NSData?) -> NSError? {
+        var newError:NSError!
+        
+        println(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        
+        if let parsedResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) {
+            
+            if let errorMessage = parsedResult.valueForKey("error") as? String {
+                let userInfo = [NSLocalizedDescriptionKey : errorMessage]
+                
+                if let code = parsedResult.valueForKey("status") as? Int {
+                    newError = NSError(domain: "OTM Server Error", code: code, userInfo: userInfo)
+                }
+            }
+        }
+        
+        return newError
+    }
+    
     /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
     class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
+        
+        println("in here!")
         
         if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
             

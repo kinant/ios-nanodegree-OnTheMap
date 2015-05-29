@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="d1K-s4-vxY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="d1K-s4-vxY">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Login-->
@@ -23,8 +23,8 @@
                                     <constraint firstAttribute="height" constant="100" id="uuA-Qr-yz1"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msr-0e-VoC">
-                                <rect key="frame" x="300" y="451" width="0.0" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msr-0e-VoC">
+                                <rect key="frame" x="137" y="416" width="360" height="136"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -68,6 +68,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="FVM-9F-YYd" secondAttribute="centerX" constant="-0.5" id="5mU-KK-o53"/>
                             <constraint firstAttribute="centerX" secondItem="YY7-iV-qDR" secondAttribute="centerX" constant="-0.5" id="8N5-nB-hZO"/>
+                            <constraint firstItem="Ny6-Nm-uTo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Msr-0e-VoC" secondAttribute="bottom" constant="48" id="Ce4-At-vSD"/>
                             <constraint firstAttribute="centerX" secondItem="Pvw-3Q-L32" secondAttribute="centerX" id="Rhg-1i-moI"/>
                             <constraint firstItem="yeW-2n-LI8" firstAttribute="top" secondItem="hIO-xg-qX4" secondAttribute="bottom" constant="80" id="Tve-cr-whO"/>
                             <constraint firstItem="Msr-0e-VoC" firstAttribute="top" secondItem="VUb-MY-CQQ" secondAttribute="bottom" constant="67" id="ULX-VW-PBZ"/>
