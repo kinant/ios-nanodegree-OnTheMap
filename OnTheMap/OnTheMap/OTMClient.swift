@@ -68,7 +68,7 @@ class OTMClient: NSObject {
             var newData = data
             
             if error != nil { // Handle error…
-                var newError = OTMClient.errorForData(data, response: response, error: error)
+                // var newError = OTMClient.errorForData(data, response: response, error: error)
                 completionHandler(result: nil, error: error)
             } else {
                 
@@ -77,7 +77,7 @@ class OTMClient: NSObject {
                     newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 }
                 
-                if let serverError = OTMClient.returnStatusError(newData) {
+                if let serverError = OTMClient.returnStatusError(OTMAPIs.Udacity, data: newData) {
                     completionHandler(result: nil, error: serverError)
                 } else {
                     OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
@@ -125,7 +125,7 @@ class OTMClient: NSObject {
             
             if error != nil { // Handle error…
                 println("there was an error!")
-                var thisError = OTMClient.errorForData(newData, response: response, error: error)
+                // var thisError = OTMClient.errorForData(newData, response: response, error: error)
                 // completionHandler(result: nil, error: thisError)
             } else {
                 OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
@@ -208,7 +208,7 @@ class OTMClient: NSObject {
         }
     }
     
-    class func returnStatusError(data: NSData?) -> NSError? {
+    class func returnStatusError(api: OTMAPIs, data: NSData?) -> NSError? {
         var newError:NSError!
         
         println(NSString(data: data!, encoding: NSUTF8StringEncoding))
@@ -218,31 +218,21 @@ class OTMClient: NSObject {
             if let errorMessage = parsedResult.valueForKey("error") as? String {
                 let userInfo = [NSLocalizedDescriptionKey : errorMessage]
                 
-                if let code = parsedResult.valueForKey("status") as? Int {
-                    newError = NSError(domain: "OTM Server Error", code: code, userInfo: userInfo)
+                if (api == OTMAPIs.Parse){
+                    if let parseStatusCode = parsedResult.valueForKey("code") as? Int {
+                        newError = NSError(domain: "OTM Udacity API Error", code: parseStatusCode, userInfo: userInfo)
+                    }
+                } else {
+                    if let udacityStatusCode = parsedResult.valueForKey("status") as? Int {
+                        newError = NSError(domain: "OTM Parse API Error", code: udacityStatusCode, userInfo: userInfo)
+                    }
                 }
             }
         }
         
+        println(newError)
+        
         return newError
-    }
-    
-    /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
-    class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
-        
-        println("in here!")
-        
-        if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
-            
-            if let errorMessage = parsedResult["status"] as? String {
-                
-                let userInfo = [NSLocalizedDescriptionKey : errorMessage]
-                
-                return NSError(domain: "OTM Error", code: 1, userInfo: userInfo)
-            }
-        }
-        
-        return error
     }
     
     // MARK: - Shared Instance
