@@ -12,7 +12,7 @@ class OTMData: NSObject {
 
     var locationsList = [OTMStudentLocation]()
     
-    func fetchData(view: UIViewController, skip: Int, completionHandler: (success: Bool, result: [OTMStudentLocation]) -> Void){
+    func fetchData(view: UIViewController, skip: Int, completionHandler: (result: [OTMStudentLocation]?) -> Void){
         
         OTMClient.sharedInstance().fetchLocations(skip) { (result, error) -> Void in
             
@@ -22,23 +22,19 @@ class OTMData: NSObject {
             
                 if view.presentedViewController == nil {
                     OTMClient.sharedInstance().showAlert(view, title: dataError.domain, message: dataError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
-                    
+                            println("OK!!!")
                     })
                 }
             }
             
             if let fetchedData = result {
-                
                 if(result!.count > 0){
                     for datum in fetchedData {
                         self.locationsList.append(datum)
                     }
-                    
-                    completionHandler(success: true, result: self.locationsList)
-                } else {
-                    completionHandler(success: false, result: self.locationsList)
-                    println("no more results!")
                 }
+                
+                completionHandler(result: self.locationsList)
             }
         }
     }

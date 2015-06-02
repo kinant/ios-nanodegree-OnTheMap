@@ -51,9 +51,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                     for(var i = 0; i <= counter; i++){
                         dispatch_sync(queue, {
                         
-                            OTMData.sharedInstance().fetchData(self, skip: i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (success, result) -> Void in
-                                if(success){
-                                    self.locations = result
+                            OTMData.sharedInstance().fetchData(self, skip: i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (result) -> Void in
+                                
+                                if let locations = result {
+                                    self.locations = locations
                                 
                                     for location in self.locations {
                                         dispatch_async(dispatch_get_main_queue()){
