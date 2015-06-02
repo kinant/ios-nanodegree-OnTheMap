@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
                     SwiftSpinner.hide()
-                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("NavigationView") as! UINavigationController
                     self.presentViewController(controller, animated: true, completion: nil)
                 })
             } else {

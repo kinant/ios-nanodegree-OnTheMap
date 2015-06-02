@@ -10,6 +10,8 @@
 		6818F1C31B13C103008ECE74 /* OneShotLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */; };
 		687B77271B18AF3300FCB49A /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B77261B18AF3300FCB49A /* SwiftSpinner.swift */; };
 		6898CC881B1E07CF00A57FA8 /* PopUpMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6898CC871B1E07CF00A57FA8 /* PopUpMenuVC.xib */; };
+		6898CC8E1B1E2DDE00A57FA8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6898CC8D1B1E2DDE00A57FA8 /* TabBarViewController.swift */; };
+		6898CC901B1E374A00A57FA8 /* MenuPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6898CC8F1B1E374A00A57FA8 /* MenuPopOverVC.swift */; };
 		68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */; };
 		68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE01A31B0E5D92002B14FA /* OTMData.swift */; };
 		68FB86161B176BA600E133ED /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB86151B176BA600E133ED /* Utility.swift */; };
@@ -53,6 +55,8 @@
 		6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		687B77261B18AF3300FCB49A /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		6898CC871B1E07CF00A57FA8 /* PopUpMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpMenuVC.xib; sourceTree = "<group>"; };
+		6898CC8D1B1E2DDE00A57FA8 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		6898CC8F1B1E374A00A57FA8 /* MenuPopOverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPopOverVC.swift; sourceTree = "<group>"; };
 		68AB3DB61B066E15005A7766 /* OTMStudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMStudentLocation.swift; sourceTree = "<group>"; };
 		68BE01A31B0E5D92002B14FA /* OTMData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMData.swift; sourceTree = "<group>"; };
 		68FB86151B176BA600E133ED /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -249,11 +253,13 @@
 		C9AD6C701AFD952D00F44698 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6898CC8D1B1E2DDE00A57FA8 /* TabBarViewController.swift */,
 				C9AD6C4D1AFD8F8000F44698 /* LoginViewController.swift */,
 				C9EA97061B02C11300370001 /* WebViewPopOverVC.swift */,
 				C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */,
 				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
 				C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */,
+				6898CC8F1B1E374A00A57FA8 /* MenuPopOverVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -371,10 +377,12 @@
 				C9D9E3071B0128E600F99307 /* MapViewController.swift in Sources */,
 				C9EA97081B02C11300370001 /* WebViewPopOverVC.swift in Sources */,
 				C9D9E3091B01294900F99307 /* OTMAnnotation.swift in Sources */,
+				6898CC901B1E374A00A57FA8 /* MenuPopOverVC.swift in Sources */,
 				C9AD6C741AFD967300F44698 /* OTMConvenience.swift in Sources */,
 				C9AD6C781AFD96FF00F44698 /* OTMStudentInformation.swift in Sources */,
 				68FB86161B176BA600E133ED /* Utility.swift in Sources */,
 				68FB861B1B1782E500E133ED /* CustomLoadTableViewCell.swift in Sources */,
+				6898CC8E1B1E2DDE00A57FA8 /* TabBarViewController.swift in Sources */,
 				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
