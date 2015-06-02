@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        OTMClient.sharedInstance().taskForDelete()
+        // OTMClient.sharedInstance().taskForDelete()
         
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {

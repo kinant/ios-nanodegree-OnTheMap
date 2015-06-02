@@ -16,8 +16,9 @@ class OTMClient: NSObject {
     var userID: String? = nil
     var sessionID: String? = nil
     var currentLoadCount = 0
-    var student: OTMStudentInformation!
+    var student: OTMStudentInformation? = nil
     var FBaccessToken: String? = nil
+    var signInMethod: OTMAPIs!
     
     override init() {
         session = NSURLSession.sharedSession()
@@ -146,26 +147,40 @@ class OTMClient: NSObject {
         return task
     }
         
-    func taskForDelete(){
+    func taskForDelete(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let urlString = "https://api.parse.com/1/classes/StudentLocation/f9eiKsc4bb"
+        let urlString = baseURL + method
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         
         request.HTTPMethod = "DELETE"
         
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        if(api == OTMAPIs.Udacity){
+            var xsrfCookie: NSHTTPCookie? = nil
+            let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
         
+            for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+            }
+            if let xsrfCookie = xsrfCookie {
+                request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
+            }
+        } else if api == OTMAPIs.Parse {
+            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+            request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        }
+            
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
-                return
+                completionHandler(success: false, error: error)
             }
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
+            completionHandler(success: true, error: nil)
         }
         task.resume()
+        
+        return task
     }
     
     /* Helper: Given raw JSON, return a usable Foundation object */

@@ -186,5 +186,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             }
         }
     }
+    
+    @IBAction func logout(sender: AnyObject) {
+        OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success) -> Void in
+            
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            
+            if(success) {
+                
+                let loginVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                self.presentViewController(loginVC, animated: true, completion: nil)
+            }
+        })
+    }
 }
-

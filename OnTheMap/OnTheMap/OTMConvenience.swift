@@ -36,6 +36,7 @@ extension OTMClient {
             if success {
                 self.sessionID = sessionID!
                 self.userID = userID!
+                self.signInMethod = .Udacity
                 
                 self.getUserData("", completionHandler: { (success, fName, lName, errorString) -> Void in
                     
@@ -151,7 +152,7 @@ extension OTMClient {
     {
         var parameters = [String : AnyObject]()
         
-        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student!.firstName!)\",\"lastName\": \"\(self.student!.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
         taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
             
@@ -189,6 +190,28 @@ extension OTMClient {
                 } else {
                     completionHandler(exists: false, objectID: "")
                 }
+            }
+        }
+    }
+    
+    func logout(api: OTMAPIs, completionHandler: (success: Bool) -> Void) {
+        
+        var parameters = [String: AnyObject]()
+        
+        var baseURL = (api == OTMAPIs.Udacity) ? OTMClient.UdacityAPIConstants.BaseURL : OTMClient.ParseAPIConstants.BaseURL
+        
+        var method = (api == OTMAPIs.Udacity) ? OTMClient.UdacityMethods.Session : " "
+        
+        taskForDelete(api, baseURL: baseURL, method: method, parameters: parameters) { (success, error) -> Void in
+         
+            println("in here!")
+            
+            if success {
+                println("sucessfully logged out!")
+                self.sessionID = nil
+                self.userID = nil
+                self.student = OTMStudentInformation?()
+                completionHandler(success: true)
             }
         }
     }

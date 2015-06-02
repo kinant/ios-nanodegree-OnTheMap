@@ -7,7 +7,7 @@
         <!--Login-->
         <scene sceneID="Gol-yL-h8Z">
             <objects>
-                <viewController id="d1K-s4-vxY" userLabel="Login" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="d1K-s4-vxY" userLabel="Login" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hIO-xg-qX4"/>
                         <viewControllerLayoutGuide type="bottom" id="Ny6-Nm-uTo"/>
@@ -114,6 +114,9 @@
                                                 <state key="normal" image="logout">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="logout:" destination="gON-Up-T17" eventType="touchUpInside" id="NIt-KB-L1S"/>
+                                                </connections>
                                             </button>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="v6g-h2-mA8">
