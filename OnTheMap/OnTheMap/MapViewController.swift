@@ -26,6 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let span = MKCoordinateSpanMake(30.00, 50.00)
         let reg = MKCoordinateRegionMake(loc, span)
         self.map.region = reg
+        map.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -35,28 +36,39 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         
         dispatch_async(queue) {
             
-            OTMClient.sharedInstance().getLocationsCount { (result, errorString) -> Void in
+            OTMClient.sharedInstance().getLocationsCount { (result, error) -> Void in
                 
-                var counter = Int((result/OTMClient.ParseAPIConstants.LimitPerRequest) + 1)
+                if let getError = error {
+                    
+                    OTMClient.sharedInstance().showAlert(self, title: getError.domain, message: getError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
+                        // do nothing
+                    })
+                    
+                } else {
                 
-                for(var i = 0; i <= counter; i++){
-                    dispatch_sync(queue, {
+                    var counter = Int((result/OTMClient.ParseAPIConstants.LimitPerRequest) + 1)
+                
+                    for(var i = 0; i <= counter; i++){
+                        dispatch_sync(queue, {
                         
-                        OTMData.sharedInstance().fetchData(i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (success, result) -> Void in
-                            if(success){
-                                self.locations = result
+                            OTMData.sharedInstance().fetchData(self, skip: i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (success, result) -> Void in
+                                if(success){
+                                    self.locations = result
                                 
-                                for location in self.locations {
-                                    dispatch_async(dispatch_get_main_queue()){
-                                        self.addPinToMap(location)
+                                    for location in self.locations {
+                                        dispatch_async(dispatch_get_main_queue()){
+                                            self.addPinToMap(location)
+                                        }
                                     }
                                 }
-                            }
-                            else {
-                                //println("done fetching results!!")
-                            }
+                                else {
+                                    OTMClient.sharedInstance().showAlert(self, title: "OTM Error", message: "Unable to fetch locations ", actions: ["OK"], completionHandler: { (choice) -> Void in
+                                        // do nothing
+                                    })
+                                }
+                            })
                         })
-                    })
+                    }
                 }
             }
         }
@@ -72,6 +84,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         if (location.latitude != nil && location.longitude != nil) {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+            // let newAnnotation = MKPointAnnotation()
+            // newAnnotation.coordinate = newLocation
+            // newAnnotation.title = location.firstName
+            // newAnnotation.subtitle = location.mediaURL
             self.map.addAnnotation(newAnnotation)
         }
     }
@@ -98,6 +114,37 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         map.removeAnnotation(placemark)
     }
     
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        println("in here!!!!")
+        
+        var v: MKAnnotationView! = nil
+        
+        let identifier = "pin"
+        
+        v = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+        
+        if v == nil {
+            v = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            (v as! MKPinAnnotationView).pinColor = .Purple
+            v.canShowCallout = true
+            v.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+        }
+        v.annotation = annotation
+        
+        return v
+    }
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        
+        println("annotation tapped!")
+        let location = view.annotation as! OTMAnnotation
+        println(location)
+        println(location.subtitle!)
+        var url = NSURL(string: location.subtitle!)
+        UIApplication.sharedApplication().openURL(url!)
+    }
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
         return .None
@@ -115,19 +162,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         // check if user location already exists
         OTMClient.sharedInstance().userLocationExists { (exists, objectID) -> Void in
             
-            println(exists)
-            
             if exists {
-                OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
+                
+                if self.presentedViewController == nil {
+                    OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
                     
-                    if(choice == "OK"){
-                        self.postVC.isUpdating = true
-                        self.postVC.updatingObjectID = objectID
-                        self.presentViewController(self.postVC, animated: true, completion: nil)
-                    }
-                })
+                        if(choice == "OK"){
+                            self.postVC.isUpdating = true
+                            self.postVC.updatingObjectID = objectID
+                            self.presentViewController(self.postVC, animated: true, completion: nil)
+                        }
+                    })
+                }
             } else {
-                println("SHOULD TRY TO POST!!")
+                // println("SHOULD TRY TO POST!!")
                 self.postVC.isUpdating = false
                 self.postVC.updatingObjectID = ""
                 

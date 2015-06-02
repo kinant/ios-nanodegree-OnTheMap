@@ -52,16 +52,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        println("User Logged Out")
+        //println("User Logged Out")
     }
     
     func login(api: OTMClient.OTMAPIs){
         
         SwiftSpinner.show("Loging in", description: "", animated: true)
         
-        OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, errorString) -> Void in
+        OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, error) -> Void in
             
-            println("Finished trying to log in!")
+            //println("Finished trying to log in!")
             
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -71,17 +71,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue()){
-                    self.statusLabel.text = errorString
+                    self.statusLabel.text = error!.localizedDescription
                     self.statusLabel.hidden = false
                     
-                    SwiftSpinner.show("Failed to log in ...", description: errorString!, animated: false)
-                    
-                    delay(2.0){
-                        // SwiftSpinner.hide()
-                    }
-                    // OTMClient.sharedInstance().showAlert(self, title: "Error", message: errorString!, actions: ["OK"], completionHandler: { (choice) -> Void in
-                        
-                    //})
+                    SwiftSpinner.show("Failed to log in ...", description: error!.localizedDescription, animated: false)
                 }
             }
         })

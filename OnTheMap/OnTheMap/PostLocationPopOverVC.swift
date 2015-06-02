@@ -148,8 +148,20 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         var noNewLineMapString = (addressText.text as NSString).stringByReplacingOccurrencesOfString("\n", withString: ",")
         var trimmedMapString = (noNewLineMapString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (result, errorString) -> Void in
+        OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (error) -> Void in
+            
+            if let postError = error {
+                OTMClient.sharedInstance().showAlert(self, title: postError.domain, message: postError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                })
+            } else {
+                OTMClient.sharedInstance().showAlert(self, title: "OTM POST", message: "Post Locaiton was Successfull!", actions: ["OK"], completionHandler: { (choice) -> Void in
+
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

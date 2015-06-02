@@ -83,11 +83,11 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
         
             dispatch_sync(queue) {
-                OTMData.sharedInstance().fetchData(self.count, completionHandler: { (success, result) -> Void in
+                OTMData.sharedInstance().fetchData(self, skip: self.count, completionHandler: { (success, result) -> Void in
             
                     println("RESULT IS: ")
                     println()
-                    println(result)
+                    // println(result)
                     println()
                     
                     if success {

@@ -68,8 +68,8 @@ class OTMClient: NSObject {
             var newData = data
             
             if error != nil { // Handle error…
-                // var newError = OTMClient.errorForData(data, response: response, error: error)
-                completionHandler(result: nil, error: error)
+                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                completionHandler(result: nil, error: connectionError)
             } else {
                 
                 if(api == OTMAPIs.Udacity)
@@ -77,7 +77,7 @@ class OTMClient: NSObject {
                     newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 }
                 
-                if let serverError = OTMClient.returnStatusError(OTMAPIs.Udacity, data: newData) {
+                if let serverError = OTMClient.returnStatusError(api, data: newData) {
                     completionHandler(result: nil, error: serverError)
                 } else {
                     OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
@@ -119,16 +119,25 @@ class OTMClient: NSObject {
             
             if(api == OTMAPIs.Udacity)
             {
-                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
                 
             }
             
-            if error != nil { // Handle error…
-                println("there was an error!")
-                // var thisError = OTMClient.errorForData(newData, response: response, error: error)
-                // completionHandler(result: nil, error: thisError)
+            if error != nil {
+                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                completionHandler(result: nil, error: connectionError)
             } else {
-                OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                
+                if(api == OTMAPIs.Udacity)
+                {
+                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                }
+                
+                if let serverError = OTMClient.returnStatusError(api, data: newData) {
+                    completionHandler(result: nil, error: serverError)
+                } else {
+                    OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                }
             }
         }
         
@@ -220,17 +229,17 @@ class OTMClient: NSObject {
                 
                 if (api == OTMAPIs.Parse){
                     if let parseStatusCode = parsedResult.valueForKey("code") as? Int {
-                        newError = NSError(domain: "OTM Udacity API Error", code: parseStatusCode, userInfo: userInfo)
+                        newError = NSError(domain: "OTM Parse API Error", code: parseStatusCode, userInfo: userInfo)
+                    } else {
+                        newError = NSError(domain: "OTM Parse API Error", code: 0, userInfo: userInfo)
                     }
                 } else {
                     if let udacityStatusCode = parsedResult.valueForKey("status") as? Int {
-                        newError = NSError(domain: "OTM Parse API Error", code: udacityStatusCode, userInfo: userInfo)
+                        newError = NSError(domain: "OTM Udacity API Error", code: udacityStatusCode, userInfo: userInfo)
                     }
                 }
             }
         }
-        
-        println(newError)
         
         return newError
     }

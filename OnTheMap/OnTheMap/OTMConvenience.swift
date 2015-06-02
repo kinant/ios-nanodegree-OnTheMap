@@ -13,7 +13,7 @@ import UIKit
 
 extension OTMClient {
     
-    func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         println("In logging in!!!")
         
@@ -29,7 +29,7 @@ extension OTMClient {
             httpBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
         }
         
-        self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, errorString) -> Void in
+        self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, error) -> Void in
             
             println("Finished trying to get session ID!")
             
@@ -46,27 +46,20 @@ extension OTMClient {
                 })
                 
             } else {
-                completionHandler(success: success, errorString: errorString)
+                completionHandler(success: success, error: error)
             }
-            completionHandler(success: success, errorString: errorString)
+            completionHandler(success: success, error: error)
         })
     }
     
-    func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, errorString: String?) -> Void) {
-        
-        println("IN GET SESSION ID!!")
-        
+    func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, error: NSError?) -> Void) {
+    
         var parameters = [String : AnyObject]()
         
         taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
             
-            // println("1" + error!.localizedDescription)
-            // println("2  /(error!.localizedRecoveryOptions)")
-            // println("3" + error!.localizedRecoveryOptions)
-            // println("4" + error!.localizedFailureReason)
-            
             if let error = error {
-                completionHandler(success: false, sessionID: nil, userID: nil, errorString: error.localizedDescription)
+                completionHandler(success: false, sessionID: nil, userID: nil, error: error)
             } else {
                 
                 if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
@@ -74,13 +67,13 @@ extension OTMClient {
                         let sessionID = sessionDictionary["id"] as? String
                         let userID = accountDictionary["key"] as? String
                         
-                        completionHandler(success: true, sessionID: sessionID, userID: userID, errorString: nil)
+                        completionHandler(success: true, sessionID: sessionID, userID: userID, error: nil)
                     }
                     else {
-                        completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+                        completionHandler(success: false, sessionID: nil, userID: nil, error: OTMErrors.udacitySession)
                     }
                 } else {
-                    completionHandler(success: false, sessionID: nil, userID: nil, errorString: "Login Failed (Session ID).")
+                    completionHandler(success: false, sessionID: nil, userID: nil, error: OTMErrors.udacitySession)
                 }
             }
         }
@@ -94,19 +87,21 @@ extension OTMClient {
         taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL , method: method, parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
-                completionHandler(success: false, fName: "", lName: "", errorString: "Udacity API")
+                completionHandler(success: false, fName: "", lName: "", errorString: error.localizedDescription)
             } else {
-                // println(result)
                 if let resultDictionary = result["user"] as? NSDictionary {
                     var firstName = resultDictionary["first_name"] as? String
                     var lastName = resultDictionary["last_name"] as? String
                     completionHandler(success: true, fName: firstName, lName: lastName, errorString: nil)
                 }
+                else {
+                    completionHandler(success: false, fName: "", lName: "", errorString: "Login Failed (Getting User Info.)")
+                }
             }
         }
     }
     
-    func fetchLocations(skip: Int, completionHandler: (result: [OTMStudentLocation]?, errorString: String?) -> Void){
+    func fetchLocations(skip: Int, completionHandler: (result: [OTMStudentLocation]?, error: NSError?) -> Void){
         
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: OTMClient.ParseAPIConstants.LimitPerRequest,
@@ -117,18 +112,19 @@ extension OTMClient {
         taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
-                completionHandler(result: nil, errorString: "Parse API.")
+                completionHandler(result: nil, error: error)
             } else {
-                
                 if let results = result.valueForKey("results") as? [[String: AnyObject]] {
                     var newInformation = OTMStudentLocation.informationFromResults(results)
-                    completionHandler(result: newInformation , errorString: nil)
+                    completionHandler(result: newInformation , error: nil)
+                } else {
+                    completionHandler(result: nil , error: OTMErrors.parseFetchLocations)
                 }
             }
         }
     }
     
-    func getLocationsCount(completionHandler: (result: Int, errorString: String?) -> Void){
+    func getLocationsCount(completionHandler: (result: Int, error: NSError?) -> Void){
         var parameters = [
             OTMClient.ParseAPIParameters.Limit: 0,
             OTMClient.ParseAPIParameters.Count: 1,
@@ -138,24 +134,28 @@ extension OTMClient {
         taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
             if let error = error {
-                completionHandler(result: 0, errorString: "Parse API.")
+                completionHandler(result: 0, error: error)
             } else {
                 
                 if let count = result.valueForKey("count") as? Int {
                     println("count is: \(count)")
-                    completionHandler(result: count, errorString: nil)
+                    completionHandler(result: count, error: nil)
+                } else {
+                    completionHandler(result: 0 , error: error)
                 }
             }
         }
     }
     
-    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (result: String?, errorString: String?) -> Void)
+    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (error: NSError?) -> Void)
     {
         var parameters = [String : AnyObject]()
         
         var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student.firstName!)\",\"lastName\": \"\(self.student.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
         taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
+            
+                completionHandler(error: error)
         }
     }
     
@@ -170,14 +170,22 @@ extension OTMClient {
         
         taskForGETDataMethod(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL , method: "", parameters: parameters) { (result, error) -> Void in
             
-            if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
+            // TODO: FIX ERROR HANDLING
+            
+            if let error = error {
+                completionHandler(exists: false, objectID: error.localizedDescription)
+            } else {
+                if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
-                if resultsDictionary.count > 0 {
-                    existingLocation = (resultsDictionary[0]["objectId"] as? String)!
-                    println(existingLocation)
-                    locationExits = true
-                    completionHandler(exists: true, objectID: existingLocation)
-                    return
+                    if resultsDictionary.count > 0 {
+                        existingLocation = (resultsDictionary[0]["objectId"] as? String)!
+                        println(existingLocation)
+                        locationExits = true
+                        completionHandler(exists: true, objectID: existingLocation)
+                        return
+                    } else {
+                        completionHandler(exists: false, objectID: "")
+                    }
                 } else {
                     completionHandler(exists: false, objectID: "")
                 }
