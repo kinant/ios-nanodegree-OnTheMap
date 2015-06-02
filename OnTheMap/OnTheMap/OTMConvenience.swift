@@ -194,15 +194,33 @@ extension OTMClient {
         }
     }
     
+    func deleteLocation(completionHandler: (success: Bool) -> Void) {
+    
+        var parameters = [String: AnyObject]()
+        
+        var objectIDtoDelete: String!
+        
+        userLocationExists { (exists, objectID) -> Void in
+            
+            if exists {
+                objectIDtoDelete = objectID
+                
+                self.taskForDelete(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL, method: objectIDtoDelete, parameters: parameters, completionHandler: { (success, error) -> Void in
+                  
+                    if success {
+                        completionHandler(success: true)
+                        println("user location successfully deleted!")
+                    }
+                })
+            }
+        }
+    }
+    
     func logout(api: OTMAPIs, completionHandler: (success: Bool) -> Void) {
         
         var parameters = [String: AnyObject]()
         
-        var baseURL = (api == OTMAPIs.Udacity) ? OTMClient.UdacityAPIConstants.BaseURL : OTMClient.ParseAPIConstants.BaseURL
-        
-        var method = (api == OTMAPIs.Udacity) ? OTMClient.UdacityMethods.Session : " "
-        
-        taskForDelete(api, baseURL: baseURL, method: method, parameters: parameters) { (success, error) -> Void in
+        taskForDelete(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in
          
             println("in here!")
             
