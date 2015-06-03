@@ -156,7 +156,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         let location = view.annotation as! OTMAnnotation
         // println(location)
         // println(location.subtitle!)
-        var url = NSURL(string: location.subtitle!)
+        var url: NSURL!
+        if let testUrl = NSURL(string: location.subtitle!) {
+            println(testUrl)
+            url = testUrl
+        } else {
+            var searchString = location.subtitle.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+            var escapedSearchString = searchString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            var googleStringURL = "https://www.google.com/search?q=\(escapedSearchString!)"
+            println(googleStringURL)
+            url = NSURL(string: googleStringURL)
+        }
+        println("can we open url?:")
+        println(UIApplication.sharedApplication().canOpenURL(url))
         UIApplication.sharedApplication().openURL(url!)
     }
 }
