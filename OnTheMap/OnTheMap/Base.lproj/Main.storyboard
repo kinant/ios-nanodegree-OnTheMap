@@ -100,7 +100,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Mks-Om-4wv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Iqv-sN-3pa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOf-60-aLm">
@@ -164,7 +164,7 @@
             <objects>
                 <tableViewController id="CYp-e7-2Jq" customClass="StudentInfoTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="122" sectionHeaderHeight="22" sectionFooterHeight="22" id="UdI-Y0-sQ5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -224,10 +224,10 @@
             </objects>
             <point key="canvasLocation" x="2370" y="9"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="9aw-kD-jrE">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarController" id="fhe-QJ-ReI" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="fhe-QJ-ReI" customClass="TabBarVC" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Jlo-x4-jq2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>

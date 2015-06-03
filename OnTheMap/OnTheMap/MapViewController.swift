@@ -151,7 +151,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         return .None
     }
     
-    @IBAction func postLocation(sender: UIButton) {
+    func test(){
+        println("test!!!")
+    }
+    
+    func postLocation() {
         
         println("clicked on post!!!")
         
