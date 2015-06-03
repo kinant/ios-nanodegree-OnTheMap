@@ -42,7 +42,10 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         urlField.resignFirstResponder()
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: urlField.text)!))
+        
+        var urlEscapedString = urlField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: urlEscapedString!)!))
         return false
     }
     
@@ -91,9 +94,22 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+        
+        OTMClient.sharedInstance().showAlert(self, title: "Error", message: error.localizedDescription, actions: ["OK", "GOOGLE IT!"]) { (choice) -> Void in
+            
+            var searchString = self.urlField.text.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+            var escapedSearchString = searchString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            
+            if(choice == "GOOGLE IT!"){
+                var googleStringURL = "https://www.google.com/search?q=\(escapedSearchString!)"
+                println(googleStringURL)
+                var googleSearchURL = NSURL(string: googleStringURL)
+                println(googleSearchURL)
+                webView.loadRequest(NSURLRequest(URL: NSURL(string: googleStringURL)!))
+            }
+        }
     }
     
     @IBAction func backButtonTouch(sender: AnyObject) {
@@ -114,7 +130,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     @IBAction func useLink(sender: AnyObject) {
-        delegate?.setURL(webView.request!.URL!.host!)
+        delegate?.setURL(webView.request!.URL!.description)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
