@@ -75,20 +75,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
-    func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: location, span: span)
-        map.setRegion(region, animated: true)
-    }
-    
     func addPinToMap(location: OTMStudentLocation){
         if (location.latitude != nil && location.longitude != nil) {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-            // let newAnnotation = MKPointAnnotation()
-            // newAnnotation.coordinate = newLocation
-            // newAnnotation.title = location.firstName
-            // newAnnotation.subtitle = location.mediaURL
             self.map.addAnnotation(newAnnotation)
         }
     }
@@ -136,6 +126,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         return v
     }
     
+    func test(){
+        println("test")
+    }
+    
+    func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: location, span: span)
+        map.setRegion(region, animated: true)
+    }
+    
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
         
         println("annotation tapped!")
@@ -146,52 +146,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         UIApplication.sharedApplication().openURL(url!)
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        // Return no adaptive presentation style, use default presentation behaviour
-        return .None
-    }
-    
-    func test(){
-        println("test!!!")
-    }
-    
-    func postLocation() {
-        
-        println("clicked on post!!!")
-        
-        postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        // postVC.preferredContentSize = self.view.frame.size
-        
-        postVC.delegate = self
-        
-        // check if user location already exists
-        OTMClient.sharedInstance().userLocationExists { (exists, objectID) -> Void in
-            
-            if exists {
-                
-                if self.presentedViewController == nil {
-                    OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
-                    
-                        if(choice == "OK"){
-                            self.postVC.isUpdating = true
-                            self.postVC.updatingObjectID = objectID
-                            self.presentViewController(self.postVC, animated: true, completion: nil)
-                        }
-                    })
-                }
-            } else {
-                // println("SHOULD TRY TO POST!!")
-                self.postVC.isUpdating = false
-                self.postVC.updatingObjectID = ""
-                
-                dispatch_async(dispatch_get_main_queue()){
-                    self.presentViewController(self.postVC, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
-    @IBAction func logout(sender: AnyObject) {
+    func logout(sender: AnyObject) {
         OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success) -> Void in
             
             let loginManager = FBSDKLoginManager()

@@ -24,20 +24,14 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     var postLocation: MKPlacemark!
     var manager: OneShotLocationManager?
     
+    @IBOutlet weak var map: MKMapView!
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        var images = [UIImage]()
-        
-        for(var i = 1; i < 8; i++){
-            var newImage = UIImage(named: "spongebob_search\(i).png")!
-            images.append(newImage)
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        delegate?.test()
+        delegate?.test()
+        delegate?.test()
+        delegate?.test()
     }
     
     func getAddress(location: CLLocation) -> String {

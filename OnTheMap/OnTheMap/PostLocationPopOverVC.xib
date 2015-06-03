@@ -118,12 +118,6 @@
                         <constraint firstAttribute="bottom" secondItem="Mvg-bq-cqi" secondAttribute="bottom" constant="5" id="n7o-By-Ct3"/>
                     </constraints>
                 </view>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AYb-N8-cnc">
-                    <rect key="frame" x="0.0" y="169" width="600" height="282"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="282" id="2qt-Kf-xcH"/>
-                    </constraints>
-                </mapView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -131,11 +125,8 @@
                 <constraint firstAttribute="trailing" secondItem="uAL-mC-Edm" secondAttribute="trailing" id="O7k-lJ-U3J"/>
                 <constraint firstItem="uAL-mC-Edm" firstAttribute="leading" secondItem="6QP-mc-7LW" secondAttribute="leading" id="Yel-di-Orv"/>
                 <constraint firstAttribute="trailing" secondItem="LkJ-hS-Rz2" secondAttribute="trailing" id="at5-JT-6Jn"/>
-                <constraint firstItem="AYb-N8-cnc" firstAttribute="leading" secondItem="uAL-mC-Edm" secondAttribute="leading" id="bsv-va-kfT"/>
                 <constraint firstItem="LkJ-hS-Rz2" firstAttribute="leading" secondItem="6QP-mc-7LW" secondAttribute="leading" id="cdF-P8-geU"/>
-                <constraint firstItem="AYb-N8-cnc" firstAttribute="trailing" secondItem="uAL-mC-Edm" secondAttribute="trailing" id="f3u-2O-xy0"/>
                 <constraint firstItem="uAL-mC-Edm" firstAttribute="top" secondItem="6QP-mc-7LW" secondAttribute="top" constant="20" id="mJF-NF-VyV"/>
-                <constraint firstItem="AYb-N8-cnc" firstAttribute="top" secondItem="6QP-mc-7LW" secondAttribute="top" constant="169" id="mTP-v0-DJm"/>
                 <constraint firstAttribute="bottom" secondItem="LkJ-hS-Rz2" secondAttribute="bottom" id="vyc-3M-cHG"/>
             </constraints>
             <point key="canvasLocation" x="325" y="369"/>
