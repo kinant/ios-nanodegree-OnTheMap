@@ -150,8 +150,4 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         var url = NSURL(string: location.subtitle!)
         UIApplication.sharedApplication().openURL(url!)
     }
-    
-    func logout(sender: AnyObject) {
-    }
-
 }

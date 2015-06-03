@@ -95,7 +95,7 @@ class OTMClient: NSObject {
         
         let urlString = baseURL + method + OTMClient.escapedParameters(parameters)
         
-        println(urlString)
+        // println(urlString)
         
         let url = NSURL(string: urlString)!
         
@@ -235,7 +235,7 @@ class OTMClient: NSObject {
     class func returnStatusError(api: OTMAPIs, data: NSData?) -> NSError? {
         var newError:NSError!
         
-        println(NSString(data: data!, encoding: NSUTF8StringEncoding))
+        // println(NSString(data: data!, encoding: NSUTF8StringEncoding))
         
         if let parsedResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) {
             
