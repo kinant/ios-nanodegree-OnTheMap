@@ -22,10 +22,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loc = CLLocationCoordinate2DMake(35.00,-90)
-        let span = MKCoordinateSpanMake(30.00, 50.00)
-        let reg = MKCoordinateRegionMake(loc, span)
-        self.map.region = reg
         map.delegate = self
     }
     
@@ -138,6 +134,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func refreshMap()
     {
+        let loc = CLLocationCoordinate2DMake(35.00,-90)
+        let span = MKCoordinateSpanMake(30.00, 50.00)
+        let reg = MKCoordinateRegionMake(loc, span)
+        self.map.region = reg
+        
         map.removeAnnotations(map.annotations)
         OTMData.sharedInstance().locationsList.removeAll()
         loadData()

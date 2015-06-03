@@ -152,7 +152,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 })
             } else {
                 OTMClient.sharedInstance().showAlert(self, title: "OTM POST", message: "Post Locaiton was Successfull!", actions: ["OK"], completionHandler: { (choice) -> Void in
-
+                    self.delegate?.refreshMap()
                     self.dismissViewControllerAnimated(true, completion: nil)
                 })
             }
