@@ -23,7 +23,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         // create the buttons
         var refreshButton = UIBarButtonItem(title: "R", style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
         var postButton = UIBarButtonItem(title: "P", style: UIBarButtonItemStyle.Plain, target: self, action: "post")
-        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "post")
+        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
         
         // create the navigation items
         var navItems = UINavigationItem(title: "On The Map")
@@ -41,9 +41,6 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
     func post()
     {
-        
-        println(self.selectedViewController)
-        
         let barViewControllers = self.viewControllers
         let mapVC = barViewControllers![0] as! MapViewController
         
@@ -89,5 +86,20 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     func refresh()
     {
         println("refresh pressed!")
+    }
+    
+    func logout(){
+        OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success) -> Void in
+            
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            
+            if(success) {
+                dispatch_async(dispatch_get_main_queue()){
+                    let loginVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                    self.presentViewController(loginVC, animated: true, completion: nil)
+                }
+            }
+        })
     }
 }
