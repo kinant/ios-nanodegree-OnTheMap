@@ -29,7 +29,8 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
-        addData()
+        
+        refreshTable()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,6 +73,15 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
+    }
+    
+    func refreshTable()
+    {
+        OTMData.sharedInstance().locationsList.removeAll()
+        information.removeAll()
+        tableView.reloadData()
+        self.count = 0
+        addData()
     }
     
     func addData(){

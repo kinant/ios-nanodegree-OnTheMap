@@ -16,8 +16,6 @@ class OTMData: NSObject {
         
         OTMClient.sharedInstance().fetchLocations(skip) { (result, error) -> Void in
             
-            self.locationsList.removeAll()
-            
             if let dataError = error {
             
                 if view.presentedViewController == nil {
@@ -28,13 +26,18 @@ class OTMData: NSObject {
             }
             
             if let fetchedData = result {
+                
+                var newData = [OTMStudentLocation]()
+                
                 if(result!.count > 0){
+                    
                     for datum in fetchedData {
                         self.locationsList.append(datum)
+                        newData.append(datum)
                     }
                 }
                 
-                completionHandler(result: self.locationsList)
+                completionHandler(result: newData)
             }
         }
     }

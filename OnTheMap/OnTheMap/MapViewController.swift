@@ -32,7 +32,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        loadData()
+        refreshMap()
+    
     }
     
     func loadData(){
@@ -133,6 +134,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func test(){
         // println("test")
+    }
+    
+    func refreshMap()
+    {
+        map.removeAnnotations(map.annotations)
+        OTMData.sharedInstance().locationsList.removeAll()
+        loadData()
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){

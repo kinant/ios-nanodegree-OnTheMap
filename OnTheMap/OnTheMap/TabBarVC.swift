@@ -85,7 +85,16 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
     func refresh()
     {
-        // println("refresh pressed!")
+        let barViewControllers = self.viewControllers
+        
+        if(self.selectedViewController is StudentInfoTableViewController ){
+            let tableVC = barViewControllers![1] as! StudentInfoTableViewController
+            tableVC.refreshTable()
+        }
+        else {
+            let mapVC = barViewControllers![0] as! MapViewController
+            mapVC.refreshMap()
+        }
     }
     
     func logout(){
