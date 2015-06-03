@@ -38,8 +38,8 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        println("indexPath.row: \(indexPath.row)")
-        println("self.information.count-1: \(self.information.count - 1)")
+        // println("indexPath.row: \(indexPath.row)")
+        // println("self.information.count-1: \(self.information.count - 1)")
         
         if(indexPath.row == self.information.count)
         {
@@ -47,7 +47,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             cell1.activityIndicator.startAnimating()
             if(self.information.count != 0){
                 delay(2.4){
-                    println("adding data!")
+                    // println("adding data!")
                     self.addData()
                     cell1.activityIndicator.stopAnimating()
                 }

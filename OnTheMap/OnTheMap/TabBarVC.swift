@@ -85,7 +85,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
     func refresh()
     {
-        println("refresh pressed!")
+        // println("refresh pressed!")
     }
     
     func logout(){

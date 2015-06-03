@@ -22,7 +22,7 @@ class OTMData: NSObject {
             
                 if view.presentedViewController == nil {
                     OTMClient.sharedInstance().showAlert(view, title: dataError.domain, message: dataError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
-                            println("OK!!!")
+                            // println("OK!!!")
                     })
                 }
             }

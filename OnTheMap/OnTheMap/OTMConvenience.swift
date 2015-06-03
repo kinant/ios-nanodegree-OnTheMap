@@ -15,7 +15,7 @@ extension OTMClient {
     
     func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
-        println("In logging in!!!")
+        // println("In logging in!!!")
         
         var httpBody:String!
         
@@ -31,7 +31,7 @@ extension OTMClient {
         
         self.getSessionID(httpBody, completionHandler: { (success, sessionID, userID, error) -> Void in
             
-            println("Finished trying to get session ID!")
+            // println("Finished trying to get session ID!")
             
             if success {
                 self.sessionID = sessionID!
@@ -139,7 +139,7 @@ extension OTMClient {
             } else {
                 
                 if let count = result.valueForKey("count") as? Int {
-                    println("count is: \(count)")
+                    // println("count is: \(count)")
                     completionHandler(result: count, error: nil)
                 } else {
                     completionHandler(result: 0 , error: error)
@@ -180,7 +180,7 @@ extension OTMClient {
                 
                     if resultsDictionary.count > 0 {
                         existingLocation = (resultsDictionary[0]["objectId"] as? String)!
-                        println(existingLocation)
+                        // println(existingLocation)
                         locationExits = true
                         completionHandler(exists: true, objectID: existingLocation)
                         return
@@ -209,7 +209,7 @@ extension OTMClient {
                   
                     if success {
                         completionHandler(success: true)
-                        println("user location successfully deleted!")
+                        //println("user location successfully deleted!")
                     }
                 })
             }
@@ -222,10 +222,10 @@ extension OTMClient {
         
         taskForDelete(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in
          
-            println("in here!")
+            //println("in here!")
             
             if success {
-                println("sucessfully logged out!")
+                // println("sucessfully logged out!")
                 self.sessionID = nil
                 self.userID = nil
                 self.student = OTMStudentInformation?()

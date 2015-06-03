@@ -32,6 +32,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        loadData()
+    }
+    
+    func loadData(){
+        
         let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
         
         dispatch_async(queue) {
@@ -45,17 +50,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                     })
                     
                 } else {
-                
+                    
                     var counter = Int((result/OTMClient.ParseAPIConstants.LimitPerRequest) + 1)
-                
+                    
                     for(var i = 0; i <= counter; i++){
                         dispatch_sync(queue, {
-                        
+                            
                             OTMData.sharedInstance().fetchData(self, skip: i * OTMClient.ParseAPIConstants.LimitPerRequest, completionHandler: { (result) -> Void in
                                 
                                 if let locations = result {
                                     self.locations = locations
-                                
+                                    
                                     for location in self.locations {
                                         dispatch_async(dispatch_get_main_queue()){
                                             self.addPinToMap(location)
@@ -107,7 +112,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
-        println("in here!!!!")
+        // println("in here!!!!")
         
         var v: MKAnnotationView! = nil
         
@@ -127,7 +132,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     func test(){
-        println("test")
+        // println("test")
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
@@ -138,10 +143,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
         
-        println("annotation tapped!")
+        // println("annotation tapped!")
         let location = view.annotation as! OTMAnnotation
-        println(location)
-        println(location.subtitle!)
+        // println(location)
+        // println(location.subtitle!)
         var url = NSURL(string: location.subtitle!)
         UIApplication.sharedApplication().openURL(url!)
     }

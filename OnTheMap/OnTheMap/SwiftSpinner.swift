@@ -202,7 +202,7 @@ public class SwiftSpinner: UIView {
     func retry(sender:UIButton!)
     {
         SwiftSpinner.hide()
-        println("button pressed!")
+        // println("button pressed!")
         // spinner.hide()
     }
     

@@ -70,7 +70,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             
             if nil == placemarks {
                 SwiftSpinner.show("Location not found ... ", description: error.localizedDescription, animated: false)
-                println(error.localizedDescription)
+                // println(error.localizedDescription)
             } else {
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let p = placemarks[0] as? CLPlacemark
@@ -114,7 +114,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 
             } else if let err = error {
                 SwiftSpinner.show("Location not found ... ", description: err.localizedDescription, animated: false)
-                println(err.localizedDescription)
+                // println(err.localizedDescription)
             }
             self.manager = nil
         }
