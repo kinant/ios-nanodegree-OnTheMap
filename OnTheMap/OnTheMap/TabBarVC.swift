@@ -42,8 +42,15 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     func post()
     {
         
+        println(self.selectedViewController)
+        
         let barViewControllers = self.viewControllers
         let mapVC = barViewControllers![0] as! MapViewController
+        
+        // if at tab bar, switch selected view controller
+        if(self.selectedViewController is StudentInfoTableViewController ){
+            self.selectedViewController = mapVC
+        }
         
         mapVC.test()
         
@@ -77,7 +84,6 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
                 }
             }
         }
-        // self.selectedViewController.test()
     }
     
     func refresh()
