@@ -20,8 +20,6 @@ struct OTMStudentLocation {
     
     init(dictionary: [String: AnyObject]){
         
-        // println(dictionary)
-        
         self.latitude = dictionary["latitude"] as? Double
         self.longitude = dictionary["longitude"] as? Double
         self.firstName = dictionary["firstName"] as? String

@@ -176,6 +176,7 @@ extension OTMClient {
             if let error = error {
                 completionHandler(exists: false, objectID: " ", error: error)
             } else {
+                println(result)
                 if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
                     if resultsDictionary.count > 0 {

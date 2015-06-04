@@ -19,22 +19,30 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         var navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64))
         navBar.tintColor = .lightGrayColor()
         self.view.addSubview(navBar)
-
-        var refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
         
-        var refreshH = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
-        self.view.addConstraint(refreshH)
+        var refreshButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
-        var refreshW = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
+        // var refreshBarButton = UIBarButtonItem(customView: refreshButton)
+        
+        // refreshBarButton.image = UIImage(named: "refresh")
+        // var refreshBarButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
+        // refreshBarButton.customView = refreshButton
+        // refreshBarButton.width = 0.0
+        // var refreshH = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
+        
+        // self.view.addConstraint(refreshH)
+        
+        //var refreshW = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
         // self.view.addConstraint(refreshW)
         
+        var refreshBarButton = UIBarButtonItem(title: "R", style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
         var postButton = UIBarButtonItem(title: "P", style: UIBarButtonItemStyle.Plain, target: self, action: "post")
         
         var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
         
         // create the navigation items
         var navItems = UINavigationItem(title: "On The Map")
-        navItems.rightBarButtonItems = [refreshButton, postButton]
+        navItems.rightBarButtonItems = [refreshBarButton, postButton]
         navItems.leftBarButtonItem = logoutButton
         
         navBar.items = [navItems]
