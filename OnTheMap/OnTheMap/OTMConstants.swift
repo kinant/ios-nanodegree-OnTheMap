@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 extension OTMClient {
     
@@ -14,6 +15,14 @@ extension OTMClient {
         case Udacity
         case Parse
         case Facebook
+    }
+    
+    // static let UdacityHQCoordinates = CLLocationCoordinate2D(latitude: 37.400704, longitude: -122.108284)
+    
+    static var UdacityHQLocation: CLLocation {
+        get {
+            return CLLocation(latitude: 37.400704, longitude: -122.108284)
+        }
     }
     
     struct UdacityAPIConstants {

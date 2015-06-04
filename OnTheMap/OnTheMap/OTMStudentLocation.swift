@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 struct OTMStudentLocation {
     
@@ -17,6 +18,7 @@ struct OTMStudentLocation {
     var mediaURL: String!
     var latitude: Double!
     var longitude: Double!
+    var distance: Double!
     
     init(dictionary: [String: AnyObject]){
         
@@ -27,6 +29,12 @@ struct OTMStudentLocation {
         self.mediaURL = dictionary["mediaURL"] as? String
         self.mapString = dictionary["mapString"] as? String
         self.uniqueKey = dictionary["uniqueKey"] as? String
+        
+        var location = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        self.distance = location.distanceFromLocation(OTMClient.UdacityHQLocation)/1000
+        // self.distance = 0
+        println("distance from udacity hq: \(self.distance)")
+    
     }
     
     static func informationFromResults(results: [[String : AnyObject]]) -> [OTMStudentLocation] {

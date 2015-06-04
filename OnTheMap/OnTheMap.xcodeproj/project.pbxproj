@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		68068CCA1B20A53C0040E7BE /* DistanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68068CC91B20A53C0040E7BE /* DistanceTableViewController.swift */; };
 		680EB3911B1F734D00AA8D1F /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680EB3901B1F734D00AA8D1F /* TabBarVC.swift */; };
 		6818F1C31B13C103008ECE74 /* OneShotLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */; };
 		687B77271B18AF3300FCB49A /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B77261B18AF3300FCB49A /* SwiftSpinner.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		68068CC91B20A53C0040E7BE /* DistanceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceTableViewController.swift; sourceTree = "<group>"; };
 		680EB3901B1F734D00AA8D1F /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		6818F1C21B13C103008ECE74 /* OneShotLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneShotLocationManager.swift; sourceTree = "<group>"; };
 		6818F1C91B13D0C2008ECE74 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				C9EA97001B02755700370001 /* PostLocationPopOverVC.swift */,
 				C9D9E3061B0128E600F99307 /* MapViewController.swift */,
 				C9EA96FE1B02575C00370001 /* StudentInfoTableViewController.swift */,
+				68068CC91B20A53C0040E7BE /* DistanceTableViewController.swift */,
 				680EB3901B1F734D00AA8D1F /* TabBarVC.swift */,
 			);
 			name = Controller;
@@ -380,6 +383,7 @@
 				68AB3DB71B066E15005A7766 /* OTMStudentLocation.swift in Sources */,
 				C9AD6C4E1AFD8F8000F44698 /* LoginViewController.swift in Sources */,
 				680EB3911B1F734D00AA8D1F /* TabBarVC.swift in Sources */,
+				68068CCA1B20A53C0040E7BE /* DistanceTableViewController.swift in Sources */,
 				C9AD6C721AFD965B00F44698 /* OTMClient.swift in Sources */,
 				68BE01A41B0E5D92002B14FA /* OTMData.swift in Sources */,
 				687B77271B18AF3300FCB49A /* SwiftSpinner.swift in Sources */,

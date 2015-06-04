@@ -12,6 +12,15 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
     let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil)
     
+    
+    
+    override func viewDidLoad() {
+        
+        let barViewControllers = self.viewControllers
+        let distanceVC = barViewControllers![2] as! DistanceTableViewController
+        distanceVC.tabBarItem.enabled = false
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
