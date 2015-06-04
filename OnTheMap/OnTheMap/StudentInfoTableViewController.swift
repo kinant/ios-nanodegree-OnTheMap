@@ -58,14 +58,14 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             
         } else {
         
-            let cell2 = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
+            let cell2 = tableView.dequeueReusableCellWithIdentifier("studentCell") as! CustomStudentLocationCell
             
             let datum = self.information[indexPath.row]
         
             // Set the name and image
             if datum.isValid(){
-                cell2.textLabel?.text = (datum.firstName + datum.lastName)
-                cell2.detailTextLabel?.text = datum.mediaURL
+                cell2.name?.text = (datum.firstName + datum.lastName)
+                cell2.url?.text = datum.mediaURL
             }
             return cell2
         }
