@@ -95,8 +95,6 @@ class OTMClient: NSObject {
         
         let urlString = baseURL + method + OTMClient.escapedParameters(parameters)
         
-        // println(urlString)
-        
         let url = NSURL(string: urlString)!
         
         let request = NSMutableURLRequest(URL: url)
@@ -173,7 +171,7 @@ class OTMClient: NSObject {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
                 completionHandler(success: false, error: error)
             }
             completionHandler(success: true, error: nil)
@@ -219,23 +217,23 @@ class OTMClient: NSObject {
     }
     
     func showAlert(view: UIViewController, title: String, message: String, actions: [String] , completionHandler: (choice: String?) -> Void ){
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        if !(view.presentedViewController is UIAlertController) {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         
-        for action in actions {
-            alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-                completionHandler(choice: action)
-            }))
-        }
+            for action in actions {
+                alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                    completionHandler(choice: action)
+                }))
+            }
         
-        dispatch_async(dispatch_get_main_queue()){
-            view.presentViewController(alert, animated: true, completion: nil)
+            dispatch_async(dispatch_get_main_queue()){
+                view.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
     
     class func returnStatusError(api: OTMAPIs, data: NSData?) -> NSError? {
         var newError:NSError!
-        
-        // println(NSString(data: data!, encoding: NSUTF8StringEncoding))
         
         if let parsedResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) {
             
