@@ -130,7 +130,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         
         webVC.delegate = self
         
-        presentViewController(webVC, animated: true, completion: nil)
+        if !(self.presentedViewController is UIAlertController) {
+            presentViewController(webVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func cancelPost(sender: AnyObject) {

@@ -67,23 +67,26 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
             
             if exists {
                 
-                if self.presentedViewController == nil {
-                    OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
+                OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
                         
-                        if(choice == "OK"){
-                            self.postVC.isUpdating = true
-                            self.postVC.updatingObjectID = objectID
+                    if(choice == "OK"){
+                        self.postVC.isUpdating = true
+                        self.postVC.updatingObjectID = objectID
+                        
+                        if !(self.presentedViewController is UIAlertController) {
                             self.presentViewController(self.postVC, animated: true, completion: nil)
                         }
-                    })
-                }
+                    }
+                })
             } else {
                 // println("SHOULD TRY TO POST!!")
                 self.postVC.isUpdating = false
                 self.postVC.updatingObjectID = ""
                 
                 dispatch_async(dispatch_get_main_queue()){
-                    self.presentViewController(self.postVC, animated: true, completion: nil)
+                    if !(self.presentedViewController is UIAlertController) {
+                        self.presentViewController(self.postVC, animated: true, completion: nil)
+                    }
                 }
             }
         }
