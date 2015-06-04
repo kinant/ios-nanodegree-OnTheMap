@@ -176,7 +176,7 @@ extension OTMClient {
             if let error = error {
                 completionHandler(exists: false, objectID: " ", error: error)
             } else {
-                if let resultsDictionary = result.valueForKey("resultss") as? [[String: AnyObject]] {
+                if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
                 
                     if resultsDictionary.count > 0 {
                         existingLocation = (resultsDictionary[0]["objectId"] as? String)!

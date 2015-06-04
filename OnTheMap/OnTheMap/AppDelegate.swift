@@ -15,6 +15,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        var navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.tintColor = UIColor.whiteColor()
+        navigationBarAppearance.barTintColor = AppColors.MainBlueColor
+        navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
+        // Customize Tab Bar
+        var tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.tintColor = UIColor.whiteColor()
+        tabBarAppearance.barTintColor = AppColors.MainBlueColor
+        
+        // Customize Table View
+        var tableViewAppearance = UITableView.appearance()
+        tableViewAppearance.backgroundColor = AppColors.MainBlueColor
+        
+        // Customize Buttons
+        var buttonAppearance = UIButton.appearance()
+        var barButtonAppearance = UIBarButtonItem.appearance()
+        
+        buttonAppearance.titleLabel?.textColor = .whiteColor()
+        barButtonAppearance.tintColor = .whiteColor()
+        
+        var toolBarAppearance = UIToolbar.appearance()
+        toolBarAppearance.backgroundColor = AppColors.MainBlueColor
+        toolBarAppearance.barTintColor = AppColors.MainBlueColor
+        
+        // Customize status bar
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+
         // Override point for customization after application launch.
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

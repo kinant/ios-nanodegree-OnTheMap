@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -23,36 +23,44 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HWy-1S-mjV">
                             <rect key="frame" x="274" y="60" width="52" height="30"/>
                             <state key="normal" title="Browse">
-                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="browseWeb:" destination="-1" eventType="touchUpInside" id="oep-Tf-XDa"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heS-Kp-pST">
-                            <rect key="frame" x="278" y="31" width="34" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://www.google.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heS-Kp-pST">
+                            <rect key="frame" x="205" y="37" width="181" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRD-5r-zYG">
                             <rect key="frame" x="546" y="112" width="32" height="30"/>
                             <state key="normal" title="Post">
-                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="postStudentLocation:" destination="-1" eventType="touchUpInside" id="j6t-D1-Goq"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What URL would you like to share?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-NU-nKM">
+                            <rect key="frame" x="25" y="8" width="269" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.80392156859999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="HWy-1S-mjV" firstAttribute="top" secondItem="heS-Kp-pST" secondAttribute="bottom" constant="8" id="Ilh-GM-7FO"/>
+                        <constraint firstItem="Eds-NU-nKM" firstAttribute="leading" secondItem="LkJ-hS-Rz2" secondAttribute="leading" constant="25" id="6BU-VS-gJE"/>
+                        <constraint firstItem="HWy-1S-mjV" firstAttribute="top" secondItem="heS-Kp-pST" secondAttribute="bottom" constant="2" id="Ilh-GM-7FO"/>
                         <constraint firstAttribute="height" constant="150" id="Qxs-Nq-C6y"/>
                         <constraint firstAttribute="centerY" secondItem="HWy-1S-mjV" secondAttribute="centerY" id="W1c-WY-Cj3"/>
                         <constraint firstAttribute="trailing" secondItem="RRD-5r-zYG" secondAttribute="trailing" constant="22" id="a7V-rE-uY5"/>
+                        <constraint firstItem="heS-Kp-pST" firstAttribute="top" secondItem="Eds-NU-nKM" secondAttribute="bottom" constant="8" symbolic="YES" id="bCm-4z-FOO"/>
                         <constraint firstItem="RRD-5r-zYG" firstAttribute="bottom" secondItem="LkJ-hS-Rz2" secondAttribute="bottomMargin" id="fwa-dX-egz"/>
                         <constraint firstAttribute="centerX" secondItem="heS-Kp-pST" secondAttribute="centerX" constant="5" id="gcT-RX-SLV"/>
                         <constraint firstAttribute="centerX" secondItem="HWy-1S-mjV" secondAttribute="centerX" id="pyO-V1-d5R"/>
@@ -64,7 +72,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbb-7b-d10">
                             <rect key="frame" x="551" y="68" width="34" height="30"/>
                             <state key="normal" title="Find!">
-                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -73,7 +81,7 @@
                         </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Location" translatesAutoresizingMaskIntoConstraints="NO" id="7hz-29-Nh3">
                             <rect key="frame" x="24" y="52" width="489" height="58"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.44904357065917977" green="0.7903001939711265" blue="0.98246234056017701" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -82,7 +90,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvg-bq-cqi">
                             <rect key="frame" x="243" y="115" width="146" height="30"/>
                             <state key="normal" title="Use Current Location">
-                                <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -91,10 +99,12 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bD5-y3-yxH">
                             <rect key="frame" x="572" y="8" width="20" height="20"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="dB4-eD-859"/>
                                 <constraint firstAttribute="width" constant="20" id="wZz-wq-fxS"/>
                             </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Cancel" image="cancel">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -102,20 +112,28 @@
                                 <action selector="cancelPost:" destination="-1" eventType="touchUpInside" id="A3B-yt-8d1"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you located?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wA-37-58B">
+                            <rect key="frame" x="24" y="26" width="182" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.80392156859999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="bD5-y3-yxH" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="topMargin" id="0gi-z8-ydW"/>
                         <constraint firstItem="7hz-29-Nh3" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="top" constant="52" id="Ac1-mT-n1w"/>
                         <constraint firstItem="Kbb-7b-d10" firstAttribute="leading" secondItem="7hz-29-Nh3" secondAttribute="trailing" constant="38" id="AvK-qY-w8W"/>
                         <constraint firstItem="bD5-y3-yxH" firstAttribute="trailing" secondItem="uAL-mC-Edm" secondAttribute="trailingMargin" id="CFr-5m-6df"/>
                         <constraint firstItem="Mvg-bq-cqi" firstAttribute="top" secondItem="7hz-29-Nh3" secondAttribute="bottom" constant="5" id="KOD-1N-dAX"/>
+                        <constraint firstItem="7hz-29-Nh3" firstAttribute="top" secondItem="8wA-37-58B" secondAttribute="bottom" constant="5" id="PYh-Bv-vbT"/>
                         <constraint firstAttribute="trailing" secondItem="Kbb-7b-d10" secondAttribute="trailing" constant="15" id="YzD-sx-qTf"/>
                         <constraint firstAttribute="height" constant="150" id="cov-x6-xPd"/>
                         <constraint firstItem="Kbb-7b-d10" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="top" constant="68" id="fLr-qc-kf4"/>
                         <constraint firstAttribute="centerX" secondItem="Mvg-bq-cqi" secondAttribute="centerX" constant="-16" id="fvQ-C1-aYD"/>
                         <constraint firstItem="7hz-29-Nh3" firstAttribute="leading" secondItem="uAL-mC-Edm" secondAttribute="leading" constant="24" id="hPk-hQ-vIf"/>
                         <constraint firstAttribute="bottom" secondItem="Mvg-bq-cqi" secondAttribute="bottom" constant="5" id="n7o-By-Ct3"/>
+                        <constraint firstItem="8wA-37-58B" firstAttribute="leading" secondItem="7hz-29-Nh3" secondAttribute="leading" id="vRJ-7t-9mL"/>
                     </constraints>
                 </view>
             </subviews>
