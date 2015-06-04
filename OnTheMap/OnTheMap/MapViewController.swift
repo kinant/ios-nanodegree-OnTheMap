@@ -152,24 +152,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
         
-        // println("annotation tapped!")
         let location = view.annotation as! OTMAnnotation
-        // println(location)
-        // println(location.subtitle!)
-        var url: NSURL!
-        if let testUrl = NSURL(string: location.subtitle!) {
-            println(testUrl)
-            url = testUrl
-        } else {
-            var searchString = location.subtitle.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        
+        NSURL.validateUrl(location.subtitle!, completion: { (success, urlString, error) -> Void in
             
-            var escapedSearchString = searchString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-            var googleStringURL = "https://www.google.com/search?q=\(escapedSearchString!)"
-            println(googleStringURL)
-            url = NSURL(string: googleStringURL)
-        }
-        println("can we open url?:")
-        println(UIApplication.sharedApplication().canOpenURL(url))
-        UIApplication.sharedApplication().openURL(url!)
+            if(success){
+                
+                var url = NSURL(string: urlString!)
+                UIApplication.sharedApplication().openURL(url!)
+            } else {
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: { (choice) -> Void in
+                    
+                })
+            }
+        })
     }
 }

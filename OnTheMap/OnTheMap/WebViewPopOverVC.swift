@@ -33,30 +33,16 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         
         webView.delegate = self
         
-        let url = NSURL(string:"http://www.google.com")
-        let request = NSURLRequest(URL:url!)
-        webView.loadRequest(request)
-        
-        // Do any additional setup after loading the view.
+        loadRequest("www.google.com")
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         urlField.resignFirstResponder()
         
         var urlEscapedString = urlField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        loadRequest(urlEscapedString!)
         
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: urlEscapedString!)!))
         return false
-    }
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
-        if(range.location == 6 && range.length == 1) {
-            return false
-        }
-        else {
-            return true
-        }
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
@@ -76,6 +62,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         backButton.enabled = webView.canGoBack
         forwardButton.enabled = webView.canGoForward
         useButton.enabled = true
+        urlField.text = webView.request!.URL!.description
     }
     
     func timerCallback() {
@@ -96,20 +83,24 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         
-        OTMClient.sharedInstance().showAlert(self, title: "Error", message: error.localizedDescription, actions: ["OK", "GOOGLE IT!"]) { (choice) -> Void in
+        OTMClient.sharedInstance().showAlert(self, title: "Error", message: error.localizedDescription, actions: ["OK", "Google it!"]) { (choice) -> Void in
             
             var searchString = self.urlField.text.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             
+            searchString = searchString.stringByReplacingOccurrencesOfString("https://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
             var escapedSearchString = searchString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             
-            if(choice == "GOOGLE IT!"){
-                var googleStringURL = "https://www.google.com/search?q=\(escapedSearchString!)"
-                println(googleStringURL)
-                var googleSearchURL = NSURL(string: googleStringURL)
-                println(googleSearchURL)
-                webView.loadRequest(NSURLRequest(URL: NSURL(string: googleStringURL)!))
+            if(choice == "Google it!"){
+                var googleStringURL = "www.google.com/search?q=\(escapedSearchString!)"
+                self.loadRequest(googleStringURL)
             }
         }
+    }
+    
+    func loadRequest(urlString: String){
+        var prefix = (urlString.hasPrefix("http://") || urlString.hasPrefix("https://") ) ? "" : "http://"
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: prefix + urlString)!))
     }
     
     @IBAction func backButtonTouch(sender: AnyObject) {
@@ -125,8 +116,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     @IBAction func refreshButtonTouch(sender: AnyObject) {
-        let request = NSURLRequest(URL:webView.request!.URL!)
-        webView.loadRequest(request)
+        loadRequest(webView.request!.URL!.description)
     }
     
     @IBAction func useLink(sender: AnyObject) {
