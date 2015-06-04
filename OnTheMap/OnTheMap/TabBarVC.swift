@@ -19,10 +19,17 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         var navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64))
         navBar.tintColor = .lightGrayColor()
         self.view.addSubview(navBar)
+
+        var refreshButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
         
-        // create the buttons
-        var refreshButton = UIBarButtonItem(title: "R", style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
+        var refreshH = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
+        self.view.addConstraint(refreshH)
+        
+        var refreshW = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
+        // self.view.addConstraint(refreshW)
+        
         var postButton = UIBarButtonItem(title: "P", style: UIBarButtonItemStyle.Plain, target: self, action: "post")
+        
         var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
         
         // create the navigation items
