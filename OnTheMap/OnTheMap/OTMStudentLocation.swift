@@ -33,7 +33,7 @@ struct OTMStudentLocation {
         var location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         self.distance = location.distanceFromLocation(OTMClient.UdacityHQLocation)/1000
         // self.distance = 0
-        println("distance from udacity hq: \(self.distance)")
+        // println("distance from udacity hq: \(self.distance)")
     
     }
     

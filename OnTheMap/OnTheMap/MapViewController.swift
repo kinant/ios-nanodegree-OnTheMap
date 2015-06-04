@@ -88,23 +88,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     func addPinToMap(location: OTMStudentLocation){
-        if (location.latitude != nil && location.longitude != nil) {
+        if (location.isValid()) {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-            self.map.addAnnotation(newAnnotation)
-        }
-    }
-    
-    func addPinsToMap(newLocations: [OTMStudentLocation]){
-        
-        for location in newLocations {
-            // println(location)
-            if (location.latitude != nil && location.longitude != nil) {
-                let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+            
+            //println()
+            //println("unique key: " + location.uniqueKey!)
+            //println("user key: " + OTMClient.sharedInstance().userID!)
+            
+            
+            if(location.uniqueKey == OTMClient.sharedInstance().userID){
+                //println("is users location!")
+                //println()
+                let newAnnotation = OTMUserAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+                
                 self.map.addAnnotation(newAnnotation)
-                // self.setCenterOfMapToLocation(newLocation)
+                
+            } else {
+                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+                
+                self.map.addAnnotation(newAnnotation)
             }
+
         }
     }
     
@@ -119,7 +123,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
-        // println("in here!!!!")
+        var pinImage = (annotation is OTMAnnotation) ? UIImage(named: "red_placemark") : UIImage(named: "gold_placemark")
         
         var v: MKAnnotationView! = nil
         
@@ -132,6 +136,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             (v as! MKPinAnnotationView).pinColor = .Purple
             v.canShowCallout = true
             v.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+            v.image = pinImage
+            v.bounds.size.height /= 3.0
+            v.bounds.size.width /= 3.0
+            v.centerOffset = CGPointMake(-50, -20)
         }
         v.annotation = annotation
         
