@@ -6,8 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewPopOverVC" customModule="OnTheMap" customModuleProvider="target">
             <connections>
-                <outlet property="backButton" destination="3z4-82-W7g" id="Lf3-i3-1cz"/>
-                <outlet property="forwardButton" destination="3Pm-dm-Lmv" id="LbF-fv-eCR"/>
+                <outlet property="backButton" destination="uso-vG-Aeh" id="Bht-f4-WGO"/>
+                <outlet property="forwardButton" destination="Btn-SF-3yM" id="pPG-hu-Upn"/>
                 <outlet property="progressBar" destination="8zo-21-ZYq" id="bF5-qg-oRD"/>
                 <outlet property="urlField" destination="xYN-WI-YAX" id="9cI-If-sti"/>
                 <outlet property="useButton" destination="bAB-6Y-M1K" id="7QI-8u-ilL"/>
@@ -75,6 +75,9 @@
                     <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-21-ZYq">
+                    <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                </progressView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14A-aj-SYZ">
                     <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                     <constraints>
@@ -88,36 +91,44 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="eWE-lq-IZ0"/>
-                        <barButtonItem style="plain" id="3z4-82-W7g">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jeo-5f-NQX">
-                                <rect key="frame" x="277" y="478" width="35" height="30"/>
+                        <barButtonItem style="plain" id="uso-vG-Aeh">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gwl-Tm-Pfg">
+                                <rect key="frame" x="115" y="308" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="STC-f2-n7b"/>
+                                    <constraint firstAttribute="width" constant="35" id="mNR-XT-F4Z"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonTouch:" destination="-1" eventType="touchUpInside" id="H3j-TN-S9S"/>
+                                    <action selector="backButtonTouch:" destination="-1" eventType="touchUpInside" id="mke-ti-10u"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="52T-oT-AOA"/>
-                        <barButtonItem style="plain" id="3Pm-dm-Lmv">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MqY-4v-Fks">
-                                <rect key="frame" x="342" y="478" width="57" height="30"/>
+                        <barButtonItem style="plain" id="Btn-SF-3yM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h7S-yF-tD9">
+                                <rect key="frame" x="459" y="315" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Forward">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="FYg-xZ-VxF"/>
+                                    <constraint firstAttribute="width" constant="35" id="L2d-YB-3LY"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="fwd">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="forwardButtonTouch:" destination="-1" eventType="touchUpInside" id="tIz-dM-gxT"/>
+                                    <action selector="forwardButtonTouch:" destination="-1" eventType="touchUpInside" id="E8x-jg-WkJ"/>
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="3yV-H9-ooL"/>
                     </items>
                 </toolbar>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-21-ZYq">
-                    <rect key="frame" x="0.0" y="64" width="600" height="2"/>
-                </progressView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -139,6 +150,8 @@
         </view>
     </objects>
     <resources>
+        <image name="back" width="60" height="60"/>
+        <image name="fwd" width="60" height="60"/>
         <image name="refresh" width="128" height="128"/>
         <image name="stop" width="128" height="128"/>
     </resources>
