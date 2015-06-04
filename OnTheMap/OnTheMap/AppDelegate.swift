@@ -41,6 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         toolBarAppearance.backgroundColor = AppColors.MainBlueColor
         toolBarAppearance.barTintColor = AppColors.MainBlueColor
         
+        // customize table cells
+        var distanceCellAppearance = UITableViewCell.appearance()
+        distanceCellAppearance.backgroundColor = AppColors.DarkBlueColor
+        distanceCellAppearance.textLabel?.textColor = .whiteColor()
+        
+        var locationCellAppearance = CustomStudentLocationCell.appearance()
+        locationCellAppearance.backgroundColor = AppColors.DarkBlueColor
+        
         // Customize status bar
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
 

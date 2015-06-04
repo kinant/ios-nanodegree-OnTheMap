@@ -139,18 +139,18 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" id="xNo-bk-bZS" customClass="CustomStudentLocationCell" customModule="OnTheMap" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" rowHeight="161" id="xNo-bk-bZS" customClass="CustomStudentLocationCell" customModule="OnTheMap" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xNo-bk-bZS" id="hhB-ol-cwC">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr7-co-vBe">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr7-co-vBe">
                                             <rect key="frame" x="107" y="28" width="125" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="125" id="s5x-sJ-GOe"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placemark" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-6J-slI">
@@ -160,15 +160,16 @@
                                                 <constraint firstAttribute="width" constant="88" id="7Ec-m6-YH9"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="mediaURL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKF-8O-Wxa">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="mediaURL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKF-8O-Wxa">
                                             <rect key="frame" x="107" y="64" width="81" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" white="0.82804790296052633" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="q0k-6J-slI" secondAttribute="bottom" constant="8" id="Hbi-bQ-yvJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="qKF-8O-Wxa" secondAttribute="bottom" constant="40" id="OXp-cM-pgG"/>
                                         <constraint firstItem="q0k-6J-slI" firstAttribute="leading" secondItem="hhB-ol-cwC" secondAttribute="leadingMargin" constant="-9" id="OvL-LT-OZv"/>
                                         <constraint firstItem="qKF-8O-Wxa" firstAttribute="top" secondItem="Kr7-co-vBe" secondAttribute="bottom" constant="9" id="adl-73-IhR"/>
                                         <constraint firstItem="q0k-6J-slI" firstAttribute="top" secondItem="hhB-ol-cwC" secondAttribute="topMargin" constant="9" id="cXQ-NO-S9C"/>
@@ -252,7 +253,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" textLabel="zY2-5h-P2Y" detailTextLabel="ouC-dE-hS7" style="IBUITableViewCellStyleSubtitle" id="KDV-P4-MLm">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" textLabel="zY2-5h-P2Y" detailTextLabel="ouC-dE-hS7" rowHeight="157" style="IBUITableViewCellStyleSubtitle" id="KDV-P4-MLm">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KDV-P4-MLm" id="ERf-qb-Zqk">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -260,13 +261,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zY2-5h-P2Y">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ouC-dE-hS7">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.89301500822368418" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -312,8 +313,8 @@
     </scenes>
     <resources>
         <image name="mapLogo" width="64" height="64"/>
-        <image name="maptab" width="64" height="64"/>
+        <image name="maptab" width="30" height="30"/>
         <image name="placemark" width="22" height="30"/>
-        <image name="ruler" width="64" height="64"/>
+        <image name="ruler" width="30" height="30"/>
     </resources>
 </document>

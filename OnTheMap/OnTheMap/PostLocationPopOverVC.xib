@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -33,7 +33,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://www.google.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heS-Kp-pST">
                             <rect key="frame" x="205" y="37" width="181" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.89301500820000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRD-5r-zYG">
@@ -46,14 +46,14 @@
                                 <action selector="postStudentLocation:" destination="-1" eventType="touchUpInside" id="j6t-D1-Goq"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What URL would you like to share?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-NU-nKM">
-                            <rect key="frame" x="25" y="8" width="269" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What URL would you like to share?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-NU-nKM">
+                            <rect key="frame" x="25" y="8" width="312" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.46274509800000002" green="0.80392156859999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.6704101562" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Eds-NU-nKM" firstAttribute="leading" secondItem="LkJ-hS-Rz2" secondAttribute="leading" constant="25" id="6BU-VS-gJE"/>
                         <constraint firstItem="HWy-1S-mjV" firstAttribute="top" secondItem="heS-Kp-pST" secondAttribute="bottom" constant="2" id="Ilh-GM-7FO"/>
@@ -98,11 +98,11 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bD5-y3-yxH">
-                            <rect key="frame" x="572" y="8" width="20" height="20"/>
+                            <rect key="frame" x="562" y="8" width="30" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="dB4-eD-859"/>
-                                <constraint firstAttribute="width" constant="20" id="wZz-wq-fxS"/>
+                                <constraint firstAttribute="height" constant="30" id="dB4-eD-859"/>
+                                <constraint firstAttribute="width" constant="30" id="wZz-wq-fxS"/>
                             </constraints>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Cancel" image="cancel">
@@ -112,14 +112,14 @@
                                 <action selector="cancelPost:" destination="-1" eventType="touchUpInside" id="A3B-yt-8d1"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you located?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wA-37-58B">
-                            <rect key="frame" x="24" y="26" width="182" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you located?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wA-37-58B">
+                            <rect key="frame" x="24" y="26" width="224" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.46274509800000002" green="0.80392156859999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.67041015625" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="bD5-y3-yxH" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="topMargin" id="0gi-z8-ydW"/>
                         <constraint firstItem="7hz-29-Nh3" firstAttribute="top" secondItem="uAL-mC-Edm" secondAttribute="top" constant="52" id="Ac1-mT-n1w"/>
@@ -151,6 +151,6 @@
         </view>
     </objects>
     <resources>
-        <image name="cancel" width="256" height="256"/>
+        <image name="cancel" width="128" height="128"/>
     </resources>
 </document>
