@@ -58,5 +58,6 @@ extension OTMClient {
         static let parseFetchLocations = NSError(domain: "OTM Error", code: 3, userInfo: [NSLocalizedDescriptionKey : "Parse Fetching Locations Failed"])
         static let parseFetchCount = NSError(domain: "OTM Error", code: 4, userInfo: [NSLocalizedDescriptionKey : "Parse Fetching Count Failed"])
         static let parsePostLocation = NSError(domain: "OTM Error", code: 5, userInfo: [NSLocalizedDescriptionKey : "Parse Post Location Failed"])
+        static let parseQuery = NSError(domain: "OTM Error", code: 5, userInfo: [NSLocalizedDescriptionKey : "Parse Query User Failed"])
     }
 }

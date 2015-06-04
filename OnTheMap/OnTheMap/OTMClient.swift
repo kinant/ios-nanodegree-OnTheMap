@@ -116,12 +116,6 @@ class OTMClient: NSObject {
             
             var newData = data
             
-            if(api == OTMAPIs.Udacity)
-            {
-                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-                
-            }
-            
             if error != nil {
                 let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
                 completionHandler(result: nil, error: connectionError)
@@ -177,19 +171,21 @@ class OTMClient: NSObject {
             if error != nil {
                 let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
                 completionHandler(success: false, error: connectionError)
+            } else {
+                
+                if(api == OTMAPIs.Udacity)
+                {
+                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                }
+                
+                if let serverError = OTMClient.returnStatusError(api, data: newData) {
+                    completionHandler(success: false, error: serverError)
+                } else {
+                    completionHandler(success: true, error: nil)
+                }
             }
-            
-            if(api == OTMAPIs.Udacity)
-            {
-                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-            }
-            
-            if let serverError = OTMClient.returnStatusError(api, data: newData) {
-                completionHandler(success: false, error: serverError)
-            }
-            
-            completionHandler(success: true, error: nil)
         }
+        
         task.resume()
         
         return task

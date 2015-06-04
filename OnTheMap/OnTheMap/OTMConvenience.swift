@@ -160,7 +160,7 @@ extension OTMClient {
         }
     }
     
-    func userLocationExists(completionHandler: (exists: Bool, objectID: String) -> Void) {
+    func userLocationExists(completionHandler: (exists: Bool, objectID: String, error: NSError?) -> Void) {
     
         var locationExits = false
         var existingLocation: String = ""
@@ -174,33 +174,37 @@ extension OTMClient {
             // TODO: FIX ERROR HANDLING
             
             if let error = error {
-                completionHandler(exists: false, objectID: error.localizedDescription)
+                completionHandler(exists: false, objectID: " ", error: error)
             } else {
-                if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
+                if let resultsDictionary = result.valueForKey("resultss") as? [[String: AnyObject]] {
                 
                     if resultsDictionary.count > 0 {
                         existingLocation = (resultsDictionary[0]["objectId"] as? String)!
                         // println(existingLocation)
                         locationExits = true
-                        completionHandler(exists: true, objectID: existingLocation)
+                        completionHandler(exists: true, objectID: existingLocation, error: nil)
                         return
                     } else {
-                        completionHandler(exists: false, objectID: "")
+                        completionHandler(exists: false, objectID: "", error: nil)
                     }
                 } else {
-                    completionHandler(exists: false, objectID: "")
+                    completionHandler(exists: false, objectID: "", error: OTMErrors.parseQuery)
                 }
             }
         }
     }
     
-    func deleteLocation(completionHandler: (success: Bool) -> Void) {
+    func deleteLocation(completionHandler: (success: Bool, error: NSError?) -> Void) {
     
         var parameters = [String: AnyObject]()
         
         var objectIDtoDelete: String!
         
-        userLocationExists { (exists, objectID) -> Void in
+        userLocationExists { (exists, objectID, error) -> Void in
+            
+            if error != nil {
+                completionHandler(success: false, error: error)
+            }
             
             if exists {
                 objectIDtoDelete = objectID
@@ -208,7 +212,7 @@ extension OTMClient {
                 self.taskForDelete(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL, method: objectIDtoDelete, parameters: parameters, completionHandler: { (success, error) -> Void in
                   
                     if success {
-                        completionHandler(success: true)
+                        completionHandler(success: true, error: nil)
                         //println("user location successfully deleted!")
                     }
                 })
@@ -216,20 +220,22 @@ extension OTMClient {
         }
     }
     
-    func logout(api: OTMAPIs, completionHandler: (success: Bool) -> Void) {
+    func logout(api: OTMAPIs, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         var parameters = [String: AnyObject]()
         
         taskForDelete(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in
          
-            //println("in here!")
+            if error != nil {
+                completionHandler(success: false, error: error)
+            }
             
             if success {
                 // println("sucessfully logged out!")
                 self.sessionID = nil
                 self.userID = nil
                 self.student = OTMStudentInformation?()
-                completionHandler(success: true)
+                completionHandler(success: true, error: nil)
             }
         }
     }

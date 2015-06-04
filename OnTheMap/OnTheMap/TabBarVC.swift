@@ -57,7 +57,13 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         postVC.delegate = mapVC
         
         // check if user location already exists
-        OTMClient.sharedInstance().userLocationExists { (exists, objectID) -> Void in
+        OTMClient.sharedInstance().userLocationExists { (exists, objectID, error) -> Void in
+            
+            if let userExistsError = error {
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: userExistsError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
+                    // do nothing
+                })
+            }
             
             if exists {
                 
@@ -98,10 +104,16 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     }
     
     func logout(){
-        OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success) -> Void in
+        OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success, error) -> Void in
             
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
+            
+            if let logoutError = error {
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: logoutError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
+                    // do nothing
+                })
+            }
             
             if(success) {
                 dispatch_async(dispatch_get_main_queue()){
