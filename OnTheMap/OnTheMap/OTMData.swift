@@ -14,7 +14,7 @@ class OTMData: NSObject {
     
     func fetchData(view: UIViewController, skip: Int, completionHandler: (result: [OTMStudentLocation]?) -> Void){
         
-        activityIndicatorEnabled(true)
+        //activityIndicatorEnabled(true)
         
         OTMClient.sharedInstance().fetchLocations(skip) { (result, error) -> Void in
             
@@ -41,7 +41,7 @@ class OTMData: NSObject {
                 
                 completionHandler(result: newData)
             }
-            activityIndicatorEnabled(false)
+            //activityIndicatorEnabled(false)
         }
         
     }

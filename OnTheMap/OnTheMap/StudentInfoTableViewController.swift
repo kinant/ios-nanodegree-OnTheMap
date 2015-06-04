@@ -93,6 +93,8 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         
         if(self.refresh){
             
+            activityIndicatorEnabled(true)
+            
             self.refresh = false
             
             let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
@@ -119,6 +121,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
                         self.table.reloadData()
                     }
                     
+                    activityIndicatorEnabled(false)
                     self.refresh = true
                 })
             }

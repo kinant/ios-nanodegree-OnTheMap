@@ -39,6 +39,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func loadData(){
         
+        activityIndicatorEnabled(true)
+        
         let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
         
         dispatch_async(queue) {
@@ -68,6 +70,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                                             self.addPinToMap(location)
                                         }
                                     }
+                                    
+                                    if locations.count <= 0 {
+                                        dispatch_async(dispatch_get_main_queue()){
+                                            var tabBarC = self.tabBarController as! TabBarVC
+                                            tabBarC.distanceTabEnabled(true)
+                                        }
+                                        activityIndicatorEnabled(false)
+                                    }
+                                    
                                 }
                                 else {
                                     OTMClient.sharedInstance().showAlert(self, title: "OTM Error", message: "Unable to fetch locations ", actions: ["OK"], completionHandler: { (choice) -> Void in
@@ -76,11 +87,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                                 }
                             })
                         })
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        var tabBarC = self.tabBarController as! TabBarVC
-                        tabBarC.distanceTabEnabled(true)
                     }
                 }
             }
