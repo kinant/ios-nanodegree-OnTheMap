@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
     
     let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil)
+    let webVC = WebViewPopOverVC(nibName: "WebViewPopOverVC", bundle: nil)
     
     @IBOutlet weak var map: MKMapView!
     
@@ -186,7 +187,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         NSURL.validateUrl(location.subtitle!, completion: { (success, urlString, error) -> Void in
             
             if(success){
-                OTMClient.sharedInstance().browseToURL(urlString!)
+                
+                self.webVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+                
+                self.webVC.delegate = nil
+                
+                if !(self.presentedViewController is UIAlertController) {
+                    self.presentViewController(self.webVC, animated: true, completion: nil)
+                }
+                
             } else {
                 OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: { (choice) -> Void in
                     

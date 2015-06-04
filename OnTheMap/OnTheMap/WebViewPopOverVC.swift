@@ -25,15 +25,21 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     var myTimer = NSTimer()
     var didStartLoad = false
     
+    var isPosting = false
+    var loadingURL = "www.google.com"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         backButton.enabled = false
         forwardButton.enabled = false
         
         webView.delegate = self
         
-        loadRequest("www.google.com")
+        loadRequest(loadingURL)
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
