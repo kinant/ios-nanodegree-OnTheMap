@@ -28,6 +28,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        dispatch_async(dispatch_get_main_queue()){
+            var tabBarC = self.tabBarController as! TabBarVC
+            tabBarC.distanceTabEnabled(false)
+        }
+        
         refreshMap()
     
     }
@@ -73,8 +78,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                         })
                     }
                     
-                    var tabBarC = self.tabBarController as! TabBarVC
-                    tabBarC.distanceTabEnabled(true)
+                    dispatch_async(dispatch_get_main_queue()){
+                        var tabBarC = self.tabBarController as! TabBarVC
+                        tabBarC.distanceTabEnabled(true)
+                    }
                 }
             }
         }

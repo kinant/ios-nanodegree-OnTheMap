@@ -30,6 +30,11 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
         
+        dispatch_async(dispatch_get_main_queue()){
+            var tabBarC = self.tabBarController as! TabBarVC
+            tabBarC.distanceTabEnabled(false)
+        }
+        
         refreshTable()
     }
     
@@ -47,7 +52,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             let cell1 = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
             cell1.activityIndicator.startAnimating()
             if(self.information.count != 0){
-                delay(2.4){
+                delay(1.0){
                     // println("adding data!")
                     self.addData()
                     cell1.activityIndicator.stopAnimating()
@@ -98,8 +103,10 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
                     if let locations = result {
                         
                         if(locations.count <= 0){
-                            var tabBarC = self.tabBarController as! TabBarVC
-                            tabBarC.distanceTabEnabled(true)
+                            dispatch_async(dispatch_get_main_queue()){
+                                var tabBarC = self.tabBarController as! TabBarVC
+                                tabBarC.distanceTabEnabled(true)
+                            }
                         }
                         
                         for datum in locations {

@@ -92,7 +92,7 @@
             </objects>
             <point key="canvasLocation" x="593" y="-219"/>
         </scene>
-        <!--Item 1-->
+        <!--Map-->
         <scene sceneID="8Hp-Zg-jlB">
             <objects>
                 <viewController id="gON-Up-T17" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +116,7 @@
                             <constraint firstItem="jjd-E3-bMC" firstAttribute="bottom" secondItem="Mks-Om-4wv" secondAttribute="top" id="mvN-vg-AWy"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="OMP-82-ayn"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="maptab" id="OMP-82-ayn"/>
                     <connections>
                         <outlet property="map" destination="jjd-E3-bMC" id="UrR-hf-gy9"/>
                     </connections>
@@ -125,7 +125,7 @@
             </objects>
             <point key="canvasLocation" x="2370" y="-854"/>
         </scene>
-        <!--Item-->
+        <!--Student Info Table View Controller-->
         <scene sceneID="jcM-24-jqA">
             <objects>
                 <tableViewController id="CYp-e7-2Jq" customClass="StudentInfoTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -209,7 +209,7 @@
                             <outlet property="delegate" destination="CYp-e7-2Jq" id="eX8-N8-nIb"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="LhB-OO-J50"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostRecent" id="LhB-OO-J50"/>
                     <connections>
                         <outlet property="table" destination="UdI-Y0-sQ5" id="ymf-gZ-Up5"/>
                     </connections>
@@ -238,7 +238,7 @@
             </objects>
             <point key="canvasLocation" x="1326" y="-219"/>
         </scene>
-        <!--Item-->
+        <!--Distance-->
         <scene sceneID="aDE-B7-yWr">
             <objects>
                 <tableViewController storyboardIdentifier="DistanceTableVC" id="sV8-ZS-uEh" customClass="DistanceTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -299,7 +299,7 @@
                             <outlet property="delegate" destination="sV8-ZS-uEh" id="8K6-iJ-Pws"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="TA7-re-aJY"/>
+                    <tabBarItem key="tabBarItem" title="Distance" image="ruler" id="TA7-re-aJY"/>
                     <connections>
                         <outlet property="tabBarItem" destination="TA7-re-aJY" id="UXE-bI-5N8"/>
                         <outlet property="table" destination="hZe-Ti-lYQ" id="rht-ZL-H0K"/>
@@ -312,6 +312,8 @@
     </scenes>
     <resources>
         <image name="mapLogo" width="64" height="64"/>
-        <image name="placemark" width="37" height="52"/>
+        <image name="maptab" width="64" height="64"/>
+        <image name="placemark" width="22" height="30"/>
+        <image name="ruler" width="64" height="64"/>
     </resources>
 </document>

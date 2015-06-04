@@ -31,20 +31,11 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         // var refreshBarButton = UIBarButtonItem(customView: refreshButton)
         
         // refreshBarButton.image = UIImage(named: "refresh")
-        // var refreshBarButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
-        // refreshBarButton.customView = refreshButton
-        // refreshBarButton.width = 0.0
-        // var refreshH = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
+        var refreshBarButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
+
+        var postButton = UIBarButtonItem(image: UIImage(named: "placemark"), style: UIBarButtonItemStyle.Plain, target: self, action: "post")
         
-        // self.view.addConstraint(refreshH)
-        
-        //var refreshW = NSLayoutConstraint(item: refreshButton, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 40)
-        // self.view.addConstraint(refreshW)
-        
-        var refreshBarButton = UIBarButtonItem(title: "R", style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
-        var postButton = UIBarButtonItem(title: "P", style: UIBarButtonItemStyle.Plain, target: self, action: "post")
-        
-        var logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
+        var logoutButton = UIBarButtonItem(image: UIImage(named: "logout"), style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
         
         // create the navigation items
         var navItems = UINavigationItem(title: "On The Map")
