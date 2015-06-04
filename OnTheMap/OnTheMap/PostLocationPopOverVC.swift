@@ -26,12 +26,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
     
-    override func viewDidLoad() {
-        
-        delegate?.test()
-        delegate?.test()
-        delegate?.test()
-        delegate?.test()
+    override func viewDidAppear(animated: Bool) {
+        // self.popoverPresentationController?.passthroughViews = [delegate!.view]
     }
     
     func getAddress(location: CLLocation) -> String {
@@ -136,6 +132,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func cancelPost(sender: AnyObject) {
+        // TODO: FIX ISSUE
         delegate?.removePin(currentPlacemark)
         self.dismissViewControllerAnimated(true, completion: nil)
     }

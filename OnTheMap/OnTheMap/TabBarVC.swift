@@ -67,12 +67,13 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
             self.selectedViewController = mapVC
         }
         
-        mapVC.test()
-        
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         postVC.preferredContentSize = self.view.frame.size
-        
         postVC.delegate = mapVC
+        
+        if let popoverController = postVC.popoverPresentationController {
+            popoverController.passthroughViews = [mapVC]
+        }
         
         // check if user location already exists
         OTMClient.sharedInstance().userLocationExists { (exists, objectID, error) -> Void in

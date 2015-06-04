@@ -97,8 +97,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             
             
             if(location.uniqueKey == OTMClient.sharedInstance().userID){
-                //println("is users location!")
-                //println()
+                println()
+                println("is users location!")
+                println(location.uniqueKey)
+                println()
+                
                 let newAnnotation = OTMUserAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
                 
                 self.map.addAnnotation(newAnnotation)
@@ -113,8 +116,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     func addPin(placemark: MKPlacemark){
-        map.addAnnotation(placemark)
-        setCenterOfMapToLocation(placemark.coordinate)
+        dispatch_async(dispatch_get_main_queue()){
+            self.map.addAnnotation(placemark)
+            self.setCenterOfMapToLocation(placemark.coordinate)
+        }
     }
     
     func removePin(placemark: MKPlacemark){
@@ -123,7 +128,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
-        var pinImage = (annotation is OTMAnnotation) ? UIImage(named: "red_placemark") : UIImage(named: "gold_placemark")
+        var pinImage = (annotation is OTMUserAnnotation) ? UIImage(named: "gold_placemark") : UIImage(named: "red_placemark")
         
         var v: MKAnnotationView! = nil
         
