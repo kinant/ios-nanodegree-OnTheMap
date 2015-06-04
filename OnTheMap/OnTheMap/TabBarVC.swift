@@ -63,7 +63,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         let mapVC = barViewControllers![0] as! MapViewController
         
         // if at tab bar, switch selected view controller
-        if(self.selectedViewController is StudentInfoTableViewController ){
+        if !(self.selectedViewController is MapViewController ){
             self.selectedViewController = mapVC
         }
         
@@ -126,6 +126,9 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     }
     
     func logout(){
+        
+        activityIndicatorEnabled(true)
+        
         OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success, error) -> Void in
             
             let loginManager = FBSDKLoginManager()
@@ -143,6 +146,9 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
                     self.presentViewController(loginVC, animated: true, completion: nil)
                 }
             }
+            
+            activityIndicatorEnabled(false)
+        
         })
     }
 }

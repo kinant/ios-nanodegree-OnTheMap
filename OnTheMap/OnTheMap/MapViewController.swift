@@ -180,9 +180,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         NSURL.validateUrl(location.subtitle!, completion: { (success, urlString, error) -> Void in
             
             if(success){
-                
-                var url = NSURL(string: urlString!)
-                UIApplication.sharedApplication().openURL(url!)
+                OTMClient.sharedInstance().browseToURL(urlString!)
             } else {
                 OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: { (choice) -> Void in
                     

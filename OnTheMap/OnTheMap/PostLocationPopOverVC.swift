@@ -54,6 +54,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         
         SwiftSpinner.show("Searching for location ... ", description: "", animated: true)
         
+        activityIndicatorEnabled(true)
+        
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
         }
@@ -78,6 +80,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 
                 delay(0.5){
                     SwiftSpinner.hide()
+                    activityIndicatorEnabled(false)
                 }
             }
         }
@@ -87,6 +90,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
         SwiftSpinner.show("Getting current location... ", description: "", animated: true)
+        
+        activityIndicatorEnabled(true)
         
         if(currentPlacemark != nil){
             self.delegate?.removePin(currentPlacemark)
@@ -106,6 +111,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 
                 delay(0.5){
                     SwiftSpinner.hide()
+                    activityIndicatorEnabled(false)
                 }
                 
             } else if let err = error {
@@ -133,7 +139,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func cancelPost(sender: AnyObject) {
         // TODO: FIX ISSUE
-        delegate?.removePin(currentPlacemark)
+        if currentPlacemark != nil {
+            delegate?.removePin(currentPlacemark)
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -141,6 +150,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         
         var noNewLineMapString = (addressText.text as NSString).stringByReplacingOccurrencesOfString("\n", withString: ",")
         var trimmedMapString = (noNewLineMapString as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        activityIndicatorEnabled(true)
         
         OTMClient.sharedInstance().postUserLocation(postLocation.location!.coordinate.latitude, long: postLocation.location!.coordinate.longitude, mediaURL: self.mediaURL.text!, mapString: trimmedMapString, updateLocationID: updatingObjectID){ (error) -> Void in
             
@@ -156,6 +167,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 })
             }
+            
+            activityIndicatorEnabled(true)
         }
     }
 }

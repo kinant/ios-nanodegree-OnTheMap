@@ -267,6 +267,11 @@ class OTMClient: NSObject {
         return newError
     }
     
+    func browseToURL(urlString: String){
+        var url = NSURL(string: urlString)
+        UIApplication.sharedApplication().openURL(url!)
+    }
+    
     // MARK: - Shared Instance
     class func sharedInstance() -> OTMClient {
         

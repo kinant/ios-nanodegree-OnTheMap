@@ -59,13 +59,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         SwiftSpinner.show("Loging in", description: "", animated: true)
         
+        activityIndicatorEnabled(true)
+        
         OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, error) -> Void in
             
             //println("Finished trying to log in!")
             
             if success {
                 dispatch_async(dispatch_get_main_queue(), {
+                    
                     SwiftSpinner.hide()
+                    
+                    activityIndicatorEnabled(false)
+                    
                     let controller = self.storyboard!.instantiateViewControllerWithIdentifier("tabBarController") as! UITabBarController
                     self.presentViewController(controller, animated: true, completion: nil)
                 })
@@ -78,6 +84,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 }
             }
         })
+    }
+    
+    @IBAction func signUp(sender: AnyObject) {
+        OTMClient.sharedInstance().browseToURL("https://www.udacity.com/account/auth#!/signup")
     }
     
     @IBAction func loginButton(sender: AnyObject) {
