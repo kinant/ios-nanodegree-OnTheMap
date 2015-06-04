@@ -171,9 +171,23 @@ class OTMClient: NSObject {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
+            
+            var newData = data
+            
             if error != nil {
-                completionHandler(success: false, error: error)
+                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                completionHandler(success: false, error: connectionError)
             }
+            
+            if(api == OTMAPIs.Udacity)
+            {
+                newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            }
+            
+            if let serverError = OTMClient.returnStatusError(api, data: newData) {
+                completionHandler(success: false, error: serverError)
+            }
+            
             completionHandler(success: true, error: nil)
         }
         task.resume()
