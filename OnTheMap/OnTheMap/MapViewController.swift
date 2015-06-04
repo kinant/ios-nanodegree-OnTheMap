@@ -73,6 +73,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                         })
                     }
                     
+                    var tabBarC = self.tabBarController as! TabBarVC
+                    tabBarC.distanceTabEnabled(true)
                 }
             }
         }

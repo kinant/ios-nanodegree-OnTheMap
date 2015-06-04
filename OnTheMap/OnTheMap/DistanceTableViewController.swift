@@ -29,52 +29,32 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
-        
         refreshTable()
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.information.count + 1
+        return self.information.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        // println("indexPath.row: \(indexPath.row)")
-        // println("self.information.count-1: \(self.information.count - 1)")
-        
-        if(indexPath.row == self.information.count)
-        {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
-            cell1.activityIndicator.startAnimating()
-            if(self.information.count != 0){
-                delay(2.4){
-                    // println("adding data!")
-                    self.addData()
-                    cell1.activityIndicator.stopAnimating()
-                }
-            }
+        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
             
-            return cell1
+        let datum = self.information[indexPath.row]
             
-        } else {
-            
-            let cell2 = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
-            
-            let datum = self.information[indexPath.row]
-            
-            // Set the name and image
-            if datum.isValid(){
+        // Set the name and image
+        if datum.isValid(){
                 
-                var formatter = NSNumberFormatter()
-                formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-                formatter.groupingSeparator = ","
-                var formattedDistanceString = formatter.stringFromNumber(datum.distance)
-                println(formattedDistanceString)
-                cell2.textLabel?.text = (datum.firstName + datum.lastName)
-                cell2.detailTextLabel?.text = "\(formattedDistanceString!) km"
-            }
-            return cell2
+            var formatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+            formatter.groupingSeparator = ","
+            var formattedDistanceString = formatter.stringFromNumber(datum.distance)
+            println(formattedDistanceString)
+            cell.textLabel?.text = (datum.firstName + datum.lastName)
+            cell.detailTextLabel?.text = "\(formattedDistanceString!) km"
         }
+        
+        return cell
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -83,11 +63,13 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
     
     func refreshTable()
     {
+        self.information.removeAll()
         addData()
     }
     
     func addData(){
         var unsortedData = OTMData.sharedInstance().locationsList
         self.information = unsortedData.sorted({$0.distance > $1.distance})
+        table.reloadData()
     }
 }

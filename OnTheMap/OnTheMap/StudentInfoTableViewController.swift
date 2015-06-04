@@ -97,6 +97,11 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             
                     if let locations = result {
                         
+                        if(locations.count <= 0){
+                            var tabBarC = self.tabBarController as! TabBarVC
+                            tabBarC.distanceTabEnabled(true)
+                        }
+                        
                         for datum in locations {
                             self.information.append(datum)
                             self.count++

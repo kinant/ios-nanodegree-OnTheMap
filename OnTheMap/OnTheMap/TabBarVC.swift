@@ -15,10 +15,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
     
     override func viewDidLoad() {
-        
-        let barViewControllers = self.viewControllers
-        let distanceVC = barViewControllers![2] as! DistanceTableViewController
-        distanceVC.tabBarItem.enabled = false
+        distanceTabEnabled(false)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,6 +53,12 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         
         navBar.items = [navItems]
         
+    }
+    
+    func distanceTabEnabled(enabled: Bool){
+        let barViewControllers = self.viewControllers
+        let distanceVC = barViewControllers![2] as! DistanceTableViewController
+        distanceVC.tabBarItem.enabled = enabled
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
