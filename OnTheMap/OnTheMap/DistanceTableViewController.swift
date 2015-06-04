@@ -19,7 +19,6 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
     func addBottomRow()
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
-        // table.
     }
     
     override func viewDidLoad() {
