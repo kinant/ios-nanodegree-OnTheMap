@@ -20,13 +20,23 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // gesture recognizer for when the user taps the screen (to dismiss keyboard)
+        let tapScreen = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(tapScreen)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         // facebook login, check if already have access token
         // FROM: http://www.brianjcoleman.com/tutorial-how-to-use-login-in-facebook-sdk-4-0-for-swift/
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
-            // display alert if there was an error
+            // if token exists, then we show the spinner and log the user in
+            SwiftSpinner.show("Facebook Access Token Found!", description: "", animated: true)
             OTMClient.sharedInstance().FBaccessToken = FBSDKAccessToken.currentAccessToken().tokenString
-            login(OTMClient.OTMAPIs.Facebook)
+            
+            delay(1.0){
+                self.login(OTMClient.OTMAPIs.Facebook)
+            }
         }
         else
         {
@@ -38,10 +48,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             loginView.readPermissions = ["public_profile", "email", "user_friends"]
             loginView.delegate = self
         }
-        
-        // gesture recognizer for when the user taps the screen (to dismiss keyboard)
-        let tapScreen = UITapGestureRecognizer(target: self, action: "hideKeyboard")
-        self.view.addGestureRecognizer(tapScreen)
     }
     
     override func viewWillAppear(animated: Bool) {

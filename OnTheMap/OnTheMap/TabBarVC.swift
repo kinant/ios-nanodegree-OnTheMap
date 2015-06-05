@@ -85,8 +85,17 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
             popoverController.passthroughViews = [mapVC]
         }
         
+        // Show spinner while user waits for search of location
+        SwiftSpinner.show("Searching for Posted Location", description: "", animated: true)
+        
         // check if user location already exists before attempting to post
         OTMClient.sharedInstance().userLocationExists { (exists, objectID, error) -> Void in
+            
+            
+            // hide the spinner
+            dispatch_async(dispatch_get_main_queue()){
+                SwiftSpinner.hide()
+            }
             
             // handle error
             if let userExistsError = error {
@@ -142,6 +151,9 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     /* handle the logout button being pressed */
     func logout(){
         
+        // show spinner
+        SwiftSpinner.show("Logging Out ...", description: "", animated: true)
+        
         // enable activity indicator
         activityIndicatorEnabled(true)
         
@@ -165,6 +177,9 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
                     self.presentViewController(loginVC, animated: true, completion: nil)
                 }
             }
+            
+            // hide spinner
+            SwiftSpinner.hide()
             
             // disable status bar activity indicator
             activityIndicatorEnabled(false)

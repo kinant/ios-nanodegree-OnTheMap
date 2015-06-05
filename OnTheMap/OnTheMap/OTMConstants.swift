@@ -72,7 +72,7 @@ extension OTMClient {
         static let Longitude = "longitude"
         static let MapString = "mapString"
         static let MediURL = "mediaURL"
-        static let ObjectID = "objectID"
+        static let ObjectID = "objectId"
     }
     
     // App errors to display when an error occurs that is neither a connection nor a server-side error
