@@ -8,13 +8,27 @@
 
 import Foundation
 
+/* Custom tab bar controller for apps tab bar */
 class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
-    let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil)
+    let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil) // load the post location nib
     
-    
+    // to store the tab bar view controllers
+    var mapVC: MapViewController!
+    var studentTableVC: StudentInfoTableViewController!
+    var distanceTableVC: DistanceTableViewController!
     
     override func viewDidLoad() {
+        
+        // get all the view controllers
+        let barViewControllers = self.viewControllers!
+        
+        // set the view controllers
+        mapVC = barViewControllers[TabBarViewControllers.MapVC.rawValue] as! MapViewController
+        studentTableVC = barViewControllers[TabBarViewControllers.TableVC.rawValue] as! StudentInfoTableViewController
+        distanceTableVC = barViewControllers[TabBarViewControllers.DistanceVC.rawValue] as! DistanceTableViewController
+        
+        // disable the distance tab bar item
         distanceTabEnabled(false)
     }
     
@@ -22,15 +36,12 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         super.viewWillAppear(true)
         
         // create the navigation bar
+        // help from: https://gist.github.com/thecanalboy/106a0b9b8a7da6d7713c
         var navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64))
         navBar.tintColor = .lightGrayColor()
         self.view.addSubview(navBar)
         
         var refreshButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        
-        // var refreshBarButton = UIBarButtonItem(customView: refreshButton)
-        
-        // refreshBarButton.image = UIImage(named: "refresh")
         var refreshBarButton = UIBarButtonItem(image: UIImage(named: "refresh"), style: UIBarButtonItemStyle.Plain, target: self, action: "refresh")
 
         var postButton = UIBarButtonItem(image: UIImage(named: "placemark"), style: UIBarButtonItemStyle.Plain, target: self, action: "post")
@@ -46,107 +57,118 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         
     }
     
+    /* function to enable or disable the Distance Tab */
     func distanceTabEnabled(enabled: Bool){
-        let barViewControllers = self.viewControllers
-        let distanceVC = barViewControllers![2] as! DistanceTableViewController
-        distanceVC.tabBarItem.enabled = enabled
+        // disable the tab bar item
+        distanceTableVC.tabBarItem.enabled = enabled
     }
     
+    /* Delegate function for pop up views */
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
         return .None
     }
     
+    /* Handle the post button being pressed not an outlet since we added the button programmatically*/
     func post()
     {
-        let barViewControllers = self.viewControllers
-        let mapVC = barViewControllers![0] as! MapViewController
-        
-        // if at tab bar, switch selected view controller
+        // if the selected view controller in the tab bar is not the map view, switch
         if !(self.selectedViewController is MapViewController ){
             self.selectedViewController = mapVC
         }
         
+        // prepare the pop over view controller
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         postVC.preferredContentSize = self.view.frame.size
         postVC.delegate = mapVC
         
+        // TODO: FIX!
         if let popoverController = postVC.popoverPresentationController {
             popoverController.passthroughViews = [mapVC]
         }
         
-        // check if user location already exists
+        // check if user location already exists before attempting to post
         OTMClient.sharedInstance().userLocationExists { (exists, objectID, error) -> Void in
             
+            // handle error
             if let userExistsError = error {
-                OTMClient.sharedInstance().showAlert(self, title: "Error", message: userExistsError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
-                    // do nothing
-                })
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: userExistsError.localizedDescription, actions: ["OK"], completionHandler: nil)
             }
             
+            // if the user location already exists
             if exists {
                 
+                // show alert and ask the user if they want to overwrite the location or not
                 OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
-                        
+                    
+                    // if they want to overwrite
                     if(choice == "OK"){
+                        // set the flags on the post view controller
                         self.postVC.isUpdating = true
                         self.postVC.updatingObjectID = objectID
                         
+                        // present the post location view
                         if !(self.presentedViewController is UIAlertController) {
                             self.presentViewController(self.postVC, animated: true, completion: nil)
                         }
                     }
                 })
             } else {
-                // println("SHOULD TRY TO POST!!")
+                // else, no location exists
+                
+                // set flags
                 self.postVC.isUpdating = false
                 self.postVC.updatingObjectID = ""
                 
-                dispatch_async(dispatch_get_main_queue()){
-                    if !(self.presentedViewController is UIAlertController) {
-                        self.presentViewController(self.postVC, animated: true, completion: nil)
-                    }
+                // check that no alert is still being presented before presenting the view
+                if !(self.presentedViewController is UIAlertController) {
+                    // present the post location view controller
+                    self.presentViewController(self.postVC, animated: true, completion: nil)
                 }
             }
         }
     }
     
+    /* handle the refresh button being pressed */
     func refresh()
     {
-        let barViewControllers = self.viewControllers
-        
+        // check for and refresh the relevant view
         if(self.selectedViewController is StudentInfoTableViewController ){
-            let tableVC = barViewControllers![1] as! StudentInfoTableViewController
-            tableVC.refreshTable()
+            studentTableVC.refreshTable()
         }
         else {
-            let mapVC = barViewControllers![0] as! MapViewController
             mapVC.refreshMap()
         }
     }
     
+    /* handle the logout button being pressed */
     func logout(){
         
+        // enable activity indicator
         activityIndicatorEnabled(true)
         
+        // perform the logout request
         OTMClient.sharedInstance().logout({ (success, error) -> Void in
             
+            // logout from facebook
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
             
+            // handle errors
             if let logoutError = error {
-                OTMClient.sharedInstance().showAlert(self, title: "Error", message: logoutError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
-                    // do nothing
-                })
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: logoutError.localizedDescription, actions: ["OK"], completionHandler: nil)
             }
             
+            // if logoout was successfull ...
             if(success) {
+                // return to login screen
                 dispatch_async(dispatch_get_main_queue()){
                     let loginVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
                     self.presentViewController(loginVC, animated: true, completion: nil)
                 }
             }
             
+            // disable status bar activity indicator
             activityIndicatorEnabled(false)
         
         })

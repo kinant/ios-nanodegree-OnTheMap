@@ -8,9 +8,11 @@
 
 import Foundation
 
+/* Custom table view cell for the student location table view*/
+
 class CustomStudentLocationCell: UITableViewCell {
 
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var url: UILabel!
+    @IBOutlet weak var name: UILabel! // outlet for the student's name
+    @IBOutlet weak var url: UILabel! // outlet for the media URL
 
 }

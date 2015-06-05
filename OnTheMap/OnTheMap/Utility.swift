@@ -30,3 +30,8 @@ struct AppColors {
 func activityIndicatorEnabled(enabled: Bool){
     UIApplication.sharedApplication().networkActivityIndicatorVisible = enabled
 }
+
+// enumeration for the tab bar view controllers
+enum TabBarViewControllers: Int {
+    case MapVC = 0, TableVC, DistanceVC
+}

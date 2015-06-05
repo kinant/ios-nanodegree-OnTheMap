@@ -8,47 +8,48 @@
 
 import UIKit
 
+/* This extra table view displays the list of users that have posted locations sorted by how far
+ * awawy their posted location is from Udacity HQ. This table view is only selectable when the user
+ * has loaded all the data in parse.
+ */
 class DistanceTableViewController: UITableViewController, UITableViewDataSource {
     
-    @IBOutlet var table: UITableView!
-    var refresh = true
+    @IBOutlet var table: UITableView! // outlet for the tableview
     
-    var information: [OTMStudentLocation] = [OTMStudentLocation]()
-    var count = 0
-    
-    func addBottomRow()
-    {
-        let cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
-    }
-    
-    override func viewDidLoad() {
-        table.estimatedRowHeight = 120;
-        table.rowHeight = UITableViewAutomaticDimension
-    }
+    var information: [OTMStudentLocation] = [OTMStudentLocation]() // local array for storing the student locations
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
         refreshTable()
     }
     
+    /* table view delegate function to get the number of rows */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.information.count
     }
     
+    /* table view delegate function to render the rows */
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        // deque cell
         let cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
-            
+        
+        // get the information
         let datum = self.information[indexPath.row]
-            
-        // Set the name and image
+        
+        // make sure the information is valid
         if datum.isValid(){
-                
+            
+            // format the distance of the location to show decimals and commas.
+            // from: http://stackoverflow.com/questions/28936474/swift-how-to-format-a-large-number-with-thousands-seperators
+            // and: https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSNumberFormatter_Class/
+            
             var formatter = NSNumberFormatter()
             formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
             formatter.groupingSeparator = ","
             var formattedDistanceString = formatter.stringFromNumber(datum.distance)
-            println(formattedDistanceString)
+
+            // set the cell lables
             cell.textLabel?.text = "\(datum.firstName) \(datum.lastName)"
             cell.detailTextLabel?.text = "\(formattedDistanceString!) km"
         }
@@ -56,31 +57,48 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
         return cell
     }
     
+    /* handle the selection of a row */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        // we want to display the placemark of the location selected
+        
+        // get lat and long
         let latitude = information[indexPath.row].latitude
         let longitude = information[indexPath.row].longitude
         
+        // change the selected view of the tab bar to that of the mapview
         let barViewControllers:[AnyObject]! = self.tabBarController?.viewControllers
         let mapVC = barViewControllers[0] as! MapViewController
-        
         self.tabBarController?.selectedViewController = mapVC
         
+        // disable refreshing of map view
         mapVC.refresh = false
         
+        // zoom to the location selected
         mapVC.zoomToLocation(latitude, long: longitude)
         
     }
     
+    /* refreshes the table */
     func refreshTable()
     {
+        // remove all data
         self.information.removeAll()
+        
+        // reload all data
         addData()
     }
     
+    /* loads the data */
     func addData(){
+        
+        // load unsorted data stored in data class
         var unsortedData = OTMData.sharedInstance().locationsList
+        
+        // set the local information array for student's locations (sort by distance)
         self.information = unsortedData.sorted({$0.distance > $1.distance})
+        
+        // reload the table
         table.reloadData()
     }
 }

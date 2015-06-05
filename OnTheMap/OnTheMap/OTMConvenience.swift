@@ -257,8 +257,6 @@ extension OTMClient {
     
         var parameters = [String: AnyObject]()
         
-        var objectIDtoDelete: String!
-        
         userLocationExists { (exists, objectID, error) -> Void in
             
             if error != nil {
@@ -266,13 +264,15 @@ extension OTMClient {
             }
             
             if exists {
-                objectIDtoDelete = objectID
                 
-                self.taskForDelete(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL, method: objectIDtoDelete, parameters: parameters, completionHandler: { (success, error) -> Void in
+                var method = "/\(objectID)"
+                
+                self.taskForDelete(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL, method: method, parameters: parameters, completionHandler: { (success, error) -> Void in
                   
                     if success {
                         completionHandler(success: true, error: nil)
-                        //println("user location successfully deleted!")
+                    } else {
+                        completionHandler(success: false, error: error)
                     }
                 })
             }

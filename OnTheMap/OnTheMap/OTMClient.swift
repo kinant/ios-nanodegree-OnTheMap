@@ -184,8 +184,8 @@ class OTMClient: NSObject {
                 request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
             }
         } else if api == OTMAPIs.Parse {
-            request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-            request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+            request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
+            request.addValue(OTMClient.ParseAPIConstants.RESTKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         }
         
         /* 4. Make the request */
@@ -209,6 +209,7 @@ class OTMClient: NSObject {
                 
                 // check response for any server-side errors
                 if let serverError = OTMClient.returnStatusError(api, data: newData) {
+                    println(serverError.localizedDescription)
                     completionHandler(success: false, error: serverError)
                 } else {
                     /* 6. if no server-side or client-side errors, then deletion was successful, continue with completion handler */
