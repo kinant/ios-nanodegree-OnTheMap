@@ -13,6 +13,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil)
     
+    var refresh = true
+    
     @IBOutlet weak var map: MKMapView!
     
     var letRefresh = false
@@ -28,12 +30,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        dispatch_async(dispatch_get_main_queue()){
-            var tabBarC = self.tabBarController as! TabBarVC
-            tabBarC.distanceTabEnabled(false)
+        if refresh {
+            dispatch_async(dispatch_get_main_queue()){
+                var tabBarC = self.tabBarController as! TabBarVC
+                tabBarC.distanceTabEnabled(false)
+            }
+            
+            refreshMap()
         }
-        
-        refreshMap()
     
     }
     
@@ -103,17 +107,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             
             
             if(location.uniqueKey == OTMClient.sharedInstance().userID){
-                println()
-                println("is users location!")
-                println(location.uniqueKey)
-                println()
                 
                 let newAnnotation = OTMUserAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
                 
                 self.map.addAnnotation(newAnnotation)
                 
             } else {
-                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
+                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: "\(location.firstName) \(location.lastName)", subtitle: location.mediaURL)
                 
                 self.map.addAnnotation(newAnnotation)
             }
@@ -150,15 +150,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             v.image = pinImage
             v.bounds.size.height /= 3.0
             v.bounds.size.width /= 3.0
-            v.centerOffset = CGPointMake(-50, -20)
+            // v.centerOffset = CGPointMake(-50, -20)
         }
         v.annotation = annotation
         
         return v
-    }
-    
-    func test(){
-        // println("test")
     }
     
     func refreshMap()
@@ -174,9 +170,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: location, span: span)
         map.setRegion(region, animated: true)
+    }
+    
+    func zoomToLocation(lat: Double, long: Double){
+        var newLocation = CLLocationCoordinate2DMake(lat, long)
+        setCenterOfMapToLocation(newLocation)
+        
+        dispatch_async(dispatch_get_main_queue()){
+            var tabBarC = self.tabBarController as! TabBarVC
+            tabBarC.distanceTabEnabled(true)
+            self.refresh = true
+        }
     }
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {

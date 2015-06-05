@@ -49,15 +49,32 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
             formatter.groupingSeparator = ","
             var formattedDistanceString = formatter.stringFromNumber(datum.distance)
             println(formattedDistanceString)
-            cell.textLabel?.text = (datum.firstName + datum.lastName)
+            cell.textLabel?.text = "\(datum.firstName) \(datum.lastName)"
             cell.detailTextLabel?.text = "\(formattedDistanceString!) km"
         }
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let latitude = information[indexPath.row].latitude
+        let longitude = information[indexPath.row].longitude
+        
+        println("going to: ")
+        println(latitude)
+        println(longitude)
+        println()
+        
+        let barViewControllers:[AnyObject]! = self.tabBarController?.viewControllers
+        let mapVC = barViewControllers[0] as! MapViewController
+        
+        self.tabBarController?.selectedViewController = mapVC
+        
+        mapVC.refresh = false
+        
+        mapVC.zoomToLocation(latitude, long: longitude)
+        
     }
     
     func refreshTable()

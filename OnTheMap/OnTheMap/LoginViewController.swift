@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func login(api: OTMClient.OTMAPIs){
         
-        SwiftSpinner.show("Loging in", description: "", animated: true)
+        SwiftSpinner.show("Logging in", description: "", animated: true)
         
         activityIndicatorEnabled(true)
         

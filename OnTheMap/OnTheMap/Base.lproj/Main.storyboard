@@ -149,7 +149,7 @@
             </objects>
             <point key="canvasLocation" x="2370" y="-854"/>
         </scene>
-        <!--Student Info Table View Controller-->
+        <!--List-->
         <scene sceneID="jcM-24-jqA">
             <objects>
                 <tableViewController id="CYp-e7-2Jq" customClass="StudentInfoTableViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,23 +163,23 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" rowHeight="161" id="xNo-bk-bZS" customClass="CustomStudentLocationCell" customModule="OnTheMap" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" rowHeight="120" id="xNo-bk-bZS" customClass="CustomStudentLocationCell" customModule="OnTheMap" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xNo-bk-bZS" id="hhB-ol-cwC">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr7-co-vBe">
-                                            <rect key="frame" x="107" y="28" width="125" height="27"/>
+                                            <rect key="frame" x="107" y="28" width="449" height="27"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="125" id="s5x-sJ-GOe"/>
+                                                <constraint firstAttribute="width" constant="449" id="s5x-sJ-GOe"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placemark" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-6J-slI">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="red_placemark" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-6J-slI">
                                             <rect key="frame" x="6" y="17" width="88" height="88"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="88" id="7Ec-m6-YH9"/>
                                             </constraints>
@@ -192,9 +192,9 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="q0k-6J-slI" secondAttribute="bottom" constant="8" id="Hbi-bQ-yvJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="qKF-8O-Wxa" secondAttribute="bottom" constant="40" id="OXp-cM-pgG"/>
-                                        <constraint firstItem="q0k-6J-slI" firstAttribute="leading" secondItem="hhB-ol-cwC" secondAttribute="leadingMargin" constant="-9" id="OvL-LT-OZv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="q0k-6J-slI" secondAttribute="bottom" constant="47" id="Hbi-bQ-yvJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="qKF-8O-Wxa" secondAttribute="bottom" constant="67" id="OXp-cM-pgG"/>
+                                        <constraint firstItem="q0k-6J-slI" firstAttribute="leading" secondItem="hhB-ol-cwC" secondAttribute="leadingMargin" constant="-2" id="OvL-LT-OZv"/>
                                         <constraint firstItem="qKF-8O-Wxa" firstAttribute="top" secondItem="Kr7-co-vBe" secondAttribute="bottom" constant="9" id="adl-73-IhR"/>
                                         <constraint firstItem="q0k-6J-slI" firstAttribute="top" secondItem="hhB-ol-cwC" secondAttribute="topMargin" constant="9" id="cXQ-NO-S9C"/>
                                         <constraint firstItem="Kr7-co-vBe" firstAttribute="leading" secondItem="qKF-8O-Wxa" secondAttribute="leading" id="jug-B0-aAK"/>
@@ -234,7 +234,7 @@
                             <outlet property="delegate" destination="CYp-e7-2Jq" id="eX8-N8-nIb"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="mostRecent" id="LhB-OO-J50"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="LhB-OO-J50"/>
                     <connections>
                         <outlet property="table" destination="UdI-Y0-sQ5" id="ymf-gZ-Up5"/>
                     </connections>
@@ -336,9 +336,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list" width="64" height="64"/>
         <image name="mapLogo" width="64" height="64"/>
         <image name="maptab" width="30" height="30"/>
-        <image name="placemark" width="22" height="30"/>
+        <image name="red_placemark" width="80" height="80"/>
         <image name="ruler" width="30" height="30"/>
     </resources>
 </document>

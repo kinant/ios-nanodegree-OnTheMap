@@ -69,15 +69,27 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         
             // Set the name and image
             if datum.isValid(){
-                cell2.name?.text = (datum.firstName + datum.lastName)
+                cell2.name?.text = "\(datum.firstName) \(datum.lastName)"
                 cell2.url?.text = datum.mediaURL
             }
             return cell2
         }
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let urlString = information[indexPath.row].mediaURL
+        
+        NSURL.validateUrl(urlString, completion: { (success, urlString, error) -> Void in
+            if(success){
+                 dispatch_async(dispatch_get_main_queue()){
+                    OTMClient.sharedInstance().browseToURL(urlString!)
+                }
+            } else {
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: { (choice) -> Void in
+                })
+            }
+        })
     }
     
     func refreshTable()
