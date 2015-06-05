@@ -61,11 +61,6 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
         let latitude = information[indexPath.row].latitude
         let longitude = information[indexPath.row].longitude
         
-        println("going to: ")
-        println(latitude)
-        println(longitude)
-        println()
-        
         let barViewControllers:[AnyObject]! = self.tabBarController?.viewControllers
         let mapVC = barViewControllers[0] as! MapViewController
         
