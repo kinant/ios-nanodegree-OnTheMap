@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import AddressBookUI
 
-class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
+class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
     
     @IBOutlet weak var addressText: UITextView!
     @IBOutlet weak var mediaURL: UILabel!
@@ -32,6 +32,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addressText.delegate = self
+        
         let tapScreen = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         self.view.addGestureRecognizer(tapScreen)
     }
@@ -43,6 +45,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     func hideKeyboard(){
         addressText.resignFirstResponder()
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        textView.text = ""
     }
     
     func getAddress(location: CLLocation) -> String {
