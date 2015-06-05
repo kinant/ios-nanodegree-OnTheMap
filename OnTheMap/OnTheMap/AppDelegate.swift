@@ -16,40 +16,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // customize navbar appearance
         var navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.tintColor = UIColor.whiteColor()
         navigationBarAppearance.barTintColor = AppColors.MainBlueColor
         navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         
-        // Customize Tab Bar
+        // customize tab bar appearance
         var tabBarAppearance = UITabBar.appearance()
         tabBarAppearance.tintColor = UIColor.whiteColor()
         tabBarAppearance.barTintColor = AppColors.MainBlueColor
         
-        // Customize Table View
+        // customize table view appearance
         var tableViewAppearance = UITableView.appearance()
         tableViewAppearance.backgroundColor = AppColors.MainBlueColor
         
-        // Customize Buttons
+        // customize button appearance
         var buttonAppearance = UIButton.appearance()
         var barButtonAppearance = UIBarButtonItem.appearance()
-        
         buttonAppearance.titleLabel?.textColor = .whiteColor()
         barButtonAppearance.tintColor = .whiteColor()
         
+        // customize tool bar appearance
         var toolBarAppearance = UIToolbar.appearance()
         toolBarAppearance.backgroundColor = AppColors.MainBlueColor
         toolBarAppearance.barTintColor = AppColors.MainBlueColor
         
-        // customize table cells
+        // customize cell appearance
         var distanceCellAppearance = UITableViewCell.appearance()
         distanceCellAppearance.backgroundColor = AppColors.DarkBlueColor
         distanceCellAppearance.textLabel?.textColor = .whiteColor()
-        
         var locationCellAppearance = CustomStudentLocationCell.appearance()
         locationCellAppearance.backgroundColor = AppColors.DarkBlueColor
         
-        // Customize status bar
+        // customize navbar appearance
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
 
         // Override point for customization after application launch.
@@ -60,6 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         openURL url: NSURL,
         sourceApplication: String?,
         annotation: AnyObject?) -> Bool {
+            // so that app is opened again after validating with facebook
+            // from: http://www.brianjcoleman.com/tutorial-how-to-use-login-in-facebook-sdk-4-0-for-swift/
             return FBSDKApplicationDelegate.sharedInstance().application(
                 application,
                 openURL: url,
