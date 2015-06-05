@@ -109,6 +109,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func login(api: OTMClient.OTMAPIs){
         
+        self.hideKeyboard()
+        
         SwiftSpinner.show("Logging in", description: "", animated: true)
         
         activityIndicatorEnabled(true)
@@ -133,7 +135,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.statusLabel.hidden = false
                     
                     SwiftSpinner.show("Failed to log in ...", description: error!.localizedDescription, animated: false)
-                    self.hideKeyboard()
                 }
             }
         })

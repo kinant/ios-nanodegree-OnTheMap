@@ -32,7 +32,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tapScreen = UITapGestureRecognizer(target: self, action: "tapScreen")
+        let tapScreen = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         self.view.addGestureRecognizer(tapScreen)
     }
     
@@ -41,7 +41,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
         postButton.enabled = false
     }
     
-    func tapScreen(){
+    func hideKeyboard(){
         addressText.resignFirstResponder()
     }
     
@@ -66,6 +66,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func findLocation(sender: AnyObject) {
+        
+        hideKeyboard()
         
         SwiftSpinner.show("Searching for location ... ", description: "", animated: true)
         
@@ -105,6 +107,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func useCurrentLocation(sender: AnyObject) {
+        
+        hideKeyboard()
         
         SwiftSpinner.show("Getting current location... ", description: "", animated: true)
         
