@@ -24,6 +24,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     var postLocation: MKPlacemark!
     var manager: OneShotLocationManager?
     
+    var hasAddress = false
+    var hasURL = false
     
     @IBOutlet weak var postButton: UIButton!
     
@@ -40,6 +42,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     
     override func viewDidAppear(animated: Bool) {
         // self.popoverPresentationController?.passthroughViews = [delegate!.view]
+        hasAddress = false
+        
+        hasURL = false
+        
         postButton.enabled = false
     }
     
@@ -49,6 +55,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     
     func textViewDidBeginEditing(textView: UITextView) {
         textView.text = ""
+        postButton.enabled = false
     }
     
     func getAddress(location: CLLocation) -> String {
@@ -92,9 +99,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
             if nil == placemarks {
                 SwiftSpinner.show("Location not found ... ", description: error.localizedDescription, animated: false)
                 // println(error.localizedDescription)
-                self.postButton.enabled = false
+                self.hasAddress = false
             } else {
-                self.postButton.enabled = true
+                self.hasAddress = true
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let p = placemarks[0] as? CLPlacemark
                 let mp = MKPlacemark(placemark: p)
@@ -102,6 +109,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 self.delegate?.addPin(mp)
                 self.addressText.text = self.getAddress(mp.location!)
                 self.currentPlacemark = mp
+                
+                if(self.hasURL){
+                    self.postButton.enabled = true
+                }
                 
                 delay(0.5){
                     SwiftSpinner.hide()
@@ -130,7 +141,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
             // fetch location or an error
             if let loc = location {
                 
-                self.postButton.enabled = true
+                self.hasAddress = true
                 
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let mp = MKPlacemark(coordinate: location!.coordinate, addressDictionary: nil)
@@ -139,6 +150,10 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 self.addressText.text = self.getAddress(mp.location)
                 self.currentPlacemark = mp
                 
+                if(self.hasURL){
+                    self.postButton.enabled = true
+                }
+                
                 delay(0.5){
                     SwiftSpinner.hide()
                     activityIndicatorEnabled(false)
@@ -146,7 +161,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 
             } else if let err = error {
                 
-                self.postButton.enabled = false
+                self.hasAddress = false
                 
                 SwiftSpinner.show("Location not found ... ", description: err.localizedDescription, animated: false)
                 // println(err.localizedDescription)
@@ -156,7 +171,13 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     }
     
     func setURL(urlString: String){
+        mediaURL.hidden = false
         mediaURL.text = urlString
+        hasURL = true
+        
+        if(hasAddress) {
+            postButton.enabled = true
+        }
     }
     
     @IBAction func browseWeb(sender: UIButton) {
@@ -175,7 +196,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         if currentPlacemark != nil {
             delegate?.removePin(currentPlacemark)
         }
-        
+        self.delegate?.refreshMap()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -195,7 +216,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                     
                 })
             } else {
-                OTMClient.sharedInstance().showAlert(self, title: "OTM POST", message: "Post Locaiton was Successfull!", actions: ["OK"], completionHandler: { (choice) -> Void in
+                OTMClient.sharedInstance().showAlert(self, title: "OTM POST", message: "Post Location was Successfull!", actions: ["OK"], completionHandler: { (choice) -> Void in
                     self.delegate?.refreshMap()
                     self.dismissViewControllerAnimated(true, completion: nil)
                 })
