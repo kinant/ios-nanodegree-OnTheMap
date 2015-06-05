@@ -163,7 +163,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBAction func signUp(sender: AnyObject) {
         
         // take user to udacity sign up page
-        OTMClient.sharedInstance().browseToURL("https://www.udacity.com/account/auth#!/signup")
+        OTMClient.sharedInstance().browseToURL(OTMClient.UdacityConstants.SingUpURL)
     }
     
     /* handles tapping of login button*/

@@ -26,13 +26,13 @@ struct OTMStudentLocation {
     init(dictionary: [String: AnyObject]){
         
         // set the properties
-        self.latitude = dictionary["latitude"] as? Double
-        self.longitude = dictionary["longitude"] as? Double
-        self.firstName = dictionary["firstName"] as? String
-        self.lastName = dictionary["lastName"] as? String
-        self.mediaURL = dictionary["mediaURL"] as? String
-        self.mapString = dictionary["mapString"] as? String
-        self.uniqueKey = dictionary["uniqueKey"] as? String
+        self.latitude = dictionary[OTMClient.ParseStudentObjectConstants.Latitude] as? Double
+        self.longitude = dictionary[OTMClient.ParseStudentObjectConstants.Longitude] as? Double
+        self.firstName = dictionary[OTMClient.ParseStudentObjectConstants.FirstName] as? String
+        self.lastName = dictionary[OTMClient.ParseStudentObjectConstants.LastName] as? String
+        self.mediaURL = dictionary[OTMClient.ParseStudentObjectConstants.MediURL] as? String
+        self.mapString = dictionary[OTMClient.ParseStudentObjectConstants.MapString] as? String
+        self.uniqueKey = dictionary[OTMClient.ParseStudentObjectConstants.UniqueKey] as? String
         
         // calculate the distance of this student's location to Udacity HQ (in km)
         var location = CLLocation(latitude: self.latitude, longitude: self.longitude)

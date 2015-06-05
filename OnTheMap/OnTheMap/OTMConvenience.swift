@@ -67,7 +67,7 @@ extension OTMClient {
         var parameters = [String : AnyObject]()
         
         // make the request
-        taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityAPIConstants.BaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
+        taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityConstants.APIBaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
             
             // check for errors
             if let error = error {
@@ -75,12 +75,12 @@ extension OTMClient {
             } else {
                 
                 // no errors, obtain the relevant objects from the result
-                if let sessionDictionary = result.valueForKey("session") as? NSDictionary {
-                    if let accountDictionary = result.valueForKey("account") as? NSDictionary {
+                if let sessionDictionary = result.valueForKey(OTMClient.UdacityObjectKeys.Session) as? NSDictionary {
+                    if let accountDictionary = result.valueForKey(OTMClient.UdacityObjectKeys.Account) as? NSDictionary {
                         
                         // set the session id and user id
-                        let sessionID = sessionDictionary["id"] as? String
-                        let userID = accountDictionary["key"] as? String
+                        let sessionID = sessionDictionary[OTMClient.UdacityObjectKeys.SessionID] as? String
+                        let userID = accountDictionary[OTMClient.UdacityObjectKeys.UserKey] as? String
                         
                         // call completion handler successfully
                         completionHandler(success: true, sessionID: sessionID, userID: userID, error: nil)
@@ -105,18 +105,18 @@ extension OTMClient {
         var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
         
         // make the request
-        taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL , method: method, parameters: parameters) { (result, error) -> Void in
+        taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityConstants.APIBaseURL , method: method, parameters: parameters) { (result, error) -> Void in
             
             // check for errors and handle
             if let error = error {
                 completionHandler(success: false, fName: "", lName: "", error: error)
             } else {
                 // no errors, check for relevant objects in results
-                if let resultDictionary = result["user"] as? NSDictionary {
+                if let resultDictionary = result[OTMClient.UdacityObjectKeys.User] as? NSDictionary {
                     
                     // set the user's name
-                    var firstName = resultDictionary["first_name"] as? String
-                    var lastName = resultDictionary["last_name"] as? String
+                    var firstName = resultDictionary[OTMClient.UdacityObjectKeys.UserFirstName] as? String
+                    var lastName = resultDictionary[OTMClient.UdacityObjectKeys.UserLastName] as? String
                     
                     // call completion handler successfully
                     completionHandler(success: true, fName: firstName, lName: lastName, error: nil)
@@ -147,7 +147,7 @@ extension OTMClient {
                 completionHandler(result: nil, error: error)
             } else {
                 // no error, get relevant objects from result
-                if let results = result.valueForKey("results") as? [[String: AnyObject]] {
+                if let results = result.valueForKey(OTMClient.ParseResultObjectConstants.Results) as? [[String: AnyObject]] {
                     
                     // get the new locations array from the results
                     var newInformation = OTMStudentLocation.informationFromResults(results)
@@ -179,7 +179,7 @@ extension OTMClient {
             } else {
                 
                 // check for count object
-                if let count = result.valueForKey("count") as? Int {
+                if let count = result.valueForKey(OTMClient.ParseResultObjectConstants.Count) as? Int {
                     // successfull
                     completionHandler(result: count, error: nil)
                 } else {
@@ -226,13 +226,13 @@ extension OTMClient {
                 completionHandler(exists: false, objectID: " ", error: error)
             } else {
                 // no errors, check for relevant objects
-                if let resultsDictionary = result.valueForKey("results") as? [[String: AnyObject]] {
+                if let resultsDictionary = result.valueForKey(OTMClient.ParseResultObjectConstants.Results) as? [[String: AnyObject]] {
                     
                     // check if the results count is greater than 0, if it is then user has location(s) posted
                     if resultsDictionary.count > 0 {
                         
                         // get the ID of the first location from the results
-                        existingLocationID = (resultsDictionary[0]["objectId"] as? String)!
+                        existingLocationID = (resultsDictionary[0][OTMClient.ParseStudentObjectConstants.ObjectID] as? String)!
                         
                         // call completion handler with successful query for user location
                         completionHandler(exists: true, objectID: existingLocationID, error: nil)
@@ -286,7 +286,7 @@ extension OTMClient {
         var parameters = [String: AnyObject]()
         
         // make the request
-        taskForDelete(OTMAPIs.Udacity, baseURL: UdacityAPIConstants.BaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in
+        taskForDelete(OTMAPIs.Udacity, baseURL: UdacityConstants.APIBaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in
          
             // handle errors
             if error != nil {

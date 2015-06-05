@@ -26,8 +26,9 @@ extension OTMClient {
         }
     }
     
-    struct UdacityAPIConstants {
-        static let BaseURL: String = "https://www.udacity.com/api/"
+    struct UdacityConstants {
+        static let APIBaseURL = "https://www.udacity.com/api/"
+        static let SingUpURL = "https://www.udacity.com/account/auth#!/signup"
     }
     
     struct UdacityMethods {
@@ -35,8 +36,14 @@ extension OTMClient {
         static let Account = "users"
     }
     
-    struct UdacityParameterKeys {
-        static let SessionID = ""
+    struct UdacityObjectKeys {
+        static let Session = "session"
+        static let Account = "account"
+        static let SessionID = "id"
+        static let UserKey = "key"
+        static let User = "user"
+        static let UserFirstName = "first_name"
+        static let UserLastName = "last_name"
     }
     
     struct ParseAPIConstants {
@@ -52,7 +59,12 @@ extension OTMClient {
         static let Skip = "skip"
     }
     
-    struct ParseObjectConstants {
+    struct ParseResultObjectConstants {
+        static let Count = "count"
+        static let Results = "results"
+    }
+    
+    struct ParseStudentObjectConstants {
         static let UniqueKey = "uniqueKey"
         static let FirstName = "firstName"
         static let LastName = "lastName"
@@ -60,6 +72,7 @@ extension OTMClient {
         static let Longitude = "longitude"
         static let MapString = "mapString"
         static let MediURL = "mediaURL"
+        static let ObjectID = "objectID"
     }
     
     // App errors to display when an error occurs that is neither a connection nor a server-side error
