@@ -129,7 +129,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         
         activityIndicatorEnabled(true)
         
-        OTMClient.sharedInstance().logout(OTMClient.sharedInstance().signInMethod, completionHandler: { (success, error) -> Void in
+        OTMClient.sharedInstance().logout({ (success, error) -> Void in
             
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()

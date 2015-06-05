@@ -9,14 +9,17 @@
 import Foundation
 import MapKit
 
+/* Extension of OTMClient for all the app's constants */
 extension OTMClient {
     
+    // APIs
     enum OTMAPIs {
         case Udacity
         case Parse
         case Facebook
     }
     
+    // Location of Udacity HQ
     static var UdacityHQLocation: CLLocation {
         get {
             return CLLocation(latitude: 37.400704, longitude: -122.108284)
@@ -59,6 +62,7 @@ extension OTMClient {
         static let MediURL = "mediaURL"
     }
     
+    // App errors to display when an error occurs that is neither a connection nor a server-side error
     struct OTMErrors {
         static let udacitySession = NSError(domain: "OTM Error", code: 1, userInfo: [NSLocalizedDescriptionKey : "Login Failed (Session ID)"])
         static let udacityUser = NSError(domain: "OTM Error", code: 2, userInfo: [NSLocalizedDescriptionKey : "Login Failed (User Data)"])

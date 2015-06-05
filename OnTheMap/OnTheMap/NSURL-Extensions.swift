@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// This extension is used to validate URLs
+// SOURCE: https://github.com/NitWitStudios/NSURL-Validation-Extension
 extension NSURL
 {
     struct ValidationQueue {

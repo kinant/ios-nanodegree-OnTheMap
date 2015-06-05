@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+/* Custom annotation for use with user's placemarks on the map. Was not able to make it work so it is unused but
+could be used in the future */
 class OTMUserAnnotation: NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
