@@ -11,6 +11,7 @@ import Foundation
 /* Custom tab bar controller for apps tab bar */
 class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     
+    // MARK: Properties
     let postVC = PostLocationPopOverVC(nibName: "PostLocationPopOverVC", bundle: nil) // load the post location nib
     
     // to store the tab bar view controllers
@@ -18,6 +19,7 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     var studentTableVC: StudentInfoTableViewController!
     var distanceTableVC: DistanceTableViewController!
     
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         
         // get all the view controllers
@@ -57,18 +59,14 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
         
     }
     
-    /* function to enable or disable the Distance Tab */
-    func distanceTabEnabled(enabled: Bool){
-        // disable the tab bar item
-        distanceTableVC.tabBarItem.enabled = enabled
-    }
-    
+    // MARK: Popover Delegate Function
     /* Delegate function for pop up views */
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
         return .None
     }
     
+    // MARK: Button Handler Functions
     /* Handle the post button being pressed not an outlet since we added the button programmatically*/
     func post()
     {
@@ -172,5 +170,12 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
             activityIndicatorEnabled(false)
         
         })
+    }
+    
+    // MARK: Other Functions
+    /* function to enable or disable the Distance Tab */
+    func distanceTabEnabled(enabled: Bool){
+        // disable the tab bar item
+        distanceTableVC.tabBarItem.enabled = enabled
     }
 }

@@ -11,7 +11,11 @@ import Foundation
 // This is the class used to store the apps Student Locations data
 class OTMData: NSObject {
     
+    // MARK: Properties
+    
     var locationsList = [OTMStudentLocation]() // array to hold student locations
+    
+    // MARK: Functions
     
     // function to fetch data from the internet
     func fetchData(view: UIViewController, skip: Int, completionHandler: (result: [OTMStudentLocation]?) -> Void){
@@ -60,7 +64,7 @@ class OTMData: NSObject {
         
     }
     
-    // function to create the singleton
+    // MARK: - Shared Instance
     class func sharedInstance() -> OTMData {
         
         struct Singleton {

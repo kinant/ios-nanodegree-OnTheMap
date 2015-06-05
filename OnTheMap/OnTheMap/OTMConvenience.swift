@@ -15,6 +15,7 @@ import UIKit
 /* Extension of the OTMClient class. This extension holds all the functions that the app uses for network requests and manages all the completion handlers for all sorts of app functions */
 extension OTMClient {
     
+    // MARK: POST REQUEST FUNCTIONS
     /* Logs the user in */
     func login(hostViewController: UIViewController, api: OTMAPIs ,username: String, password: String, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
@@ -97,6 +98,24 @@ extension OTMClient {
         }
     }
     
+    /* Post or update user's location to the Parse API. It will update if parameter updateLocationID is not "" (empty) */
+    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (error: NSError?) -> Void)
+    {
+        // set parameters
+        var parameters = [String : AnyObject]()
+        
+        // set the http body
+        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student!.firstName!)\",\"lastName\": \"\(self.student!.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+        
+        // make the request
+        taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
+            
+            // we do nothing with the result, so we only handle the error (it will be nil if all went well)
+            completionHandler(error: error)
+        }
+    }
+    
+    // MARK: GET REQUEST FUNCTIONS
     /* Get's the users data from the Udacity API */
     func getUserData(httpBody: String, completionHandler: (success: Bool, fName: String?, lName: String?, error: NSError?) -> Void) {
         
@@ -190,23 +209,6 @@ extension OTMClient {
         }
     }
     
-    /* Post or update user's location to the Parse API. It will update if parameter updateLocationID is not "" (empty) */
-    func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (error: NSError?) -> Void)
-    {
-        // set parameters
-        var parameters = [String : AnyObject]()
-        
-        // set the http body
-        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student!.firstName!)\",\"lastName\": \"\(self.student!.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
-        
-        // make the request
-        taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
-            
-                // we do nothing with the result, so we only handle the error (it will be nil if all went well)
-                completionHandler(error: error)
-        }
-    }
-    
     /* Used to determine if a user has already posted a location. This way, we will then only update the location */
     func userLocationExists(completionHandler: (exists: Bool, objectID: String, error: NSError?) -> Void) {
     
@@ -252,6 +254,7 @@ extension OTMClient {
         }
     }
     
+    // MARK: DELETE REQUEST FUNCTIONS
     /* Used to delete a location... not implemented directly into app. Used only for development side */
     func deleteLocation(completionHandler: (success: Bool, error: NSError?) -> Void) {
     

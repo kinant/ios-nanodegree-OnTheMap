@@ -14,17 +14,16 @@ import UIKit
 */
 
 class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate {
-
+    
+    // MARK: Outlets
     @IBOutlet weak var webView: UIWebView! // webview outlet
     @IBOutlet weak var urlField: UITextField! // url textfield outlet
-    
     @IBOutlet weak var backButton: UIBarButtonItem! // back button outlet
     @IBOutlet weak var forwardButton: UIBarButtonItem! // forward button outlet
-    
     @IBOutlet weak var useButton: UIBarButtonItem! // use button outlet
-    
     @IBOutlet weak var progressBar: UIProgressView! // progress bar outlet (for "showing" progress)
     
+    // MARK: Properties
     var delegate: PostLocationPopOverVC? = nil
     
     // these are used for the progress bar
@@ -35,6 +34,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     // flag for when loading has started
     var didStartLoad = false
     
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +47,8 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         // load google initially
         loadRequest("www.google.com")
     }
-
+    
+    // MARK: Textfield Delegate Functions
     /* For when the textfield returns */
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         urlField.resignFirstResponder()
@@ -61,6 +62,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         return false
     }
     
+    // MARK: WebVuew Delegate Functions
     /* delegate function for then the webview starts to load */
     func webViewDidStartLoad(webView: UIWebView) {
         
@@ -96,25 +98,6 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         urlField.text = webView.request!.URL!.description
     }
     
-    /* function for handling the progress bar
-     * - from: http://stackoverflow.com/questions/28147096/progressbar-webview-in-swift
-    */
-    func timerCallback() {
-        if self.theBool {
-            if self.progressBar.progress >= 1 {
-                self.progressBar.hidden = true
-                self.myTimer.invalidate()
-            } else {
-                self.progressBar.progress += 0.1
-            }
-        } else {
-            self.progressBar.progress += 0.05
-            if self.progressBar.progress >= 0.95 {
-                self.progressBar.progress = 0.95
-            }
-        }
-    }
-    
     /* Handles a failure to load the requested URL*/
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         
@@ -141,6 +124,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         }
     }
     
+    // MARK: OTHER FUNCTIONS
     /* loads a requested url into the webview */
     func loadRequest(urlString: String){
         
@@ -150,6 +134,27 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         // make the request
         webView.loadRequest(NSURLRequest(URL: NSURL(string: prefix + urlString)!))
     }
+    
+    /* function for handling the progress bar
+     * - from: http://stackoverflow.com/questions/28147096/progressbar-webview-in-swift
+    */
+    func timerCallback() {
+        if self.theBool {
+            if self.progressBar.progress >= 1 {
+                self.progressBar.hidden = true
+                self.myTimer.invalidate()
+            } else {
+                self.progressBar.progress += 0.1
+            }
+        } else {
+            self.progressBar.progress += 0.05
+            if self.progressBar.progress >= 0.95 {
+                self.progressBar.progress = 0.95
+            }
+        }
+    }
+    
+    // MARK: IBAction Functions for Buttons
     
     /* handle back button being pressed */
     @IBAction func backButtonTouch(sender: AnyObject) {

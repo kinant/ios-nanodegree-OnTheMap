@@ -13,19 +13,20 @@ import Foundation
 // This class handles all the apps networking plus contains some utility functions.
 class OTMClient: NSObject {
 
+    // MARK: Properties
     var session: NSURLSession // for storing the session
     var userID: String? = nil // for storing user's Udacity ID Key
     var sessionID: String? = nil // for storing user's Udacity session ID
     var student: OTMStudentInformation? = nil // for storing the students information
     var FBaccessToken: String? = nil // for storing FB access token
     
+    // MARK: init
     override init() {
-        // initilialize the NSURLSession session
-        // all requests will use the same session
         session = NSURLSession.sharedSession()
         super.init()
     }
     
+    // MARK: PUT and POST
     // function for PUT or POST network data requests
     func taskForPOSTandPUTDataMethod(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], httpBody: String, updatingID: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
@@ -106,6 +107,7 @@ class OTMClient: NSObject {
         return task
     }
 
+    // MARK: GET
     // function for GET network data requests
     func taskForGETDataMethod(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
@@ -163,7 +165,8 @@ class OTMClient: NSObject {
         
         return task
     }
-        
+    
+    // MARK: DELETE
     func taskForDelete(api: OTMAPIs, baseURL: String, method: String, parameters: [String : AnyObject], completionHandler: (success: Bool, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         /* 1/2/3. Build the URL and configure the request */
@@ -224,6 +227,8 @@ class OTMClient: NSObject {
         return task
     }
     
+    // MARK: OTHER FUNCTIONS - HELPER FUNCTIONS
+    
     /* Helper: Given raw JSON, return a usable Foundation object */
     class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         
@@ -257,34 +262,6 @@ class OTMClient: NSObject {
         }
         
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
-    }
-    
-    /* Helper function: Display an alert. The entire app uses this same function for alerts, which is why it has
-       a completion handler as a closure */
-    func showAlert(view: UIViewController, title: String, message: String, actions: [String] , completionHandler: ((choice: String?) -> Void )?){
-        
-        // make sure no alert is already being presented
-        if !(view.presentedViewController is UIAlertController) {
-            
-            // create the alert
-            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-            // iterate over every action to create its option in the alert
-            for action in actions {
-                alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-                    
-                    // call completion handler if it exists
-                    if let handler = completionHandler {
-                        handler(choice: action)
-                    }
-                }))
-            }
-        
-            // present the alert
-            dispatch_async(dispatch_get_main_queue()){
-                view.presentViewController(alert, animated: true, completion: nil)
-            }
-        }
     }
     
     /* Helper function: The requests can return data even if there were errors server side, from either the Parse or the Udacity APIs
@@ -321,6 +298,34 @@ class OTMClient: NSObject {
         
         // return the newly created error (if no error found, will return nil)
         return newError
+    }
+    
+    /* Helper function: Display an alert. The entire app uses this same function for alerts, which is why it has
+       a completion handler as a closure */
+    func showAlert(view: UIViewController, title: String, message: String, actions: [String] , completionHandler: ((choice: String?) -> Void )?){
+        
+        // make sure no alert is already being presented
+        if !(view.presentedViewController is UIAlertController) {
+            
+            // create the alert
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+            // iterate over every action to create its option in the alert
+            for action in actions {
+                alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                    
+                    // call completion handler if it exists
+                    if let handler = completionHandler {
+                        handler(choice: action)
+                    }
+                }))
+            }
+        
+            // present the alert
+            dispatch_async(dispatch_get_main_queue()){
+                view.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     /* Helper function: Opens the user's default brower and browses to the url specified by urlString  parameter */

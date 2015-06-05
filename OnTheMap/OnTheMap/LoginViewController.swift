@@ -11,10 +11,12 @@ import UIKit
 /* View Controller for the Log in View */
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
+    // MARK: Outlets
     @IBOutlet weak var usernameTextfield: UITextField! // username textfield outlet
     @IBOutlet weak var passwordTextfield: UITextField! // password textfield outlet
     @IBOutlet weak var statusLabel: UILabel! // outlet for the status label
     
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,11 +44,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.view.addGestureRecognizer(tapScreen)
     }
     
-    /* must be present for delegate */
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        // do nothing
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.subscribeToKeyboardNotifications()
@@ -57,16 +54,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.unsubscribeFromKeyboardNotifications()
     }
     
+    // MARK: Keyboard Related Functions
+    
     /* Hides the keyboard */
     func hideKeyboard(){
         usernameTextfield.resignFirstResponder()
         passwordTextfield.resignFirstResponder()
     }
-    
-    // =========================================================================
-    // MARK: Keyboard Related Functions
-    // BELOW ARE ALL THE FUNCTIONS THAT ARE RELATED TO THE KEYBOARD
-    // =========================================================================
     
     // subscribe to keyboard notifications
     func subscribeToKeyboardNotifications() {
@@ -97,6 +91,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         return keyboardSize.CGRectValue().height
     }
     
+    // MARK: FacebookSDK Functions
     // Facebook SDK Log In
     // From: http://www.brianjcoleman.com/tutorial-how-to-use-login-in-facebook-sdk-4-0-for-swift/
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -119,6 +114,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
+    /* must be present for delegate */
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        // do nothing
+    }
+    
+    // MARK: LOG IN FUNCTIONS
     /* handles the apps login with facebook or udacity api */
     func login(api: OTMClient.OTMAPIs){
         
@@ -159,6 +160,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         })
     }
     
+    // MARK: IBAction Functions
     /* handle tapping the sign up button */
     @IBAction func signUp(sender: AnyObject) {
         

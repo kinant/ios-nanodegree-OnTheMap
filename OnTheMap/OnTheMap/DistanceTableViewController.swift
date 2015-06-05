@@ -14,15 +14,19 @@ import UIKit
  */
 class DistanceTableViewController: UITableViewController, UITableViewDataSource {
     
+    // MARK: Outlets
     @IBOutlet var table: UITableView! // outlet for the tableview
     
+    // MARK: Properties
     var information: [OTMStudentLocation] = [OTMStudentLocation]() // local array for storing the student locations
     
+    // MARK: Overriden View Functions
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false)
         refreshTable()
     }
     
+    // MARK: TableView Delegate Functions
     /* table view delegate function to get the number of rows */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.information.count
@@ -79,16 +83,7 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
         
     }
     
-    /* refreshes the table */
-    func refreshTable()
-    {
-        // remove all data
-        self.information.removeAll()
-        
-        // reload all data
-        addData()
-    }
-    
+    // MARK: Table Data Functions
     /* loads the data */
     func addData(){
         
@@ -100,5 +95,15 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
         
         // reload the table
         table.reloadData()
+    }
+    
+    /* refreshes the table */
+    func refreshTable()
+    {
+        // remove all data
+        self.information.removeAll()
+        
+        // reload all data
+        addData()
     }
 }

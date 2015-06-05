@@ -11,19 +11,15 @@ import UIKit
 /* Table view to show the list of student locations */
 class StudentInfoTableViewController: UITableViewController, UITableViewDataSource {
     
+    // MARK: Outlets
     @IBOutlet var table: UITableView! // outlet to the tableview
     
+    // MARK: Properties
     var refresh = true // flag to allow refreshing of table data
     var information: [OTMStudentLocation] = [OTMStudentLocation]() // array to store student location information
-    
     var count = 0 // a counter to keep track of the amount of data that has been downloaded
     
-    /* adds the bottom row for loading more data. Just a row that shows an activity icon */
-    func addBottomRow()
-    {
-        let cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
-    }
-    
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         // automatic dimensioning of row heights
         // from: http://stackoverflow.com/questions/26308510/uitableviewautomaticdimension
@@ -44,6 +40,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         refreshTable()
     }
     
+    // MARK: TableView delegate functions
     /* tableview delegate function for getting the number of rows */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -115,25 +112,14 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         })
     }
     
-    /* function to refresh all table data */
-    func refreshTable()
+    // MARK: Other Functions For TableView
+    /* adds the bottom row for loading more data. Just a row that shows an activity icon */
+    func addBottomRow()
     {
-        // remove all loaded data from the data class
-        OTMData.sharedInstance().locationsList.removeAll()
-        
-        // remove all local data
-        information.removeAll()
-        
-        // reload empty table
-        tableView.reloadData()
-        
-        // set the count to 0
-        self.count = 0
-        
-        // add first batch of data
-        addData()
+        let cell = tableView.dequeueReusableCellWithIdentifier("loadMore") as! CustomLoadTableViewCell
     }
     
+    // MARK: Table Data Functions
     /* adds a batch of data to the table */
     func addData(){
         
@@ -148,13 +134,13 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             
             // get the Class Utility Queue background thread
             let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
-        
+            
             // perform the task
             dispatch_sync(queue) {
                 
                 // load data, skipping the amount of data already loaded, given by self.count
                 OTMData.sharedInstance().fetchData(self, skip: self.count, completionHandler: { (result) -> Void in
-            
+                    
                     // check if a result was returned
                     if let locations = result {
                         
@@ -177,7 +163,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
                             self.count++
                         }
                     }
-                
+                    
                     // once done, reload the table
                     dispatch_async(dispatch_get_main_queue()){
                         self.table.reloadData()
@@ -189,5 +175,24 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
                 })
             }
         }
+    }
+    
+    /* function to refresh all table data */
+    func refreshTable()
+    {
+        // remove all loaded data from the data class
+        OTMData.sharedInstance().locationsList.removeAll()
+        
+        // remove all local data
+        information.removeAll()
+        
+        // reload empty table
+        tableView.reloadData()
+        
+        // set the count to 0
+        self.count = 0
+        
+        // add first batch of data
+        addData()
     }
 }

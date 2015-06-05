@@ -10,13 +10,16 @@ import UIKit
 import MapKit
 import AddressBookUI
 
+/* Handles the Post Location View Controller */
 class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
     
+    // MARK: Outlets
     @IBOutlet weak var addressText: UITextView! // address text view outlet
     @IBOutlet weak var mediaURL: UILabel! // the label that shows the URL
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var map: MKMapView!
     
+    // MARK: Properties
     var delegate: MapViewController? = nil
     var currentPlacemark: MKPlacemark! // stores the current placemark (of user's looked up location)
     var isUpdating = false // flag for when the user is updating their location
@@ -35,6 +38,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     var hasAddress = false
     var hasURL = false
     
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,11 +59,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         postButton.enabled = false
     }
     
-    /* hides the keyboard */
-    func hideKeyboard(){
-        addressText.resignFirstResponder()
-    }
-    
+    // MARK: textView Delegate Functions
     /* textview delegate function when editing */
     func textViewDidBeginEditing(textView: UITextView) {
         // remove all text
@@ -67,6 +67,28 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         
         // disable post button
         postButton.enabled = false
+    }
+    
+    // MARK: Other Functions
+    /* hides the keyboard */
+    func hideKeyboard(){
+        addressText.resignFirstResponder()
+    }
+    
+    /* set's the URL shown in the label */
+    func setURL(urlString: String){
+        
+        // unhide and set text
+        mediaURL.hidden = false
+        mediaURL.text = urlString
+        
+        // set flag
+        hasURL = true
+        
+        // check if address has been set, if so, enable post button
+        if(hasAddress) {
+            postButton.enabled = true
+        }
     }
     
     /* function that reverse geocodes a location, get's the address and sets it to the text on the textview 
@@ -93,6 +115,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         
         return self.addressText.text
     }
+    
+    // MARK: IBAction Functions (for button presses)
     
     /* finds a location based on the user input */
     @IBAction func findLocation(sender: AnyObject) {
@@ -205,22 +229,6 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 SwiftSpinner.show("Location not found ... ", description: err.localizedDescription, animated: false)
             }
             self.manager = nil
-        }
-    }
-    
-    /* set's the URL shown in the label */
-    func setURL(urlString: String){
-        
-        // unhide and set text
-        mediaURL.hidden = false
-        mediaURL.text = urlString
-        
-        // set flag
-        hasURL = true
-        
-        // check if address has been set, if so, enable post button
-        if(hasAddress) {
-            postButton.enabled = true
         }
     }
     

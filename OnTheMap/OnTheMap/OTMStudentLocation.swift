@@ -12,6 +12,7 @@ import MapKit
 /* Struct for a student's location */
 struct OTMStudentLocation {
     
+    // MARK: Properties
     // struct properties based on what is stored online in Parse API
     var uniqueKey: String!
     var firstName: String!
@@ -22,6 +23,7 @@ struct OTMStudentLocation {
     var longitude: Double!
     var distance: Double!
     
+    // MARK: init
     // initializer for a Student location, takes in a dictionary
     init(dictionary: [String: AnyObject]){
         
@@ -39,6 +41,7 @@ struct OTMStudentLocation {
         self.distance = location.distanceFromLocation(OTMClient.UdacityHQLocation)/1000
     }
     
+    // MARK: FUNCTIONS
     // returns an array of student locations given an array of results
     static func informationFromResults(results: [[String : AnyObject]]) -> [OTMStudentLocation] {
         

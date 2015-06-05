@@ -12,12 +12,14 @@ import MapKit
 /* This class handles the MapView and all associated map functions */
 class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
     
+    // MARK: Outlets
     @IBOutlet weak var map: MKMapView! // mapview outlet
     
+    // MARK: Properties
     var refresh = true // flag for enabling refresh of data
-    
     var locations: [OTMStudentLocation] = [OTMStudentLocation]() // array of student location objects
     
+    // MARK: Overriden View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
@@ -40,6 +42,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     
     }
+    
+    // MARK: Data Functions
     
     func loadData(){
         
@@ -115,6 +119,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
+    // MARK: Map Functions
     /* adds a pin or placemark to the map */
     func addPinToMap(location: OTMStudentLocation){
         
@@ -148,6 +153,57 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         map.removeAnnotation(placemark)
     }
     
+    /* function that refreshes the mapview
+    * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
+    */
+    func refreshMap()
+    {
+        // set the region and span being viewed
+        let loc = CLLocationCoordinate2DMake(35.00,-90)
+        let span = MKCoordinateSpanMake(30.00, 50.00)
+        let reg = MKCoordinateRegionMake(loc, span)
+        self.map.region = reg
+        
+        // remove all annotations
+        map.removeAnnotations(map.annotations)
+        
+        // remove all locations stored in the data class
+        OTMData.sharedInstance().locationsList.removeAll()
+        
+        // load data
+        loadData()
+    }
+    
+    /* Sets the center of the map to show the location given by the parameter
+    * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
+    */
+    func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: location, span: span)
+        map.setRegion(region, animated: true)
+    }
+    
+    /* zooms to a location on the map. similar to the set center of map function (which this function uses)
+    * this function is called from the distance table view to display the location of the user
+    */
+    func zoomToLocation(lat: Double, long: Double){
+        
+        // create the location and center the map
+        var newLocation = CLLocationCoordinate2DMake(lat, long)
+        setCenterOfMapToLocation(newLocation)
+        
+        // enable the distance tab bar item (so the user can go back to table without refreshing data
+        dispatch_async(dispatch_get_main_queue()){
+            var tabBarC = self.tabBarController as! TabBarVC
+            tabBarC.distanceTabEnabled(true)
+            
+            // allow the data to be refreshed afterwards
+            self.refresh = true
+        }
+    }
+    
+    // MARK: mapView Delegate Functions
+    
     /* mapView delegate function to customize the annotation view 
      * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
     */
@@ -180,55 +236,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         v.annotation = annotation
         
         return v
-    }
-    
-    /* function that refreshes the mapview 
-    * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
-    */
-    func refreshMap()
-    {
-        // set the region and span being viewed
-        let loc = CLLocationCoordinate2DMake(35.00,-90)
-        let span = MKCoordinateSpanMake(30.00, 50.00)
-        let reg = MKCoordinateRegionMake(loc, span)
-        self.map.region = reg
-        
-        // remove all annotations
-        map.removeAnnotations(map.annotations)
-        
-        // remove all locations stored in the data class
-        OTMData.sharedInstance().locationsList.removeAll()
-        
-        // load data
-        loadData()
-    }
-    
-    /* Sets the center of the map to show the location given by the parameter 
-    * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
-    */
-    func setCenterOfMapToLocation(location: CLLocationCoordinate2D){
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: location, span: span)
-        map.setRegion(region, animated: true)
-    }
-    
-    /* zooms to a location on the map. similar to the set center of map function (which this function uses)
-     * this function is called from the distance table view to display the location of the user
-     */
-    func zoomToLocation(lat: Double, long: Double){
-        
-        // create the location and center the map
-        var newLocation = CLLocationCoordinate2DMake(lat, long)
-        setCenterOfMapToLocation(newLocation)
-        
-        // enable the distance tab bar item (so the user can go back to table without refreshing data
-        dispatch_async(dispatch_get_main_queue()){
-            var tabBarC = self.tabBarController as! TabBarVC
-            tabBarC.distanceTabEnabled(true)
-            
-            // allow the data to be refreshed afterwards
-            self.refresh = true
-        }
     }
     
     /* delegate function that handles the press of the callout accessory */
