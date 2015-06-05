@@ -186,4 +186,9 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         // dismiss the popup web browser
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    /* close the browser */
+    @IBAction func cancelBrowse(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
