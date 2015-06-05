@@ -127,21 +127,21 @@
                             </button>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="3yV-H9-ooL"/>
-                        <barButtonItem style="plain" id="mnf-nb-PaX">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eiT-DT-Kkl">
-                                <rect key="frame" x="59" y="210" width="44" height="44"/>
+                        <barButtonItem style="plain" id="6Fk-8M-b0M">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exd-pX-Z3I">
+                                <rect key="frame" x="527" y="499" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="ChL-rw-EyQ"/>
-                                    <constraint firstAttribute="height" constant="44" id="JLn-AD-JKz"/>
+                                    <constraint firstAttribute="width" constant="44" id="2zn-iW-mbM"/>
+                                    <constraint firstAttribute="height" constant="44" id="ds8-57-tDp"/>
                                 </constraints>
                                 <state key="normal" image="cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancelBrowse:" destination="-1" eventType="touchUpInside" id="aPE-Qj-ZZ2"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="cancelBrowse:" destination="-1" id="ccF-w2-t6a"/>
-                            </connections>
                         </barButtonItem>
                     </items>
                 </toolbar>
