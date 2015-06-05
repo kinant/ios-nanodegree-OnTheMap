@@ -29,9 +29,20 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var map: MKMapView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let tapScreen = UITapGestureRecognizer(target: self, action: "tapScreen")
+        self.view.addGestureRecognizer(tapScreen)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         // self.popoverPresentationController?.passthroughViews = [delegate!.view]
         postButton.enabled = false
+    }
+    
+    func tapScreen(){
+        addressText.resignFirstResponder()
     }
     
     func getAddress(location: CLLocation) -> String {

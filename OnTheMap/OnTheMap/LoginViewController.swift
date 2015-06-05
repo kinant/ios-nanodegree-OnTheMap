@@ -34,6 +34,58 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             loginView.readPermissions = ["public_profile", "email", "user_friends"]
             loginView.delegate = self
         }
+        
+        let tapScreen = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(tapScreen)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        self.unsubscribeFromKeyboardNotifications()
+    }
+    
+    func hideKeyboard(){
+        usernameTextfield.resignFirstResponder()
+        passwordTextfield.resignFirstResponder()
+    }
+    
+    // =========================================================================
+    // MARK: Keyboard Related Functions
+    // BELOW ARE ALL THE FUNCTIONS THAT ARE RELATED TO THE KEYBOARD
+    // =========================================================================
+    
+    // subscribe to keyboard notifications
+    func subscribeToKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:"    , name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:"    , name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    // unsubscribe to keyboard notifications
+    func unsubscribeFromKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    // function to move the view and its contents up when the keyboard is shown
+    func keyboardWillShow(notification: NSNotification) {
+        self.view.bounds.origin.y += getKeyboardHeight(notification)
+    }
+    
+    // function that moves the view and its contents back down when the keyboard is hidden
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.bounds.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    // function that gets the height of the keyboard
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.CGRectValue().height
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -81,6 +133,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     self.statusLabel.hidden = false
                     
                     SwiftSpinner.show("Failed to log in ...", description: error!.localizedDescription, animated: false)
+                    self.hideKeyboard()
                 }
             }
         })

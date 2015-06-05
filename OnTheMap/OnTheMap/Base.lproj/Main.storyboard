@@ -336,7 +336,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="list" width="64" height="64"/>
+        <image name="list" width="30" height="30"/>
         <image name="mapLogo" width="64" height="64"/>
         <image name="maptab" width="30" height="30"/>
         <image name="red_placemark" width="80" height="80"/>
