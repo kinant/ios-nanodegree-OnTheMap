@@ -53,9 +53,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                 
                 if let getError = error {
                     
-                    OTMClient.sharedInstance().showAlert(self, title: getError.domain, message: getError.localizedDescription, actions: ["OK"], completionHandler: { (choice) -> Void in
-                        // do nothing
-                    })
+                    OTMClient.sharedInstance().showAlert(self, title: getError.domain, message: getError.localizedDescription, actions: ["OK"], completionHandler: nil)
                     
                 } else {
                     
@@ -85,9 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                                     
                                 }
                                 else {
-                                    OTMClient.sharedInstance().showAlert(self, title: "OTM Error", message: "Unable to fetch locations ", actions: ["OK"], completionHandler: { (choice) -> Void in
-                                        // do nothing
-                                    })
+                                    OTMClient.sharedInstance().showAlert(self, title: "OTM Error", message: "Unable to fetch locations ", actions: ["OK"], completionHandler: nil)
                                 }
                             })
                         })
@@ -100,24 +96,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     func addPinToMap(location: OTMStudentLocation){
         if (location.isValid()) {
             let newLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            
-            //println()
-            //println("unique key: " + location.uniqueKey!)
-            //println("user key: " + OTMClient.sharedInstance().userID!)
-            
-            
-            if(location.uniqueKey == OTMClient.sharedInstance().userID){
-                
-                let newAnnotation = OTMUserAnnotation(coordinate: newLocation, title: (location.firstName + location.lastName), subtitle: location.mediaURL)
-                
-                self.map.addAnnotation(newAnnotation)
-                
-            } else {
-                let newAnnotation = OTMAnnotation(coordinate: newLocation, title: "\(location.firstName) \(location.lastName)", subtitle: location.mediaURL)
-                
-                self.map.addAnnotation(newAnnotation)
-            }
-
+            let newAnnotation = OTMAnnotation(coordinate: newLocation, title: "\(location.firstName) \(location.lastName)", subtitle: location.mediaURL)
+            self.map.addAnnotation(newAnnotation)
         }
     }
     
@@ -150,8 +130,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             v.image = pinImage
             v.bounds.size.height /= 3.0
             v.bounds.size.width /= 3.0
-            // v.centerOffset = CGPointMake(-50, -20)
         }
+        
         v.annotation = annotation
         
         return v
@@ -195,9 +175,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             if(success){
                 OTMClient.sharedInstance().browseToURL(urlString!)
             } else {
-                OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: { (choice) -> Void in
-                    
-                })
+                OTMClient.sharedInstance().showAlert(self, title: "Error", message: (error as String), actions: ["OK"], completionHandler: nil)
             }
         })
     }
