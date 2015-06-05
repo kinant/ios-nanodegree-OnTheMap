@@ -32,3 +32,7 @@ Welcome to my Udacity IOS Nanodegree Project #3 page!
 8. On Posting View, once URL and location have been selected, tap the Checkmark icon to post location. 
 9. On Student Locations Table View, tap a row to open the student’s URL
 10. On Distance Table View, tap a row to zoom into that student’s location
+
+# Notes
+1. I decided to call the location struct OTMStudentLocation. I use another strut, called OTMStudentInformation, to store data about the user. 
+
