@@ -24,10 +24,14 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
     var postLocation: MKPlacemark!
     var manager: OneShotLocationManager?
     
+    
+    @IBOutlet weak var postButton: UIButton!
+    
     @IBOutlet weak var map: MKMapView!
     
     override func viewDidAppear(animated: Bool) {
         // self.popoverPresentationController?.passthroughViews = [delegate!.view]
+        postButton.enabled = false
     }
     
     func getAddress(location: CLLocation) -> String {
@@ -69,7 +73,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             if nil == placemarks {
                 SwiftSpinner.show("Location not found ... ", description: error.localizedDescription, animated: false)
                 // println(error.localizedDescription)
+                self.postButton.enabled = false
             } else {
+                self.postButton.enabled = true
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let p = placemarks[0] as? CLPlacemark
                 let mp = MKPlacemark(placemark: p)
@@ -102,6 +108,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
             
             // fetch location or an error
             if let loc = location {
+                
+                self.postButton.enabled = true
+                
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 let mp = MKPlacemark(coordinate: location!.coordinate, addressDictionary: nil)
                 self.postLocation = mp
@@ -115,6 +124,9 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate {
                 }
                 
             } else if let err = error {
+                
+                self.postButton.enabled = false
+                
                 SwiftSpinner.show("Location not found ... ", description: err.localizedDescription, animated: false)
                 // println(err.localizedDescription)
             }

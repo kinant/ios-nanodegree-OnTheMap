@@ -134,7 +134,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
-        var pinImage = (annotation is OTMUserAnnotation) ? UIImage(named: "gold_placemark") : UIImage(named: "red_placemark")
+        var pinImage = UIImage(named: "red_placemark")
         
         var v: MKAnnotationView! = nil
         
