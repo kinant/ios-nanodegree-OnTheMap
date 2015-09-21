@@ -18,7 +18,7 @@ public class SwiftSpinner: UIView {
     //
     public class var sharedInstance: SwiftSpinner {
         struct Singleton {
-            static let instance = SwiftSpinner(frame: CGRect.zeroRect)
+            static let instance = SwiftSpinner(frame: CGRect.zero)
         }
         return Singleton.instance
     }
@@ -62,7 +62,7 @@ public class SwiftSpinner: UIView {
         vibrancyView.contentView.addSubview(titleLabel)
         vibrancyView.contentView.addSubview(descriptionLabel)
         
-        retryButton = (UIButton.buttonWithType(UIButtonType.System) as? UIButton)!
+        retryButton = (UIButton(type: UIButtonType.System) as? UIButton)!
         retryButton.frame = CGRectMake(100, 100, 100, 50)
         retryButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 22)
         
@@ -122,7 +122,7 @@ public class SwiftSpinner: UIView {
     //
     public class func show(title: String, description: String, animated: Bool = true) {
         
-        let window = UIApplication.sharedApplication().windows.first as! UIWindow
+        let window = UIApplication.sharedApplication().windows.first!
         let spinner = SwiftSpinner.sharedInstance
         
         spinner.updateFrame()
@@ -219,7 +219,7 @@ public class SwiftSpinner: UIView {
                 spinner.titleLabel.alpha = 0.2
                 }, completion: {_ in
                     spinner.titleLabel.text = self.title
-                    UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 0.0, options: nil, animations: {
+                    UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 0.0, options: [], animations: {
                         spinner.titleLabel.transform = CGAffineTransformIdentity
                         spinner.titleLabel.alpha = 1.0
                         }, completion: nil)
@@ -240,7 +240,7 @@ public class SwiftSpinner: UIView {
                 spinner.descriptionLabel.alpha = 0.2
                 }, completion: {_ in
                     spinner.descriptionLabel.text = self.desc
-                    UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 0.0, options: nil, animations: {
+                    UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity: 0.0, options: [], animations: {
                         spinner.descriptionLabel.transform = CGAffineTransformIdentity
                         spinner.descriptionLabel.alpha = 1.0
                         }, completion: nil)
@@ -253,7 +253,7 @@ public class SwiftSpinner: UIView {
     //
     public override var frame: CGRect {
         didSet {
-            if frame == CGRect.zeroRect {
+            if frame == CGRect.zero {
                 return
             }
             blurView.frame = bounds
@@ -324,7 +324,7 @@ public class SwiftSpinner: UIView {
     private let outerCircle = CAShapeLayer()
     private let innerCircle = CAShapeLayer()
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("Not coder compliant")
     }
     
@@ -341,7 +341,7 @@ public class SwiftSpinner: UIView {
         let randomRotation = Double(Float(arc4random()) /  Float(UInt32.max)) * M_PI_4 + M_PI_4
         
         //outer circle
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.0, options: [], animations: {
             self.currentOuterRotation -= CGFloat(randomRotation)
             self.outerCircleView.transform = CGAffineTransformMakeRotation(self.currentOuterRotation)
             }, completion: {_ in
@@ -360,7 +360,7 @@ public class SwiftSpinner: UIView {
         }
         
         //inner circle
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [], animations: {
             self.currentInnerRotation += CGFloat(M_PI_4)
             self.innerCircleView.transform = CGAffineTransformMakeRotation(self.currentInnerRotation)
             }, completion: {_ in
@@ -373,13 +373,13 @@ public class SwiftSpinner: UIView {
     }
     
     private func updateFrame() {
-        let window = UIApplication.sharedApplication().windows.first as! UIWindow
+        let window = UIApplication.sharedApplication().windows.first!
         SwiftSpinner.sharedInstance.frame = window.frame
     }
     
     // MARK: - Util methods
     
-    func delay(#seconds: Double, completion:()->()) {
+    func delay(seconds seconds: Double, completion:()->()) {
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
         
         dispatch_after(popTime, dispatch_get_main_queue()) {

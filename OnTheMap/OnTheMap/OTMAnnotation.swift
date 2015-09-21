@@ -13,8 +13,8 @@ import MapKit
 class OTMAnnotation: NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
-    var title: String!
-    var subtitle: String!
+    var title: String?
+    var subtitle: String?
     
     init(coordinate: CLLocationCoordinate2D, title: String!, subtitle: String!){
         self.coordinate = coordinate

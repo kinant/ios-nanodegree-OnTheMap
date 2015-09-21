@@ -70,50 +70,62 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
     /* Handle the post button being pressed not an outlet since we added the button programmatically*/
     func post()
     {
+        print("in here 1")
         // if the selected view controller in the tab bar is not the map view, switch
         if !(self.selectedViewController is MapViewController ){
             self.selectedViewController = mapVC
         }
+        print("in here 2")
         
         // prepare the pop over view controller
         postVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         postVC.preferredContentSize = self.view.frame.size
         postVC.delegate = mapVC
         
+        print("in here 3")
         // TODO: FIX!
         if let popoverController = postVC.popoverPresentationController {
-            popoverController.passthroughViews = [mapVC]
+            // popoverController.passthroughViews = [mapVC]
         }
         
+        print("in here 4")
         // Show spinner while user waits for search of location
         SwiftSpinner.show("Searching for Posted Location", description: "", animated: true)
         
+        print("in here 5")
         // check if user location already exists before attempting to post
         OTMClient.sharedInstance().userLocationExists { (exists, objectID, error) -> Void in
             
-            
+            print("in here 6")
             // hide the spinner
             dispatch_async(dispatch_get_main_queue()){
                 SwiftSpinner.hide()
             }
             
+            print("in here 7")
             // handle error
             if let userExistsError = error {
                 OTMClient.sharedInstance().showAlert(self, title: "Error", message: userExistsError.localizedDescription, actions: ["OK"], completionHandler: nil)
             }
             
+            print("in here 8")
+            
             // if the user location already exists
             if exists {
                 
+                print("in here 9")
                 // show alert and ask the user if they want to overwrite the location or not
                 OTMClient.sharedInstance().showAlert(self, title: "Location Exists!", message: "You have already submitted your location. Press OK to overwrite.", actions: ["OK","CANCEL"], completionHandler: { (choice) -> Void in
                     
+                    print("in here 10")
                     // if they want to overwrite
                     if(choice == "OK"){
+                        print("in here 11")
                         // set the flags on the post view controller
                         self.postVC.isUpdating = true
                         self.postVC.updatingObjectID = objectID
                         
+                        print("in here 12")
                         // present the post location view
                         if !(self.presentedViewController is UIAlertController) {
                             self.presentViewController(self.postVC, animated: true, completion: nil)
@@ -123,17 +135,29 @@ class TabBarVC: UITabBarController, UIPopoverPresentationControllerDelegate {
             } else {
                 // else, no location exists
                 
+                print("in here 13")
                 // set flags
                 self.postVC.isUpdating = false
                 self.postVC.updatingObjectID = ""
                 
+                print("in here 14")
                 // check that no alert is still being presented before presenting the view
                 if !(self.presentedViewController is UIAlertController) {
+                    print("in here 1")
                     // present the post location view controller
-                    self.presentViewController(self.postVC, animated: true, completion: nil)
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.presentViewController(self.postVC, animated: true, completion: nil)
+                    }
+                    print("in here 1bb")
                 }
+                print("in here 15")
             }
+            print("in here 16")
         }
+        
+        print("in here 6")
+        
     }
     
     /* handle the refresh button being pressed */

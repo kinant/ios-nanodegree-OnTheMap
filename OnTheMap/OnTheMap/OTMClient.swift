@@ -40,7 +40,7 @@ class OTMClient: NSObject {
         case .Udacity:
             urlString = baseURL + method
         default:
-            println()
+            print("")
         }
         
         /* 2/3. Build the URL and configure the request */
@@ -67,7 +67,7 @@ class OTMClient: NSObject {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         default:
-            println()
+            print("")
         }
         
         /* 4. Make the request */
@@ -80,14 +80,14 @@ class OTMClient: NSObject {
             // handle errors
             if error != nil {
                 // create a connection error (most likely scenario)
-                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                let connectionError = NSError(domain: "Connection Error", code: error!.code, userInfo: error!.userInfo)
                 completionHandler(result: nil, error: connectionError)
             } else {
                 
                 // if udacity api is used, subset the response data
                 if(api == OTMAPIs.Udacity)
                 {
-                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                    newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 }
                 
                 // check response for any server-side errors
@@ -96,7 +96,7 @@ class OTMClient: NSObject {
                 } else {
                     
                     /* 6. Parse data: if no server-side or client-side errors, then proceed to parse data */
-                    OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                    OTMClient.parseJSONWithCompletionHandler(newData!, completionHandler: completionHandler)
                 }
             }
         }
@@ -129,7 +129,7 @@ class OTMClient: NSObject {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         default:
-            println()
+            print("")
         }
         
         /* 4. Make the request */
@@ -142,13 +142,13 @@ class OTMClient: NSObject {
             // handle errors
             if error != nil {
                 // create a connection error (most likely scenario)
-                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                let connectionError = NSError(domain: "Connection Error", code: error!.code, userInfo: error!.userInfo)
                 completionHandler(result: nil, error: connectionError)
             } else {
                 // if udacity api is used, subset the response data
                 if(api == OTMAPIs.Udacity)
                 {
-                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                    newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 }
                 
                 // check response for any server-side errors
@@ -156,7 +156,7 @@ class OTMClient: NSObject {
                     completionHandler(result: nil, error: serverError)
                 } else {
                     /* 6. Parse data: if no server-side or client-side errors, then proceed to parse data */
-                    OTMClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
+                    OTMClient.parseJSONWithCompletionHandler(newData!, completionHandler: completionHandler)
                 }
             }
         }
@@ -180,11 +180,11 @@ class OTMClient: NSObject {
             var xsrfCookie: NSHTTPCookie? = nil
             let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
         
-            for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+            for cookie in sharedCookieStorage.cookies! {
                 if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
             }
             if let xsrfCookie = xsrfCookie {
-                request.addValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-Token")
+                request.addValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-Token")
             }
         } else if api == OTMAPIs.Parse {
             request.addValue(OTMClient.ParseAPIConstants.AppID, forHTTPHeaderField: "X-Parse-Application-Id")
@@ -201,18 +201,18 @@ class OTMClient: NSObject {
             // handle errors
             if error != nil {
                 // create a connection error (most likely scenario)
-                let connectionError = NSError(domain: "Connection Error", code: error.code, userInfo: error.userInfo)
+                let connectionError = NSError(domain: "Connection Error", code: error!.code, userInfo: error!.userInfo)
                 completionHandler(success: false, error: connectionError)
             } else {
                 // if udacity api is used, subset the response data
                 if(api == OTMAPIs.Udacity)
                 {
-                    newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                    newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 }
                 
                 // check response for any server-side errors
                 if let serverError = OTMClient.returnStatusError(api, data: newData) {
-                    println(serverError.localizedDescription)
+                    print(serverError.localizedDescription)
                     completionHandler(success: false, error: serverError)
                 } else {
                     /* 6. if no server-side or client-side errors, then deletion was successful, continue with completion handler */
@@ -234,7 +234,13 @@ class OTMClient: NSObject {
         
         var parsingError: NSError? = nil
         
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        } catch let error as NSError {
+            parsingError = error
+            parsedResult = nil
+        }
         
         if let error = parsingError {
             completionHandler(result: nil, error: error)
@@ -261,7 +267,7 @@ class OTMClient: NSObject {
             
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
     
     /* Helper function: The requests can return data even if there were errors server side, from either the Parse or the Udacity APIs
@@ -270,7 +276,7 @@ class OTMClient: NSObject {
         var newError:NSError!
         
         // parse the data
-        if let parsedResult: AnyObject = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) {
+        if let parsedResult: AnyObject = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) {
             
             // check if the parsed results has an error object
             if let errorMessage = parsedResult.valueForKey("error") as? String {

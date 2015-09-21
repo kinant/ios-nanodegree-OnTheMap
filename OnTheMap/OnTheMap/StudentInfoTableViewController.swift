@@ -9,7 +9,7 @@
 import UIKit
 
 /* Table view to show the list of student locations */
-class StudentInfoTableViewController: UITableViewController, UITableViewDataSource {
+class StudentInfoTableViewController: UITableViewController {
     
     // MARK: Outlets
     @IBOutlet var table: UITableView! // outlet to the tableview
@@ -32,7 +32,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
         
         // disable the distance tab bar item (until all data is loaded)
         dispatch_async(dispatch_get_main_queue()){
-            var tabBarC = self.tabBarController as! TabBarVC
+            let tabBarC = self.tabBarController as! TabBarVC
             tabBarC.distanceTabEnabled(false)
         }
         
@@ -133,7 +133,7 @@ class StudentInfoTableViewController: UITableViewController, UITableViewDataSour
             self.refresh = false
             
             // get the Class Utility Queue background thread
-            let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
+            let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)
             
             // perform the task
             dispatch_sync(queue) {

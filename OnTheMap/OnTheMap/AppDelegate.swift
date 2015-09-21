@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication,
         openURL url: NSURL,
         sourceApplication: String?,
-        annotation: AnyObject?) -> Bool {
+        annotation: AnyObject) -> Bool {
             // so that app is opened again after validating with facebook
             // from: http://www.brianjcoleman.com/tutorial-how-to-use-login-in-facebook-sdk-4-0-for-swift/
             return FBSDKApplicationDelegate.sharedInstance().application(

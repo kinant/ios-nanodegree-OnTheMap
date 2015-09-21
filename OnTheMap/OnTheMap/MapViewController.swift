@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             
             // disable the distance tab item (this is only enabled when all data is loaded)
             dispatch_async(dispatch_get_main_queue()){
-                var tabBarC = self.tabBarController as! TabBarVC
+                let tabBarC = self.tabBarController as! TabBarVC
                 tabBarC.distanceTabEnabled(false)
             }
             
@@ -51,7 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         activityIndicatorEnabled(true)
         
         // get the Class Utility Queue for the background thread
-        let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)
+        let queue = dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)
         
         // add task to queue asynchronously
         dispatch_async(queue) {
@@ -189,12 +189,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     func zoomToLocation(lat: Double, long: Double){
         
         // create the location and center the map
-        var newLocation = CLLocationCoordinate2DMake(lat, long)
+        let newLocation = CLLocationCoordinate2DMake(lat, long)
         setCenterOfMapToLocation(newLocation)
         
         // enable the distance tab bar item (so the user can go back to table without refreshing data
         dispatch_async(dispatch_get_main_queue()){
-            var tabBarC = self.tabBarController as! TabBarVC
+            let tabBarC = self.tabBarController as! TabBarVC
             tabBarC.distanceTabEnabled(true)
             
             // allow the data to be refreshed afterwards
@@ -207,10 +207,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     /* mapView delegate function to customize the annotation view 
      * Help from: Chapter 21: Maps, from "Programming iOS 8: Dive Deep Into Views, View Controllers, and Frameworks" by Matt neuburg. 5th Edition. O'Reilly. 2014.
     */
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         
         // get the pin image
-        var pinImage = UIImage(named: "red_placemark")
+        let pinImage = UIImage(named: "red_placemark")
         
         // create the annotation view
         var v: MKAnnotationView! = nil
@@ -225,7 +225,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             v.canShowCallout = true
             
             // add the accessory button
-            v.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+            v.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             
             // set the image
             v.image = pinImage
@@ -239,7 +239,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     }
     
     /* delegate function that handles the press of the callout accessory */
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         // obtain the location annotation being pressed
         let location = view.annotation as! OTMAnnotation

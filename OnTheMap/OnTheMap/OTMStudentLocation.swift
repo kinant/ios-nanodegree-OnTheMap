@@ -37,7 +37,7 @@ struct OTMStudentLocation {
         self.uniqueKey = dictionary[OTMClient.ParseStudentObjectConstants.UniqueKey] as? String
         
         // calculate the distance of this student's location to Udacity HQ (in km)
-        var location = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         self.distance = location.distanceFromLocation(OTMClient.UdacityHQLocation)/1000
     }
     

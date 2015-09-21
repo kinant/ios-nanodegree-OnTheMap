@@ -17,9 +17,11 @@ Welcome to my Udacity IOS Nanodegree Project #3 page!
 
 # Some Installation Instructions:
 1. Download or clone repository
-2. You must install the FacebookSDK. Follow instructions at:
-- https://developers.facebook.com/docs/facebook-login/ios/v2.3
-- http://www.brianjcoleman.com/tutorial-how-to-use-login-in-facebook-sdk-4-0-for-swift/
+2. You must install the FacebookSDK. Follow instructions:
+- Download Facebook SDK here: https://developers.facebook.com/resources/facebook-ios-sdk-current.pkg
+- Install the package.
+- Open ~/Documents/FacebookSDK
+- Drag the FBSDKCoreKit.framework & FBSDKLoginKit.framework to the Project Navigator.
 
 # Some Usage Instructions:
 1. Press the Placemark Icon to post a location

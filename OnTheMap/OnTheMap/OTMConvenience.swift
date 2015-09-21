@@ -65,7 +65,7 @@ extension OTMClient {
     func getSessionID(httpBody: String, completionHandler: (success: Bool, sessionID: String?, userID: String?, error: NSError?) -> Void) {
     
         // set the parameters
-        var parameters = [String : AnyObject]()
+        let parameters = [String : AnyObject]()
         
         // make the request
         taskForPOSTandPUTDataMethod(OTMAPIs.Udacity, baseURL: OTMClient.UdacityConstants.APIBaseURL, method: OTMClient.UdacityMethods.Session, parameters: parameters, httpBody: httpBody, updatingID: "") { (result, error) -> Void in
@@ -102,10 +102,10 @@ extension OTMClient {
     func postUserLocation(lat: Double, long: Double, mediaURL: String, mapString: String, updateLocationID: String, completionHandler: (error: NSError?) -> Void)
     {
         // set parameters
-        var parameters = [String : AnyObject]()
+        let parameters = [String : AnyObject]()
         
         // set the http body
-        var httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student!.firstName!)\",\"lastName\": \"\(self.student!.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
+        let httpBody = "{\"uniqueKey\": \"\(self.userID!)\",\"firstName\": \"\(self.student!.firstName!)\",\"lastName\": \"\(self.student!.lastName!)\", \"mapString\": \"\(mapString)\", \"mediaURL\": \"\(mediaURL)\",\"latitude\": \(lat), \"longitude\": \(long)}"
         
         // make the request
         taskForPOSTandPUTDataMethod(OTMAPIs.Parse, baseURL: OTMClient.ParseAPIConstants.BaseURL, method: "", parameters: parameters, httpBody: httpBody, updatingID: updateLocationID) { (result, error) -> Void in
@@ -120,8 +120,8 @@ extension OTMClient {
     func getUserData(httpBody: String, completionHandler: (success: Bool, fName: String?, lName: String?, error: NSError?) -> Void) {
         
         // set the parameters and method
-        var parameters = [String : AnyObject]()
-        var method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
+        let parameters = [String : AnyObject]()
+        let method = "\(OTMClient.UdacityMethods.Account)/\(self.userID!)"
         
         // make the request
         taskForGETDataMethod(OTMAPIs.Udacity, baseURL: UdacityConstants.APIBaseURL , method: method, parameters: parameters) { (result, error) -> Void in
@@ -134,8 +134,8 @@ extension OTMClient {
                 if let resultDictionary = result[OTMClient.UdacityObjectKeys.User] as? NSDictionary {
                     
                     // set the user's name
-                    var firstName = resultDictionary[OTMClient.UdacityObjectKeys.UserFirstName] as? String
-                    var lastName = resultDictionary[OTMClient.UdacityObjectKeys.UserLastName] as? String
+                    let firstName = resultDictionary[OTMClient.UdacityObjectKeys.UserFirstName] as? String
+                    let lastName = resultDictionary[OTMClient.UdacityObjectKeys.UserLastName] as? String
                     
                     // call completion handler successfully
                     completionHandler(success: true, fName: firstName, lName: lastName, error: nil)
@@ -152,7 +152,7 @@ extension OTMClient {
     func fetchLocations(skip: Int, completionHandler: (result: [OTMStudentLocation]?, error: NSError?) -> Void){
         
         // set parameters
-        var parameters = [
+        let parameters = [
             OTMClient.ParseAPIParameters.Limit: OTMClient.ParseAPIConstants.LimitPerRequest, // the limit of results returned
             OTMClient.ParseAPIParameters.Count: 0, // not applicable (used for count)
             OTMClient.ParseAPIParameters.Skip: skip, // the amount of items to skip
@@ -169,7 +169,7 @@ extension OTMClient {
                 if let results = result.valueForKey(OTMClient.ParseResultObjectConstants.Results) as? [[String: AnyObject]] {
                     
                     // get the new locations array from the results
-                    var newInformation = OTMStudentLocation.informationFromResults(results)
+                    let newInformation = OTMStudentLocation.informationFromResults(results)
                     completionHandler(result: newInformation , error: nil)
                 } else {
                     // handle error with results
@@ -183,7 +183,7 @@ extension OTMClient {
     func getLocationsCount(completionHandler: (result: Int, error: NSError?) -> Void){
         
         // set the parameters to get the count (as defined in Parse API Documentation)
-        var parameters = [
+        let parameters = [
             OTMClient.ParseAPIParameters.Limit: 0,
             OTMClient.ParseAPIParameters.Count: 1,
             OTMClient.ParseAPIParameters.Skip: 0,
@@ -216,7 +216,7 @@ extension OTMClient {
         var existingLocationID: String = ""
         
         // set the query parameters
-        var parameters = [
+        let parameters = [
             "where": "{\"uniqueKey\":\"\(userID!)\"}"
         ]
         
@@ -258,7 +258,7 @@ extension OTMClient {
     /* Used to delete a location... not implemented directly into app. Used only for development side */
     func deleteLocation(completionHandler: (success: Bool, error: NSError?) -> Void) {
     
-        var parameters = [String: AnyObject]()
+        let parameters = [String: AnyObject]()
         
         userLocationExists { (exists, objectID, error) -> Void in
             
@@ -268,7 +268,7 @@ extension OTMClient {
             
             if exists {
                 
-                var method = "/\(objectID)"
+                let method = "/\(objectID)"
                 
                 self.taskForDelete(OTMAPIs.Parse, baseURL: ParseAPIConstants.BaseURL, method: method, parameters: parameters, completionHandler: { (success, error) -> Void in
                   
@@ -286,7 +286,7 @@ extension OTMClient {
     func logout(completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         // set parameters
-        var parameters = [String: AnyObject]()
+        let parameters = [String: AnyObject]()
         
         // make the request
         taskForDelete(OTMAPIs.Udacity, baseURL: UdacityConstants.APIBaseURL, method: UdacityMethods.Session, parameters: parameters) { (success, error) -> Void in

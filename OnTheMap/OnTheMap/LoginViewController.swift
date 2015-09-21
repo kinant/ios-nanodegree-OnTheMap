@@ -16,6 +16,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var passwordTextfield: UITextField! // password textfield outlet
     @IBOutlet weak var statusLabel: UILabel! // outlet for the status label
     
+    var viewMoved = false
+    
     // MARK: Overriden View Functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,12 +84,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     // function to move the view and its contents up when the keyboard is shown
     func keyboardWillShow(notification: NSNotification) {
-        self.view.bounds.origin.y += getKeyboardHeight(notification)
+        if !viewMoved {
+            self.view.bounds.origin.y += getKeyboardHeight(notification)
+            viewMoved = true
+        }
     }
     
     // function that moves the view and its contents back down when the keyboard is hidden
     func keyboardWillHide(notification: NSNotification) {
-        self.view.bounds.origin.y -= getKeyboardHeight(notification)
+        if viewMoved {
+            self.view.bounds.origin.y -= getKeyboardHeight(notification)
+            viewMoved = false
+        }
     }
     
     // function that gets the height of the keyboard
@@ -139,7 +147,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         activityIndicatorEnabled(true)
         
         // proceed to attempt to login
-        OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text, password: passwordTextfield.text, completionHandler: { (success, error) -> Void in
+        OTMClient.sharedInstance().login(self, api:api, username: usernameTextfield.text!, password: passwordTextfield.text!, completionHandler: { (success, error) -> Void in
             
             // if successfull ->
             if success {

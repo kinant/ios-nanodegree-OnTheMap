@@ -42,6 +42,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("in here!")
+        
         addressText.delegate = self
         
         // adds gesture recognizer to dissmiss keyboard when screen is tapped
@@ -100,13 +102,11 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         let geo = CLGeocoder()
         
         // do reverse geocoding
-        geo.reverseGeocodeLocation(location) {
-            (placemarks: [AnyObject]!, error: NSError!) in
-            
+        geo.reverseGeocodeLocation(location) { (placemarks, error) -> Void in
             if placemarks != nil {
                 
-                let p = placemarks[0] as! CLPlacemark
-                let s = ABCreateStringWithAddressDictionary(p.addressDictionary, false)
+                let p = placemarks?.first!
+                let s = ABCreateStringWithAddressDictionary(p!.addressDictionary!, false)
                 
                 // set the text on the textview
                 self.addressText.text = s
@@ -136,13 +136,13 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
         let geo = CLGeocoder()
         
         geo.geocodeAddressString(s) {
-            (placemarks: [AnyObject]!, error: NSError!) in
+            (placemarks: [CLPlacemark]?, error: NSError?) in
             
             // handle errors
             if nil == placemarks {
                 
                 // show spinner and set flag
-                SwiftSpinner.show("Location not found ... ", description: error.localizedDescription, animated: false)
+                SwiftSpinner.show("Location not found ... ", description: error!.localizedDescription, animated: false)
                 self.hasAddress = false
             } else {
                 
@@ -151,8 +151,8 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 SwiftSpinner.show("Location found! ", description: "", animated: false)
                 
                 // create the placemark, add the pin to the map view
-                let p = placemarks[0] as? CLPlacemark
-                let mp = MKPlacemark(placemark: p)
+                let p = placemarks!.first
+                let mp = MKPlacemark(placemark: p!)
                 self.postLocation = mp
                 self.delegate?.addPin(mp)
                 
@@ -207,7 +207,7 @@ class PostLocationPopOverVC: UIViewController, CLLocationManagerDelegate, UIText
                 self.delegate?.addPin(mp)
                 
                 // set the textview text and the currently found placemark
-                self.addressText.text = self.getAddress(mp.location)
+                self.addressText.text = self.getAddress(mp.location!)
                 self.currentPlacemark = mp
                 
                 // check if URL has already been set and enable post button if so

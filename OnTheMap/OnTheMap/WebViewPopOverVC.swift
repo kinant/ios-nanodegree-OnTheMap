@@ -54,7 +54,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
         urlField.resignFirstResponder()
         
         // escape the url from the url text field
-        var urlEscapedString = urlField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        var urlEscapedString = urlField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         
         // load the request
         loadRequest(urlEscapedString!)
@@ -99,16 +99,16 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     }
     
     /* Handles a failure to load the requested URL*/
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         
         // first show an alert, one of the options is to google what the user inputed
-        OTMClient.sharedInstance().showAlert(self, title: "Error", message: error.localizedDescription, actions: ["OK", "Google it!"]) { (choice) -> Void in
+        OTMClient.sharedInstance().showAlert(self, title: "Error", message: error!.localizedDescription, actions: ["OK", "Google it!"]) { (choice) -> Void in
             
             // check if the user chose to google his request
             if(choice == "Google it!"){
                 
                 // get the search string by removing the http or https prefixes
-                var searchString = self.urlField.text.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                var searchString = self.urlField.text!.stringByReplacingOccurrencesOfString("http://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 
                 searchString = searchString.stringByReplacingOccurrencesOfString("https://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 
@@ -129,7 +129,7 @@ class WebViewPopOverVC: UIViewController, UITextFieldDelegate, UIWebViewDelegate
     func loadRequest(urlString: String){
         
         // check if the url has the prefix, if not, we will add it
-        var prefix = (urlString.hasPrefix("http://") || urlString.hasPrefix("https://") ) ? "" : "http://"
+        let prefix = (urlString.hasPrefix("http://") || urlString.hasPrefix("https://") ) ? "" : "http://"
         
         // make the request
         webView.loadRequest(NSURLRequest(URL: NSURL(string: prefix + urlString)!))

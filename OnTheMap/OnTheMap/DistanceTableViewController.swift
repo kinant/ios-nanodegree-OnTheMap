@@ -12,7 +12,7 @@ import UIKit
  * awawy their posted location is from Udacity HQ. This table view is only selectable when the user
  * has loaded all the data in parse.
  */
-class DistanceTableViewController: UITableViewController, UITableViewDataSource {
+class DistanceTableViewController: UITableViewController {
     
     // MARK: Outlets
     @IBOutlet var table: UITableView! // outlet for the tableview
@@ -36,7 +36,7 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // deque cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("studentCell")!
         
         // get the information
         let datum = self.information[indexPath.row]
@@ -88,10 +88,10 @@ class DistanceTableViewController: UITableViewController, UITableViewDataSource 
     func addData(){
         
         // load unsorted data stored in data class
-        var unsortedData = OTMData.sharedInstance().locationsList
+        let unsortedData = OTMData.sharedInstance().locationsList
         
         // set the local information array for student's locations (sort by distance)
-        self.information = unsortedData.sorted({$0.distance > $1.distance})
+        self.information = unsortedData.sort({$0.distance > $1.distance})
         
         // reload the table
         table.reloadData()
